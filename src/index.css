@@ -1,11 +1,23 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-VariableFont_wdth,wght.ttf")
+    format("truetype-variations");
+  font-weight: 100 900;
+  font-stretch: 75% 100%;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  	--color-hifi-white: #FFFFFF;
-  	--color-hifi-gray-lightest: #F4F4F2;
-	--color-hifi-gray-light: ##E8E8E8;
-	--color-hifi-gray-medium: #BBBFCA;
-	--color-hifi-gray-dark: #495464;
-	--color-hifi-black: #000000;
-	--color-hifi-accent: #FF6900;
+  --color-hifi-white: #ffffff;
+  --color-hifi-gray-lightest: #f4f4f2;
+  --color-hifi-gray-light: ##e8e8e8;
+  --color-hifi-gray-medium: #bbbfca;
+  --color-hifi-gray-dark: #495464;
+  --color-hifi-black: #000000;
+  --color-hifi-accent: #ff6900;
+
+  --font-open-sans: "Open Sans", sans-serif;
 }

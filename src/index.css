@@ -1,1 +1,11 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+@theme {
+  	--color-hifi-white: #FFFFFF;
+  	--color-hifi-gray-lightest: #F4F4F2;
+	--color-hifi-gray-light: ##E8E8E8;
+	--color-hifi-gray-medium: #BBBFCA;
+	--color-hifi-gray-dark: #495464;
+	--color-hifi-black: #000000;
+	--color-hifi-accent: #FF6900;
+}

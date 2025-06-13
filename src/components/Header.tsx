@@ -56,9 +56,9 @@ export default function Header() {
 
 
     return (
-        <header className="h-24 px-9 flex justify-between items-center bg-hifi-black text-hifi-white">
+        <header className="h-24 px-9 flex justify-between items-center fixed inset-x-0 top-0 bg-hifi-black text-hifi-white">
             <nav>
-                <ul className="flex items-center gap-8 text-sm">
+                <ul className="flex items-center gap-8 text-sm h-full">
                     <li>
                         <Link to="/">
                             <img src="/src/assets/svg/logo-wo-text-border.svg" alt="" className="w-14" />
@@ -66,13 +66,13 @@ export default function Header() {
                     </li>
 
                     {navLinks.map((link, i) => (
-                        <li className="relative">
+                        <li className="relative group h-full content-center">
                             <Link to={link.href} className="uppercase hover:font-bold">
                                 {link.text}
                             </Link>
 
                             {i == 0 ? (
-                                <ul className="w-96 absolute bg-hifi-white">
+                                <ul id="dropdown" className="hidden w-96 p-9 group-hover:flex flex-col gap-5 fixed top-24 bg-hifi-white">
                                     <li className="text-2xl text-hifi-black">Browse Categories</li>
 
                                     {dropdownLinks.map((link) => (

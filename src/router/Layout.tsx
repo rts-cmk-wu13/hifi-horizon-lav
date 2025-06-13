@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 
 export default function Layout() {
@@ -8,11 +9,11 @@ export default function Layout() {
         <>
             <Header />
 
-            <main>
+            <main className="flex-1">
                 <Outlet />
             </main>
 
-            <footer></footer>
+            <Footer />
         </>
     )
 }

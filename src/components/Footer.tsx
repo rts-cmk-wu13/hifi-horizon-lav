@@ -1,6 +1,6 @@
 import { Link } from "react-router"
 
-import { FaFacebookSquare, FaTwitterSquare, FaInstagramSquare, FaYoutubeSquare } from "react-icons/fa";
+import { FaPhoneAlt, FaFacebookSquare, FaTwitterSquare, FaInstagramSquare, FaYoutubeSquare } from "react-icons/fa";
 
 
 export default function Footer() {
@@ -37,6 +37,17 @@ export default function Footer() {
 
             <address className="not-italic">
                 <p className="pb-4 text-lg">Contact</p>
+
+                <ul className="pb-5 flex flex-col gap-5 text-sm font-bold *:flex *:flex-col *:gap-4">
+                    <li>
+                        <p>2 Joppa Rd, Edinburgh, EH15 2EU</p>
+                        <a href="tel:01315567901" className="w-fit flex items-center gap-5"><FaPhoneAlt className="text-xl" />0131 556 7901</a>
+                    </li>
+                    <li>
+                        <p>44 Cow Wynd, Falkirk, Central Region, FK1 1PU</p>
+                        <a href="tel:01324629011" className="w-fit flex items-center gap-5"><FaPhoneAlt className="text-xl" />01324 629 011</a>
+                    </li>
+                </ul>
 
                 <ul className="flex gap-3 text-2xl">
                     <li>

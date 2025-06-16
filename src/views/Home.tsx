@@ -1,7 +1,15 @@
-import { Link } from "react-router"
+import StandardButton from "../components/StandardButton"
+import CtaBanner from "../components/CtaBanner"
 
 
 export default function Home() {
+
+    const CtaBannerContent = {
+        heading: "SIGN UP FOR OUR NEWSLETTER",
+        text: "Subscribing to our newsletter secures you up to date information about HiFi Horizons latest updates and offers.",
+        input: <StandardButton obj={{text: "See all products", href: "/products"}} />,
+    }
+
 
     return (
         <>
@@ -10,9 +18,7 @@ export default function Home() {
             <section className="px-9 pt-5 pb-16 bg-hifi-gray-lightest">
                 <div className="flex justify-between">
                     <h2 className='text-2xl font-bold uppercase text-hifi-gray-dark'>Popular Products</h2>
-                    <Link to="/products" className="py-2 w-40 inline-block rounded-sm text-sm text-center text-hifi-gray-lightest bg-hifi-accent">
-                        See all products
-                    </Link>
+                    <StandardButton obj={{text: "See all products", href: "/products"}}/>
                 </div>
 
                 <div className="mt-6 grid grid-cols-4 gap-8">
@@ -50,7 +56,9 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="p-9 bg-hifi-gray-lightest"></section>
+            <section className="p-9 bg-hifi-gray-lightest">
+                <CtaBanner obj={CtaBannerContent} />
+            </section>
         </>
     )
 }

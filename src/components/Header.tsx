@@ -1,4 +1,4 @@
-import { Link } from "react-router"
+import { Link, NavLink } from "react-router"
 
 import { FaUser, FaShoppingCart, FaSearch } from "react-icons/fa";
 
@@ -61,33 +61,34 @@ export default function Header() {
             <nav className="h-24 px-9 flex justify-between items-center fixed inset-x-0 top-0 bg-hifi-black text-hifi-white *:h-full">
                 <ul className="flex items-center gap-8 text-sm *:h-full *:content-center">
                     <li>
-                        <Link to="/">
+                        <NavLink to="/" className="hover:opacity-75">
                             <img src="/src/assets/svg/logo-wo-text-border.svg" alt="" className="w-14" />
-                        </Link>
+                        </NavLink>
                     </li>
 
                     {navLinks.map((link, i) => (
-                        <li className="relative group">
-                            <Link to={link.href} className="uppercase hover:font-bold" key={i}>
+                        <li className="relative group" key={i}>
+                            <NavLink to={link.href} className="uppercase hover:font-bold [&.active]:font-bold" key={i}>
                                 {link.text}
-                            </Link>
+                            </NavLink>
 
-                            {i == 0 ? (
+                            {i == 0 && (
                                 <ul id="dropdown" className="hidden w-96 p-9 group-hover:flex flex-col gap-5 fixed top-24 bg-hifi-white">
                                     <li className="text-2xl text-hifi-black">Browse Categories</li>
 
-                                    {dropdownLinks.map((link) => (
-                                        <li>
+                                    {dropdownLinks.map((link, i) => (
+                                        <li key={i}>
                                             <Link to={link.href} className="text-xl text-hifi-gray-dark hover:underline">
                                                 {link.text}
                                             </Link>
                                         </li>
                                     ))}
                                 </ul>
-                            ) : ""}
+                            )}
                         </li>
                     ))}
                 </ul>
+
 
                 <div className="flex items-center gap-12">
                     <search className="relative flex items-center">

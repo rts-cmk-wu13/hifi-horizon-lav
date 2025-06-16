@@ -10,6 +10,7 @@ export const ProductSchema = z.object({
     color: z.string().min(1),
     price: z.number().min(0),
     stock: z.number().int().min(0),
+    popularity: z.number().int().min(0).max(100),
     discount: z.number().int().min(0).max(100).optional(),
     shortDescription: z.string().min(1),
     longDescription: z.string().min(1)

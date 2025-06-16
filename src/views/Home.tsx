@@ -1,13 +1,24 @@
 import StandardButton from "../components/StandardButton"
 import CtaBanner from "../components/CtaBanner"
+import FormField from "../components/FormField";
 
 
 export default function Home() {
 
+    function newsletterSignup() {
+        console.log("Sign up for newsletter");
+    }
+
+
     const CtaBannerContent = {
         heading: "SIGN UP FOR OUR NEWSLETTER",
         text: "Subscribing to our newsletter secures you up to date information about HiFi Horizons latest updates and offers.",
-        input: <StandardButton obj={{text: "See all products", href: "/products"}} />,
+        input: (
+            <form action="" id="newsletter" className="flex items-center gap-6">
+                <input type="email" name="" id="email" className="px-3 h-9 w-96 rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0" />
+                <StandardButton obj={{text: "Sign up", func: newsletterSignup, form: "newsletter"}}/>
+            </form>
+        )
     }
 
 

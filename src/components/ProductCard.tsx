@@ -29,7 +29,7 @@ export default function ProductCard({ config, data }: ProductCardProps) {
                 <h3 className="text-sm self-end">
                     {data.brand}, {data.name}
                 </h3>
-                <h2 className="font-semibold self-end">£ {data.price}</h2>
+                <h2 className="font-semibold self-end">£ {data.price}.00</h2>
                 <div className="w-full flex justify-between items-center">
                     <Link to={`/product/${data.id}`} key={data.id}>
                         {config?.text || "Read more"}

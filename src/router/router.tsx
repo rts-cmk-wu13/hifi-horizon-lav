@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, type LoaderFunction } from "react-router";
 
 import Layout from "./Layout";
 
@@ -8,6 +8,7 @@ import ProductDetails from "../views/ProductDetails";
 import Contact from "../views/Contact";
 import About from "../views/About";
 import FAQ from "../views/FAQ";
+import { fetchProductById, fetchProducts } from "../api/jsonserver";
 
 
 const router = createBrowserRouter([
@@ -15,7 +16,6 @@ const router = createBrowserRouter([
         path: "/",
         element: <Layout />,
         hydrateFallbackElement: <div>Loading...</div>,
-        errorElement: <div>Error</div>,
         children: [
             {
                 index: true,
@@ -24,10 +24,12 @@ const router = createBrowserRouter([
             {
                 path: "/products",
                 element: <Products />,
+                loader: fetchProducts as LoaderFunction
             },
             {
-                path: "/product",
+                path: "/product/:id",
                 element: <ProductDetails />,
+                loader: fetchProductById as LoaderFunction,
             },
             {
                 path: "/contact",

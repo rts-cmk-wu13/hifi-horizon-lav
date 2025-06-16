@@ -1,7 +1,16 @@
 import StandardButton from "../components/StandardButton"
+import CtaBanner from "../components/CtaBanner"
 
 
 export default function Home() {
+
+    const CtaBannerContent = {
+        heading: "SIGN UP FOR OUR NEWSLETTER",
+        text: "Subscribing to our newsletter secures you up to date information about HiFi Horizons latest updates and offers.",
+        input: <StandardButton obj={{text: "See all products", href: "/products"}} />,
+    }
+
+
     return (
         <>
             <img src="/src/assets/img/home_hero-image.jpg" alt="" className='w-full' />
@@ -47,7 +56,9 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="p-9 bg-hifi-gray-lightest"></section>
+            <section className="p-9 bg-hifi-gray-lightest">
+                <CtaBanner obj={CtaBannerContent} />
+            </section>
         </>
     )
 }

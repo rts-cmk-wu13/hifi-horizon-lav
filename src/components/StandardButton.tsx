@@ -7,9 +7,11 @@ type StandardButtonProps = {
         href?: string,
         func?: () => void,
         icon?: ReactNode,
-        width?: string
+        width?: string,
+        form?: string
     }
 }
+
 
 export default function StandardButton({ obj }: StandardButtonProps) {
     let buttonStyling = `px-8 py-2 inline-block rounded-sm shadow-[1px_2px_4px] shadow-hifi-black/25 text-hifi-gray-lightest bg-hifi-accent text-sm text-center ${obj.width && obj.width}`
@@ -22,7 +24,6 @@ export default function StandardButton({ obj }: StandardButtonProps) {
         obj.text
     )
 
-
     return (
         <>
             {obj.href ? (
@@ -31,7 +32,7 @@ export default function StandardButton({ obj }: StandardButtonProps) {
                 </Link>
             ) :
             (
-                <button onClick={obj.func} className={buttonStyling}>
+                <button onClick={obj.func} className={buttonStyling} form={obj.form ? obj.form : ""}>
                     {buttonText}
                 </button>
             )}

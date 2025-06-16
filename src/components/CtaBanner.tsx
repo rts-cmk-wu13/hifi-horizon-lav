@@ -10,8 +10,6 @@ type CtaBannerProps = {
 
 
 export default function CtaBanner({ obj }: CtaBannerProps) {
-    console.log(obj);
-    
     return (
         <div className="py-8 flex flex-col items-center shadow-[2px_4px_4px] shadow-hifi-black/25 bg-hifi-white">
             <h2 className="text-2xl font-semibold">{obj.heading}</h2>

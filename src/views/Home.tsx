@@ -1,5 +1,8 @@
 import StandardButton from "../components/StandardButton"
 import CtaBanner from "../components/CtaBanner"
+import { useLoaderData } from "react-router"
+import type { Product } from "../schemas/schemas"
+import ProductCard from "../components/ProductCard"
 
 
 export default function Home() {
@@ -8,6 +11,9 @@ export default function Home() {
         console.log("Sign up for newsletter");
     }
 
+    const data = useLoaderData()
+
+    console.log(data)
 
     const CtaBannerContent = {
         heading: "SIGN UP FOR OUR NEWSLETTER",
@@ -31,11 +37,13 @@ export default function Home() {
                     <StandardButton obj={{text: "See all products", href: "/products"}}/>
                 </div>
 
-                <div className="mt-6 grid grid-cols-4 gap-8">
-                    <p>product</p>
-                    <p>product</p>
-                    <p>product</p>
-                    <p>product</p>
+                <div className="mt-6 grid grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] gap-4 justify-items-center h-full auto-rows-[minmax(23rem,_auto)]">
+                   {data.
+                   sort((a: Product, b: Product) => a.popularity - b.popularity)
+                   .slice(0, 4)
+                   .map((product : Product) => (
+                        <ProductCard key={product.id} data={product} config={{showStock:false, text: "Read more"}} />
+                   ))}
                 </div>
             </section>
 

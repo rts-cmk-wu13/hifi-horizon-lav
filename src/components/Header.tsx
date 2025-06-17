@@ -1,61 +1,12 @@
-import { Link, NavLink } from "react-router"
+import { NavLink } from "react-router"
 
 import { FaUser, FaShoppingCart, FaSearch } from "react-icons/fa";
 
+import MapListLinks from "./mapListLinks";
+import { headerNavLinks, headerDropdownLinks } from "../data/HeaderArrays";
+
 
 export default function Header() {
-    
-    const navLinks = [
-        {
-            text: "Shop",
-            href: "/products"
-        },
-        {
-            text: "About Us",
-            href: "/about"
-        },
-        {
-            text: "Contact Us",
-            href: "/contact"
-        },
-    ]
-
-    const dropdownLinks = [
-        {
-            text: "CD Players",
-            href: "/"
-        },
-        {
-            text: "DVD Players",
-            href: "/"
-        },
-        {
-            text: "Preamps",
-            href: "/"
-        },
-        {
-            text: "Speakers",
-            href: "/"
-        },
-        {
-            text: "Turntables",
-            href: "/"
-        },
-        {
-            text: "Integrated Amplifiers",
-            href: "/"
-        },
-        {
-            text: "Power Amplifiers",
-            href: "/"
-        },
-        {
-            text: "Tube Amplifiers",
-            href: "/"
-        },
-    ]
-
-
     return (
         <header className="pt-24">
             <nav className="h-24 px-9 flex justify-between items-center fixed z-999 inset-x-0 top-0 bg-hifi-black text-hifi-white *:h-full">
@@ -66,23 +17,17 @@ export default function Header() {
                         </NavLink>
                     </li>
 
-                    {navLinks.map((link, i) => (
+                    {headerNavLinks.map((link, i) => (
                         <li className="relative group" key={i}>
                             <NavLink to={link.href} className="uppercase hover:font-bold [&.active]:font-bold" key={i}>
-                                {link.text}
+                                {link.content}
                             </NavLink>
 
                             {i == 0 && (
-                                <ul id="dropdown" className="hidden w-96 p-9 group-hover:flex flex-col gap-5 fixed top-24 bg-hifi-white">
-                                    <li className="text-2xl text-hifi-black">Browse Categories</li>
+                                <ul id="dropdown" className="hidden w-96 p-9 group-hover:flex flex-col gap-5 fixed top-24 bg-hifi-white text-xl text-hifi-gray-dark">
+                                    <li className="text-2xl font-semibold text-hifi-black">Browse Categories</li>
 
-                                    {dropdownLinks.map((link, i) => (
-                                        <li key={i}>
-                                            <Link to={link.href} className="text-xl text-hifi-gray-dark hover:underline">
-                                                {link.text}
-                                            </Link>
-                                        </li>
-                                    ))}
+                                    {MapListLinks(headerDropdownLinks)}
                                 </ul>
                             )}
                         </li>

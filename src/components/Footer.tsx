@@ -1,78 +1,31 @@
-import { Link } from "react-router"
-import { FaPhoneAlt, FaFacebookSquare, FaTwitterSquare, FaInstagramSquare, FaYoutubeSquare, FaCcStripe, FaCcVisa, FaCcMastercard } from "react-icons/fa";
+import { FaPhoneAlt, FaCcStripe, FaCcVisa, FaCcMastercard } from "react-icons/fa";
 
-import mapListLinks from "./mapListLinks";
+import MapListLinks from "./mapListLinks";
+import { footerNavLinks, footerFaqLinks, footerSoMeLinks } from "../data/FooterArrays";
 
 
 export default function Footer() {
 
-    const navLinks = [
-        {
-            text: "Home",
-            href: "/"
-        },
-        {
-            text: "Shop",
-            href: "/products"
-        },
-        {
-            text: "About Us",
-            href: "/about"
-        },
-        {
-            text: "Contact",
-            href: "/contact"
-        },
-    ]
+    const linkListStyle = "flex flex-col gap-3"
 
-    const faqLinks = {
-        "faq": [
-            {
-                text: "Our Guarantee",
-                href: "/faq#our-guarantee",
-            },
-            {
-                text: "Shipping & Delivery",
-                href: "/faq#shipping"
-            },
-            {
-                text: "Refunds & Returns",
-                href: "/faq#refunds"
-            },
-        ],
-        "external": [
-            {
-                text: "Privacy Policy",
-                href: "https://en.wikipedia.org/wiki/Privacy_policy",
-                external: true,
-            },
-            {
-                text: "Terms & Conditions",
-                href: "https://en.wikipedia.org/wiki/Terms_of_service",
-                external: true,
-            },
-        ]
-    }
-
-    const listStyle = "flex flex-col gap-3"
 
     return (
         <footer className="bg-hifi-black text-hifi-white">
             <div className="px-16 pt-12 pb-8 grid grid-cols-2 gap-32">
                 <nav className="grid grid-cols-2 text-lg">
-                    <ul className={listStyle}>
-                        {mapListLinks(navLinks)}
+                    <ul className={linkListStyle}>
+                        {MapListLinks(footerNavLinks)}
                     </ul>
 
                     <div>
-                        <ul className={listStyle}>
-                            {mapListLinks(faqLinks.faq)}
+                        <ul className={linkListStyle}>
+                            {MapListLinks(footerFaqLinks.faq)}
                         </ul>
 
                         <hr className="my-3" />
 
-                        <ul className={listStyle}>
-                            {mapListLinks(faqLinks.external)}
+                        <ul className={linkListStyle}>
+                            {MapListLinks(footerFaqLinks.external)}
                         </ul>
                     </div>
                 </nav>
@@ -92,26 +45,7 @@ export default function Footer() {
                     </ul>
 
                     <ul className="flex gap-3 text-2xl">
-                        <li>
-                            <Link to="https://www.facebook.com" target="_blank">
-                                <FaFacebookSquare />
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="https://www.twitter.com" target="_blank">
-                                <FaTwitterSquare />
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="https://www.instagram.com" target="_blank">
-                                <FaInstagramSquare />
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="https://www.youtube.com" target="_blank">
-                                <FaYoutubeSquare />
-                            </Link>
-                        </li>
+                        {MapListLinks(footerSoMeLinks)}
                     </ul>
                 </address>
             </div>

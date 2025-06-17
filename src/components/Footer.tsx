@@ -1,39 +1,80 @@
 import { Link } from "react-router"
-
 import { FaPhoneAlt, FaFacebookSquare, FaTwitterSquare, FaInstagramSquare, FaYoutubeSquare, FaCcStripe, FaCcVisa, FaCcMastercard } from "react-icons/fa";
+
+import mapListLinks from "./mapListLinks";
 
 
 export default function Footer() {
+
+    const navLinks = [
+        {
+            text: "Home",
+            href: "/"
+        },
+        {
+            text: "Shop",
+            href: "/products"
+        },
+        {
+            text: "About Us",
+            href: "/about"
+        },
+        {
+            text: "Contact",
+            href: "/contact"
+        },
+    ]
+
+    const faqLinks = {
+        "faq": [
+            {
+                text: "Our Guarantee",
+                href: "/faq#our-guarantee",
+            },
+            {
+                text: "Shipping & Delivery",
+                href: "/faq#shipping"
+            },
+            {
+                text: "Refunds & Returns",
+                href: "/faq#refunds"
+            },
+        ],
+        "external": [
+            {
+                text: "Privacy Policy",
+                href: "https://en.wikipedia.org/wiki/Privacy_policy",
+                external: true,
+            },
+            {
+                text: "Terms & Conditions",
+                href: "https://en.wikipedia.org/wiki/Terms_of_service",
+                external: true,
+            },
+        ]
+    }
+
+    const listStyle = "flex flex-col gap-3"
+
     return (
         <footer className="bg-hifi-black text-hifi-white">
             <div className="px-16 pt-12 pb-8 grid grid-cols-2 gap-32">
-                <nav className="grid grid-cols-2 text-lg *:flex *:flex-col *:gap-3">
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/products">Shop</Link>
-                        </li>
-                        <li>
-                            <Link to="/about">About Us</Link>
-                        </li>
+                <nav className="grid grid-cols-2 text-lg">
+                    <ul className={listStyle}>
+                        {mapListLinks(navLinks)}
                     </ul>
 
-                    <ul>
-                        <li>
-                            <Link to="/faq">Returns & Refunds</Link>
-                        </li>
-                        <li>
-                            <Link to="/faq">Delivery</Link>
-                        </li>
-                        <li>
-                            <Link to="/faq">Privacy Policy</Link>
-                        </li>
-                        <li>
-                            <Link to="/faq">Terms & Conditions</Link>
-                        </li>
-                    </ul>
+                    <div>
+                        <ul className={listStyle}>
+                            {mapListLinks(faqLinks.faq)}
+                        </ul>
+
+                        <hr className="my-3" />
+
+                        <ul className={listStyle}>
+                            {mapListLinks(faqLinks.external)}
+                        </ul>
+                    </div>
                 </nav>
 
                 <address className="not-italic">

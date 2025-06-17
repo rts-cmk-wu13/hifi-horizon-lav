@@ -1,39 +1,33 @@
-import { Link } from "react-router"
+import { FaPhoneAlt, FaCcStripe, FaCcVisa, FaCcMastercard } from "react-icons/fa";
 
-import { FaPhoneAlt, FaFacebookSquare, FaTwitterSquare, FaInstagramSquare, FaYoutubeSquare, FaCcStripe, FaCcVisa, FaCcMastercard } from "react-icons/fa";
+import MapListLinks from "./mapListLinks";
+import { footerNavLinks, footerFaqLinks, footerSoMeLinks } from "../data/FooterArrays";
 
 
 export default function Footer() {
+
+    const linkListStyle = "flex flex-col gap-3"
+
+
     return (
         <footer className="bg-hifi-black text-hifi-white">
             <div className="px-16 pt-12 pb-8 grid grid-cols-2 gap-32">
-                <nav className="grid grid-cols-2 text-lg *:flex *:flex-col *:gap-3">
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/products">Shop</Link>
-                        </li>
-                        <li>
-                            <Link to="/about">About Us</Link>
-                        </li>
+                <nav className="grid grid-cols-2 text-lg">
+                    <ul className={linkListStyle}>
+                        {MapListLinks(footerNavLinks)}
                     </ul>
 
-                    <ul>
-                        <li>
-                            <Link to="/faq">Returns & Refunds</Link>
-                        </li>
-                        <li>
-                            <Link to="/faq">Delivery</Link>
-                        </li>
-                        <li>
-                            <Link to="/faq">Privacy Policy</Link>
-                        </li>
-                        <li>
-                            <Link to="/faq">Terms & Conditions</Link>
-                        </li>
-                    </ul>
+                    <div>
+                        <ul className={linkListStyle}>
+                            {MapListLinks(footerFaqLinks.faq)}
+                        </ul>
+
+                        <hr className="my-3" />
+
+                        <ul className={linkListStyle}>
+                            {MapListLinks(footerFaqLinks.external)}
+                        </ul>
+                    </div>
                 </nav>
 
                 <address className="not-italic">
@@ -51,26 +45,7 @@ export default function Footer() {
                     </ul>
 
                     <ul className="flex gap-3 text-2xl">
-                        <li>
-                            <Link to="https://www.facebook.com" target="_blank">
-                                <FaFacebookSquare />
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="https://www.twitter.com" target="_blank">
-                                <FaTwitterSquare />
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="https://www.instagram.com" target="_blank">
-                                <FaInstagramSquare />
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="https://www.youtube.com" target="_blank">
-                                <FaYoutubeSquare />
-                            </Link>
-                        </li>
+                        {MapListLinks(footerSoMeLinks)}
                     </ul>
                 </address>
             </div>

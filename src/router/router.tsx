@@ -20,6 +20,7 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <Home />,
+                loader: fetchProducts as LoaderFunction, // Assuming Home also needs products data
             },
             {
                 path: "/products",

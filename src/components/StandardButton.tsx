@@ -14,26 +14,27 @@ type StandardButtonProps = {
 
 
 export default function StandardButton({ obj }: StandardButtonProps) {
-    let buttonStyling = `px-8 py-2 inline-block rounded-sm shadow-[1px_2px_4px] shadow-hifi-black/25 text-hifi-gray-lightest bg-hifi-accent text-sm text-center ${obj.width && obj.width}`
+    let buttonStyling = `px-8 py-2 inline-block rounded-sm shadow-hifi-sm text-hifi-gray-lightest bg-hifi-accent text-sm text-center flex-shrink-0 ${obj.width ? obj.width : "w-fit"}`
 
-    let buttonText = obj.icon ? (
-        <>
-            {obj.text} {obj.icon}
-        </>
-    ) : (
-        obj.text
-    )
+    let buttonContent;
+    let buttonText = obj.text || "Read more" 
+
+    if (obj.icon) {
+        buttonContent = <>{buttonText} {obj.icon}</>
+    } else {
+        buttonContent = <>{buttonText}</>
+    }
 
     return (
         <>
             {obj.href ? (
                 <Link to={obj.href} className={buttonStyling}>
-                    {buttonText}
+                    {buttonContent}
                 </Link>
             ) :
             (
                 <button onClick={obj.func} className={buttonStyling} form={obj.form ? obj.form : ""}>
-                    {buttonText}
+                    {buttonContent}
                 </button>
             )}
         </>

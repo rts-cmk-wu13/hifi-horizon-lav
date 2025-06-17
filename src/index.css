@@ -11,17 +11,23 @@
 }
 
 @theme {
-  --color-hifi-white: #ffffff;
-  --color-hifi-gray-lightest: #f4f4f2;
-  --color-hifi-gray-light: ##e8e8e8;
-  --color-hifi-gray-medium: #bbbfca;
-  --color-hifi-gray-dark: #495464;
-  --color-hifi-black: #000000;
-  --color-hifi-accent: #ff6900;
+    --color-hifi-white: #ffffff;
+    --color-hifi-gray-lightest: #f4f4f2;
+    --color-hifi-gray-light: #e8e8e8;
+    --color-hifi-gray-medium: #bbbfca;
+    --color-hifi-gray-dark: #495464;
+    --color-hifi-black: #000000;
+    --color-hifi-accent: #ff6900;
 
-  --font-open-sans: "Open Sans", sans-serif;
+    --color-hifi-shadow: #00000040;
+
+    --shadow-hifi-sm: 1px 2px 4px var(--color-hifi-shadow);
+    --shadow-hifi-md: 2px 4px 4px var(--color-hifi-shadow);
+    --shadow-hifi-lg: 0px 4px 16px var(--color-hifi-shadow);
+
+    --font-open-sans: "Open Sans", sans-serif;
 }
 
 body {
-  font-family: var(--font-open-sans);
+    font-family: var(--font-open-sans);
 }

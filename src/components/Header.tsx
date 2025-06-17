@@ -58,7 +58,7 @@ export default function Header() {
 
     return (
         <header className="pt-24">
-            <nav className="h-24 px-9 flex justify-between items-center fixed inset-x-0 top-0 bg-hifi-black text-hifi-white *:h-full">
+            <nav className="h-24 px-9 flex justify-between items-center fixed z-999 inset-x-0 top-0 bg-hifi-black text-hifi-white *:h-full">
                 <ul className="flex items-center gap-8 text-sm *:h-full *:content-center">
                     <li>
                         <NavLink to="/" className="hover:opacity-75">

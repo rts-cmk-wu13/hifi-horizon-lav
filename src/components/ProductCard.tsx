@@ -14,7 +14,7 @@ export default function ProductCard({ config, data }: ProductCardProps) {
     return (
         <div
             key={data.id}
-            className="max-w-[260px] w-full bg-hifi-white grid justify-items-center p-3 rounded drop-shadow-md"
+            className="max-w-[260px] w-full bg-hifi-white grid justify-items-center p-3 pt-10 rounded drop-shadow-md"
         >
             <div className="h-[9rem]">
                 <img src={data.img} alt="" className="h-full object-contain" />
@@ -23,7 +23,9 @@ export default function ProductCard({ config, data }: ProductCardProps) {
                 {data.brand}, {data.name}
             </h3>
             <h2 className="font-semibold self-center">£ {data.price}.00</h2>
-            <div className="w-full flex justify-between items-center">
+            <div className={`w-full flex items-center ${
+                config?.showStock ? "justify-between" : "justify-center"
+            }`}>
                 <StandardButton
                     obj={{
                         text: `${config?.text || "Read more"}`,

@@ -2,7 +2,7 @@ import { NavLink } from "react-router"
 
 import { FaUser, FaShoppingCart, FaSearch } from "react-icons/fa";
 
-import MapListLinks from "./mapListLinks";
+import MapListLinks from "./MapListLinks";
 import { headerNavLinks, headerDropdownLinks } from "../data/HeaderArrays";
 
 

@@ -1,6 +1,7 @@
 import { Link } from "react-router"
 
 import PageWrapper from "../components/PageWrapper"
+import WhiteBox from "../components/WhiteBox"
 import FormField from "../components/FormField"
 import StandardButton from "../components/StandardButton"
 
@@ -8,35 +9,39 @@ import StandardButton from "../components/StandardButton"
 export default function Login() {
     return (
         <PageWrapper obj={{ heading: "Login" }}>
-            <section>
-                <h2 className="text-2xl font-semibold uppercase">Registered Customers</h2>
-                <p className="mt-2 text-sm">If you have an account, sign in with your email address.</p>
+            <div className="flex flex-col gap-8">
+                <WhiteBox>
+                    <h2 className="pb-2 text-2xl font-semibold uppercase">Registered Customers</h2>
+                    <p className="text-sm">If you have an account, sign in with your email address.</p>
 
-                <form action="POST" id="loginForm" className="mt-12">
-                    <FormField obj={{ label: "Email", required: true }}>
-                        <input type="email" name="email" id="email" />
-                    </FormField>
+                    <form action="POST" id="loginForm" className="mt-12">
+                        <div className="mb-12 flex flex-col gap-8">
+                            <FormField obj={{ label: "Email", required: true }}>
+                                <input type="email" name="email" id="email" />
+                            </FormField>
 
-                    <FormField obj={{ label: "Password", required: true }}>
-                        <input type="password" name="password" id="password" />
-                    </FormField>
+                            <FormField obj={{ label: "Password", required: true }}>
+                                <input type="password" name="password" id="password" />
+                            </FormField>
 
-                    <div className="flex gap-3">
-                        <input type="checkbox" name="remember" id="remember" />
-                        <label htmlFor="remember">Remember me</label>
-                    </div>
+                            <div className="flex gap-3 text-sm">
+                                <input type="checkbox" name="remember" id="remember" className="bg-hifi-gray-light" />
+                                <label htmlFor="remember">Remember me</label>
+                            </div>
+                        </div>
 
-                    <StandardButton obj={{ text: "Sign in" }} />
-                    <Link to="#">Forgot your password?</Link>
-                </form>
-            </section>
+                        <StandardButton obj={{ text: "Sign in", form: "loginForm" }} />
+                        <Link to="#" className="mt-4 inline-block text-sm hover:underline">Forgot your password?</Link>
+                    </form>
+                </WhiteBox>
 
-            <section className="text-center">
-                <h2 className="text-2xl font-semibold uppercase">New Customer</h2>
-                <p className="mb-6 text-sm">Creating an account has many benefits: check out faster, track orders and more.</p>
+                <WhiteBox className="flex flex-col items-center">
+                    <h2 className="pb-2 text-2xl font-semibold uppercase">New Customer</h2>
+                    <p className="mb-6 text-sm">Creating an account has many benefits: check out faster, track orders and more.</p>
 
-                <StandardButton obj={{ text: "Create an account", href: "/signup" }} />
-            </section>
+                    <StandardButton obj={{ text: "Create an account", href: "/signup" }} />
+                </WhiteBox>
+            </div>
         </PageWrapper>
     )
 }

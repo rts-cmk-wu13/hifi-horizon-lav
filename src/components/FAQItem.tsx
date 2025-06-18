@@ -13,7 +13,7 @@ export type FAQItemProps = {
 
 export const MarkdownStyle: Components = {
     p: ({ node, ...props }) => (
-        <p className="text-base text-gray-700 leading-relaxed" {...props} />
+        <p className="text-sm text-gray-700 leading-relaxed" {...props} />
     ),
     h1: ({ node, ...props }) => (
         <h1 className="text-3xl font-bold" {...props} />
@@ -25,7 +25,7 @@ export const MarkdownStyle: Components = {
         <h3 className="text-xl font-semibold" {...props} />
     ),
     h4: ({ node, ...props }) => (
-        <h4 className="text-base font-semibold -mb-3" {...props} />
+        <h4 className="text-sm font-semibold -mb-3" {...props} />
     ),
     strong: ({ node, ...props }) => (
         <strong className="font-semibold text-gray-900" {...props} />
@@ -39,7 +39,7 @@ export const MarkdownStyle: Components = {
 export default function FAQItem({ data }: FAQItemProps) {
     return (
         <section id={data.id} className="flex flex-col gap-4">
-            <h3 className='text-xl font-semibold'>{data.subtitle}</h3>
+            <h3 className='text-xl font-bold uppercase'>{data.subtitle}</h3>
             <ReactMarkdown components={MarkdownStyle}>
                 {data.body}
             </ReactMarkdown>

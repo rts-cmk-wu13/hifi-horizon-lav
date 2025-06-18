@@ -11,12 +11,14 @@ type FilterProps = {
 };
 
 export default function Filter({ data, updateFilters }: FilterProps) {
-
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-
         const form = e.target.closest("form") as HTMLFormElement; // Get the closest form element
-        const min = form.querySelector<HTMLInputElement>('input[placeholder="min"]')?.value || "";
-        const max = form.querySelector<HTMLInputElement>('input[placeholder="max"]')?.value || "";
+        const min =
+            form.querySelector<HTMLInputElement>('input[placeholder="min"]')
+                ?.value || "";
+        const max =
+            form.querySelector<HTMLInputElement>('input[placeholder="max"]')
+                ?.value || "";
 
         updateFilters("price", true, { min, max }); // Call updateFilters with the extracted values
     }
@@ -24,7 +26,10 @@ export default function Filter({ data, updateFilters }: FilterProps) {
     const filterConfig = {
         brand: Array.from(new Set(data.map((product) => product.brand))),
         color: Array.from(new Set(data.map((product) => product.color))),
-        category: Array.from(new Set(data.map((product) => product.category))),
+        category: Array.from(
+            new Set(data.map((product) => 
+                product.category.replace("_", " ").replace("cd", "CD").replace("dvd", "DVD")))
+        ),
         price: Array.from(new Set(data.map((product) => product.price))),
     };
 
@@ -65,7 +70,6 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                                         }
                                         className="form-checkbox"
                                     />
-                                    
                                 </label>
                             ))}
                         {filterType == "price" && (

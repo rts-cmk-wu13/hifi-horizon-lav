@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 export function scrollToHashElement() {
   if (typeof window === "undefined") return;
 
@@ -13,23 +11,4 @@ export function scrollToHashElement() {
       block: "start",
     });
   }
-}
-
-export function useSmoothScrollToHash(deps: unknown[]) {
-  useEffect(() => {
-    const handleHashChange = () => {
-      setTimeout(() => {
-        scrollToHashElement();
-      }, 0);
-    };
-
-    window.addEventListener("hashchange", handleHashChange);
-    setTimeout(() => {
-      scrollToHashElement();
-    }, 0);
-
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, deps);
 }

@@ -1,7 +1,12 @@
+import PageWrapper from "../components/PageWrapper"
+
+
 export default function FAQ() {
 
     return (
-        <h1>FAQ</h1>
+        <PageWrapper obj={{ heading: "FAQ" }}>
+            <div></div>
+        </PageWrapper>
     )
 
 }

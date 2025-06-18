@@ -1,7 +1,11 @@
+import PageWrapper from "../components/PageWrapper"
+
 export default function About() {
 
     return (
-        <h1>OUR HISTORY</h1>
+        <PageWrapper obj={{ heading: "Our History" }}>
+            <div></div>
+        </PageWrapper>
     )
 
 }

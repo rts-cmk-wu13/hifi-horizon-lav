@@ -3,11 +3,15 @@ import { createBrowserRouter, type LoaderFunction } from "react-router";
 import Layout from "./Layout";
 
 import Home from "../views/Home";
-import Products from "../views/Products";
-import ProductDetails from "../views/ProductDetails";
 import Contact from "../views/Contact";
 import About from "../views/About";
 import FAQ from "../views/FAQ";
+
+import Products from "../views/Products";
+import ProductDetails from "../views/ProductDetails";
+
+import Login from "../views/Login";
+
 import { fetchProductById, fetchProducts, fetchFAQ, fetchAbout } from "../api/jsonserver";
 
 
@@ -45,6 +49,10 @@ const router = createBrowserRouter([
                 path: "/faq",
                 element: <FAQ />,
                 loader: fetchFAQ as LoaderFunction,
+            },
+            {
+                path: "/login",
+                element: <Login />,
             },
             {
                 path: "*",

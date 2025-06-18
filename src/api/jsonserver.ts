@@ -1,6 +1,7 @@
 import type { LoaderFunctionArgs } from "react-router";
 import { ProductListSchema, ProductSchema, type Product, type ProductList } from "../schemas/schemas";
 import { FAQSchema, type FAQType} from "../schemas/schemas";
+import { AboutListSchema, type AboutType } from "../schemas/schemas";
 
 import queryClient from "./queryClient";
 
@@ -54,7 +55,7 @@ export const fetchProductById = async ({ params }: LoaderFunctionArgs): Promise<
 }
 
 
-/*--- Fetch product detail ---*/
+/*--- Fetch FAQ ---*/
 export const fetchFAQ = async (): Promise<FAQType> => {
     return queryClient.fetchQuery({
         queryKey: ["faq"],
@@ -66,6 +67,30 @@ export const fetchFAQ = async (): Promise<FAQType> => {
             }
 
             const result = await FAQSchema.safeParseAsync(await response.json());
+
+            if (!result.success) {
+                throw new Error("Invalid data format" + result.error.message);
+            }
+
+            console.log(result.data);
+            return result.data;
+        },
+    })
+}
+
+
+/*--- Fetch About ---*/
+export const fetchAbout = async (): Promise<AboutType> => {
+    return queryClient.fetchQuery({
+        queryKey: ["about"],
+        queryFn: async () => {
+            const response = await fetch("http://localhost:4000/about");
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            const result = await AboutListSchema.safeParseAsync(await response.json());
 
             if (!result.success) {
                 throw new Error("Invalid data format" + result.error.message);

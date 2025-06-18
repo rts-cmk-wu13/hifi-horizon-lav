@@ -24,17 +24,32 @@ export type ProductList = z.infer<typeof ProductListSchema>;
 
 /*--- FAQ ---*/
 export const FAQSectionSchema = z.object({
-  id: z.string().min(1),
-  subtitle: z.string().min(1),
-  body: z.string().min(1),
+    id: z.string().min(1),
+    subtitle: z.string().min(1),
+    body: z.string().min(1),
 });
 
 export const FAQSchema = z.object({
-  id: z.string().min(1),
-  headline: z.string().min(1),
-  subheading: z.string().min(1),
-  sections: z.array(FAQSectionSchema),
+    id: z.string().min(1),
+    headline: z.string().min(1),
+    subheading: z.string().min(1),
+    sections: z.array(FAQSectionSchema),
 });
 
 export type FAQType = z.infer<typeof FAQSchema>;
 export type FAQSectionType = z.infer<typeof FAQSectionSchema>;
+
+
+/*--- About ---*/
+export const AboutSectionSchema = z.object({
+    img: z.string().min(1),
+    id: z.string().min(1),
+    title: z.string().min(1),
+    subtitle: z.string().min(1),
+    body: z.string().min(1),
+});
+
+export const AboutListSchema = z.array(AboutSectionSchema);
+
+export type AboutType = z.infer<typeof AboutListSchema>;
+export type AboutSectionType = z.infer<typeof AboutSectionSchema>;

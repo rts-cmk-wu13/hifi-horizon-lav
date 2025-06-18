@@ -26,6 +26,8 @@
     --shadow-hifi-lg: 0px 4px 16px var(--color-hifi-shadow);
 
     --font-open-sans: "Open Sans", sans-serif;
+
+    --spacing-hifi-default: 2.25rem;
 }
 
 body {

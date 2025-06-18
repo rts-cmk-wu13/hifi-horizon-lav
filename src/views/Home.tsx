@@ -31,7 +31,7 @@ export default function Home() {
         <>
             <img src="/src/assets/img/home_hero-image.jpg" alt="" className='w-full' />
 
-            <section className="px-9 pt-5 pb-16 bg-hifi-gray-lightest">
+            <section className="px-hifi-default pt-5 pb-16 bg-hifi-gray-lightest">
                 <div className="flex justify-between">
                     <h2 className='text-2xl font-bold uppercase text-hifi-gray-dark'>Popular Products</h2>
                     <StandardButton obj={{text: "See all products", href: "/products"}}/>
@@ -47,7 +47,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="px-12 pt-28 pb-20 flex justify-between bg-hifi-black text-hifi-white text-sm">
+            <section className="px-hifi-default pt-28 pb-20 flex justify-between bg-hifi-black text-hifi-white text-sm">
                 <div className="max-w-lg *:pt-4">
                     <h2 className="text-2xl font-bold">What we do</h2>
                     <p>We look forward to customising a system to meet your needs.</p>
@@ -74,7 +74,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="p-9 bg-hifi-gray-lightest">
+            <section className="p-hifi-default bg-hifi-gray-lightest">
                 <CtaBanner obj={CtaBannerContent} />
             </section>
         </>

@@ -8,28 +8,32 @@ export default function Products() {
 
     const products = useLoaderData();
 
-    const [filters, setFilters] = useState<Record<string, Set<string>>>({
-        brand: new Set(),
-        color: new Set()
-    });
+    const [filters, setFilters] = useState<Record<string, Set<string | number>>>({});
 
-    function updateFilters(type: string, checked: boolean, value: string) {
-        setFilters((prev) => {
-            const next = new Set(prev[type]);
-
+    function updateFilters(type: string, checked: boolean, value: string | number) {
+        setFilters((currentFilters) => {
+            const updatedFilters = new Set(currentFilters[type]);
+            
             if (checked) {
-                next.add(value)
+                updatedFilters.add(value)
             } else {
-                next.delete(value)
+                updatedFilters.delete(value)
             }
 
-            return {...prev, [type]: next};
+            return {...currentFilters, [type]: updatedFilters};
         })
     }
 
     const filteredProducts = products.filter((product: Product) => {
 
         return Object.entries(filters).every(([key, value]) => {
+
+            if (key === "price") {
+                // Assuming `value` is a Set containing a range like [minPrice, maxPrice]
+                const [minPrice, maxPrice] = Array.from(value) as [number, number];
+                return product.price >= minPrice && product.price <= maxPrice;
+            }
+
             return value.size === 0 || value.has(product[key as keyof Product]?.toString() || "");
         })
 

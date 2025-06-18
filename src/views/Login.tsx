@@ -6,7 +6,6 @@ import StandardButton from "../components/StandardButton"
 
 
 export default function Login() {
-
     return (
         <PageWrapper obj={{ heading: "Login" }}>
             <section>
@@ -31,7 +30,13 @@ export default function Login() {
                     <Link to="#">Forgot your password?</Link>
                 </form>
             </section>
+
+            <section className="text-center">
+                <h2 className="text-2xl font-semibold uppercase">New Customer</h2>
+                <p className="mb-6 text-sm">Creating an account has many benefits: check out faster, track orders and more.</p>
+
+                <StandardButton obj={{ text: "Create an account", href: "/signup" }} />
+            </section>
         </PageWrapper>
     )
-
 }

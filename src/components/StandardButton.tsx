@@ -14,7 +14,7 @@ type StandardButtonProps = {
 
 
 export default function StandardButton({ obj }: StandardButtonProps) {
-    let buttonStyling = `px-8 py-2 inline-block rounded-sm shadow-hifi-sm text-hifi-gray-lightest bg-hifi-accent text-sm text-center flex-shrink-0 ${obj.width ? obj.width : "w-fit"}`
+    let buttonStyling = `px-8 py-2 block flex-shrink-0 rounded-sm shadow-hifi-sm bg-hifi-accent text-hifi-gray-lightest text-sm text-center cursor-pointer ${obj.width ? obj.width : "w-fit"}`
 
     let buttonContent;
     let buttonText = obj.text || "Read more" 

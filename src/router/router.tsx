@@ -15,6 +15,7 @@ import Login from "../views/Login";
 import { fetchProductById, fetchProducts, fetchFAQ, fetchAbout } from "../api/jsonserver";
 
 
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
             {
                 path: "/products",
                 element: <Products />,
-                loader: fetchProducts as LoaderFunction
+                loader: fetchProducts as LoaderFunction,
             },
             {
                 path: "/product/:id",

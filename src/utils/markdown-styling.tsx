@@ -1,7 +1,7 @@
 import type { Components } from 'react-markdown';
 export const MarkdownStyle: Components = {
     p: ({ node, ...props }) => (
-        <p className="text-xs text-gray-700 leading-relaxed" {...props} />
+        <p className="text-xs text-gray-700 leading-relaxed text-pretty" {...props} />
     ),
     h1: ({ node, ...props }) => (
         <h1 className="text-3xl font-bold" {...props} />

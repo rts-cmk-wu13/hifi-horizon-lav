@@ -75,7 +75,7 @@ export default function Products() {
         <PageWrapper obj={{ heading: "products" }}>
             <div className="grid grid-cols-[auto_1fr] gap-6">
                 <Filter data={products} updateFilters={updateFilters} />
-                <div className="grid grid-cols-[repeat(auto-fit,_minmax(15rem,_1fr))] gap-4 h-full grid-flow-row-dense auto-rows-[minmax(23rem,_auto)]">
+                <div className="grid grid-cols-[repeat(auto-fit,_minmax(15rem,_1fr))] gap-4 *:max-w-85">
                     {filteredProducts.map((product: Product) => (
                         <ProductCard
                             key={product.id}

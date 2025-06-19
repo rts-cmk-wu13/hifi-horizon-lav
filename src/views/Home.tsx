@@ -31,7 +31,7 @@ export default function Home() {
                     <StandardButton obj={{text: "See all products", href: "/products"}}/>
                 </div>
 
-                <div className="mt-6 grid grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] gap-4 justify-items-center h-full auto-rows-[minmax(23rem,_auto)]">
+                <div className="mt-6 grid grid-cols-1 gap-4 justify-items-center h-full auto-rows-[minmax(23rem,_auto)] sm:grid-cols-2 lg:grid-cols-4">
                    {data.
                    sort((a: Product, b: Product) => a.popularity - b.popularity)
                    .slice(0, 4)

@@ -16,7 +16,10 @@ export type AboutItemProps = {
 
 export default function AboutItem({ data, className }: AboutItemProps) {
   return (
-    <section id={data.id} className={`flex gap-12 *:w-full ${className ?? ""}`}>
+    <section
+      id={data.id}
+      className={`flex flex-col-reverse gap-4 *:w-full md:gap-12 ${className ?? ""}`}
+    >
       <div>
         <img src={data.img} alt="" className="object-cover h-full" />
       </div>

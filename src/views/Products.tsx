@@ -61,8 +61,7 @@ export default function Products() {
             }
 
             if (key === "stock") {
-
-                return value.has("inStock") ? product.stock > 0 : true
+                return value.has("inStock") ? product.stock > 0 : true;
             }
 
             return (
@@ -73,7 +72,7 @@ export default function Products() {
     });
 
     return (
-        <PageWrapper obj={{heading: "products"}}>
+        <PageWrapper obj={{ heading: "products" }}>
             <div className="grid grid-cols-[auto_1fr] gap-6">
                 <Filter data={products} updateFilters={updateFilters} />
                 <div className="grid grid-cols-[repeat(auto-fit,_minmax(15rem,_1fr))] gap-4 h-full grid-flow-row-dense auto-rows-[minmax(23rem,_auto)]">

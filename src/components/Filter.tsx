@@ -11,6 +11,7 @@ type FilterProps = {
 };
 
 export default function Filter({ data, updateFilters }: FilterProps) {
+
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         const form = e.target.closest("form") as HTMLFormElement; // Get the closest form element
         const min =
@@ -21,13 +22,13 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                 ?.value || "";
 
         updateFilters("price", true, { min, max }); // Call updateFilters with the extracted values
-    }
+    };
 
     function handleStock(e: React.ChangeEvent<HTMLInputElement>) {
-        const checked = e.target.checked
+        const checked = e.target.checked;
 
-        updateFilters("stock", checked, "inStock")
-    }
+        updateFilters("stock", checked, "inStock");
+    };
 
     const filterConfig = {
         brand: Array.from(new Set(data.map((product) => product.brand))),
@@ -117,4 +118,4 @@ export default function Filter({ data, updateFilters }: FilterProps) {
             ))}
         </div>
     );
-}
+};

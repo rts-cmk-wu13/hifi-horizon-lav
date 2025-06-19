@@ -5,6 +5,7 @@ import { FaChevronLeft, FaChevronRight, FaMinus, FaPlus } from "react-icons/fa";
 import PageWrapper from "../components/PageWrapper"
 import StandardButton from "../components/StandardButton";
 import CircleDot from "../components/CircleDot";
+import StockStatus from "../components/StockStatus";
 
 
 export default function ProductDetails() {
@@ -65,9 +66,7 @@ export default function ProductDetails() {
                                 £ {productPrice}.00
                             </p>
 
-                            <p className="flex items-center gap-2 text-sm">
-                                In stock <CircleDot obj={{ color: "hifi-green" }} />
-                            </p>
+                            <StockStatus obj={{ stock: product.stock }} />
                         </div>
                     </div>
 

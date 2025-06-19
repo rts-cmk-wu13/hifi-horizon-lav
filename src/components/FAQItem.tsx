@@ -13,7 +13,7 @@ export type FAQItemProps = {
 
 export default function FAQItem({ data }: FAQItemProps) {
     return (
-        <section id={data.id} className="flex flex-col gap-4 text-pretty">
+        <section id={data.id} className="flex flex-col gap-4">
             <h3 className='text-xl font-bold uppercase'>{data.subtitle}</h3>
             <ReactMarkdown components={MarkdownStyle}>
                 {data.body}

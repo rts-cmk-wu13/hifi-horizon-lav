@@ -19,7 +19,7 @@ export default function Header() {
 
                     {headerNavLinks.map((link, i) => (
                         <li className="relative group" key={i}>
-                            <NavLink to={link.href} className="uppercase hover:font-bold [&.active]:font-bold" key={i}>
+                            <NavLink to={link.href} className="uppercase relative transition-all [&.active]:[text-shadow:0_0_1px_currentColor] hover:[text-shadow:0_0_1px_currentColor] duration-300" key={i}>
                                 {link.content}
                             </NavLink>
 

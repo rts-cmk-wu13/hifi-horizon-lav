@@ -1,5 +1,9 @@
 import { z } from "zod/v4";
 
+type FieldError = {
+    errors: string[];
+};
+
 /*--- Product ---*/
 export const ProductSchema = z.object({
     id: z.number().int(),
@@ -66,13 +70,22 @@ export const ContactSchema = z.object({
 
 export type Contact = z.infer<typeof ContactSchema>
 
-type FieldError = {
-    errors: string[];
-};
-
 export type ContactErrors = {
     name?: FieldError;
     email?: FieldError;
     subject?: FieldError;
     message?: FieldError;
 };
+
+
+/*--- Newsletter ---*/
+
+export const NewsletterSchema = z.object({
+    email: z.email()
+})
+
+export type Newsletter = z.infer<typeof NewsletterSchema>
+
+export type NewsletterErrors = {
+    email?: FieldError;
+}

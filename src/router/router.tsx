@@ -11,6 +11,7 @@ import Products from "../views/Products";
 import ProductDetails from "../views/ProductDetails";
 
 import Login from "../views/Login";
+import SignUp from "../views/SignUp";
 
 import { fetchProductById, fetchProducts, fetchFAQ, fetchAbout } from "../api/jsonserver";
 
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login />,
+            },
+            {
+                path: "/signup",
+                element: <SignUp />,
             },
             {
                 path: "*",

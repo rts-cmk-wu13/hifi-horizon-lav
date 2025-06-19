@@ -14,7 +14,7 @@ import Login from "../views/Login";
 import SignUp from "../views/SignUp";
 
 import { fetchProductById, fetchProducts, fetchFAQ, fetchAbout } from "../api/jsonserver";
-import { handleSubmit } from "../api/actions";
+import { handleContactSubmit, handleNewsletterSubmit } from "../api/actions";
 
 
 
@@ -27,7 +27,8 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <Home />,
-                loader: fetchProducts as LoaderFunction, // Assuming Home also needs products data
+                loader: fetchProducts as LoaderFunction,
+                action: handleNewsletterSubmit as ActionFunction
             },
             {
                 path: "/products",
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
             {
                 path: "/contact",
                 element: <Contact />,
-                action: handleSubmit as ActionFunction,
+                action: handleContactSubmit as ActionFunction,
             },
             {
                 path: "/about",

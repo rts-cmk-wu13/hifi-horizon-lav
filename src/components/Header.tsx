@@ -2,13 +2,13 @@ import { NavLink } from "react-router"
 
 import { FaUser, FaShoppingCart, FaSearch } from "react-icons/fa";
 
-import MapListLinks from "./MapListLinks";
 import { headerNavLinks, headerDropdownLinks } from "../data/HeaderArrays";
 
+import MapListLinks from "./MapListLinks";
 
 export default function Header() {
     return (
-        <header className="pt-24">
+        <header className="pt-24" data-header>
             <nav className="h-24 px-9 flex justify-between items-center fixed z-999 inset-x-0 top-0 bg-hifi-black text-hifi-white *:h-full">
                 <ul className="flex items-center gap-8 text-sm *:h-full *:content-center">
                     <li>

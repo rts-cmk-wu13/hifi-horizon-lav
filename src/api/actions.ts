@@ -1,4 +1,4 @@
-import { ContactSchema, NewsletterSchema, type ContactErrors } from "../schemas/schemas";
+import { ContactSchema, NewsletterSchema, UserSchema, type ContactErrors } from "../schemas/schemas";
 import { z } from "zod/v4";
 import { toast } from "react-toastify";
 
@@ -36,6 +36,8 @@ export async function handleContactSubmit({ request }: { request: Request }) {
     form.reset();
 
 }
+
+
 
 export async function handleNewsletterSubmit({request}:{request : Request}) {
 
@@ -87,3 +89,26 @@ export async function handleNewsletterSubmit({request}:{request : Request}) {
         className: "mt-24"
     });
 };
+
+
+export async function handleSignupSubmit({request}:{request : Request}) {
+    
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData.entries());
+
+    const result = UserSchema.safeParse(data);
+
+    console.log("result", result);
+
+    console.log("data", result.data);
+
+    if (!result.success) {        
+
+        const zodError = z.treeifyError(result.error);
+
+        return zodError.properties as ContactErrors;
+    };
+    
+    console.log("data was sent!");
+    
+}

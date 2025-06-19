@@ -93,36 +93,59 @@ const PASSWORD_REGEX = new RegExp(
     `^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{${MIN_PASSWORD_LENGTH},}$`
 );
 
-export const UserSchema = z.object({
-    name: z.string().min(1, "Name is required"),
-    address: z.string().min(1, "Adress is required"),
-    adress2: z.string().optional(),
-    zip: z
-        .number()
-        .min(4, "Please provide a valid zipcode")
-        .max(4, "Please provide a valid zipcode"),
-    city: z.string().min(1, "City is required"),
-    country: z.string().min(1).optional(),
-    phone: z.number().min(1).optional(),
-    email: z.email(),
-    password: z.string().regex(PASSWORD_REGEX, {
-        error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters long, and include at least one uppercase letter, one lowercase letter, and one number.`,
-    }),
-    password2: z.string().regex(PASSWORD_REGEX),
-    terms: z.boolean(),
-    marketing: z.boolean().optional()
-}).refine((values) => {
-    values.password === values.password2, {
+export const UserSchema = z
+    .object({
+        name: z.string().min(1, "Name is required"),
+        address: z.string().min(1, "Adress is required"),
+        address2: z.preprocess(
+            (val) => (val === "" ? undefined : val),
+            z.string().optional()
+        ),
+        zip: z
+            .string()
+            .regex(/^\d{4}$/, "Please provide a valid 4-digit numeric zipcode"),
+        city: z.string().min(1, "City is required"),
+        country: z.preprocess(
+            (val) => (val === "" ? undefined : val),
+            z.string().optional()
+        ),
+        phone: z.preprocess((val) => {
+            if (val === "" || val === undefined || val === null)
+                return undefined;
+            const num = Number(val);
+            return isNaN(num) ? undefined : num;
+        }, z.number().min(1).optional()),
+        email: z.email(),
+        password: z
+            .string()
+            .min(1, "Please provide a password")
+            .regex(PASSWORD_REGEX, {
+                error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters long, and include at least one uppercase letter, one lowercase letter, and one number.`,
+            }),
+        password2: z
+            .string()
+            .min(1, "Please provide a password")
+            .regex(PASSWORD_REGEX, {
+                error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters long, and include at least one uppercase letter, one lowercase letter, and one number.`,
+            }),
+        terms: z.coerce
+            .boolean()
+            .default(false)
+            .refine((value) => value === true, {
+                error: "You must accept the terms and conditions",
+            }),
+        marketing: z.coerce.boolean().default(false).optional(),
+    })
+    .refine((values) => values.password === values.password2, {
         message: "Passwords dont match",
-        path: ['password2']
-    }
-})
+        path: ["password2"],
+    });
 
 export type User = z.infer<typeof UserSchema>;
 
-export type SignupErrors = {
+export type UserErrors = {
     name?: FieldError;
-    adress?: FieldError;
+    address?: FieldError;
     zip?: FieldError;
     city?: FieldError;
     email?: FieldError;

@@ -2,16 +2,21 @@ import PageWrapper from "../components/PageWrapper"
 import WhiteBox from "../components/WhiteBox"
 import FormField from "../components/FormField"
 import StandardButton from "../components/StandardButton"
+import { Form, useActionData } from "react-router"
+import type { UserErrors } from "../schemas/schemas"
 
 export default function SignUp() {
+
+    const errors = useActionData<UserErrors>();
+
     return (
         <PageWrapper obj={{ heading: "Create an account" }}>
             <WhiteBox>
                 <h2 className="text-2xl font-semibold uppercase">Create new customer account</h2>
 
-                <form action="" method="post" id="signupForm" className="mt-9 flex flex-col gap-8">
-                    <FormField obj={{ label: "Full name", required: true }}>
-                        <input type="text" name="fullname" id="fullname" />
+                <Form method="POST" id="signupForm" className="mt-9 flex flex-col gap-8">
+                    <FormField obj={{ label: "Full name", required: true, errorMessage: errors && errors?.name?.errors[0]  }}>
+                        <input type="text" name="name" id="name" />
                     </FormField>
 
                     <FormField obj={{ label: "Address", required: true }}>
@@ -56,7 +61,7 @@ export default function SignUp() {
 
                     <div className="flex flex-col gap-4 *:flex *:gap-3 *:*:[&>span]:text-red-500 *:*:[&>span]:font-bold">
                         <div>
-                            <input type="checkbox" name="" id="" />
+                            <input type="checkbox" name="terms" id="terms" />
                             <label htmlFor="">
                                 By using this form you agree with the storage and handling of your data by this website. <span>*</span>
                             </label>
@@ -70,7 +75,7 @@ export default function SignUp() {
                     </div>
 
                     <StandardButton obj={{ text: "Create an account", form: "signupForm" }} />
-                </form>
+                </Form>
             </WhiteBox>
         </PageWrapper>
     )

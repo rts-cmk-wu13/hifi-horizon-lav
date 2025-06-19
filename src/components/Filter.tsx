@@ -11,7 +11,6 @@ type FilterProps = {
 };
 
 export default function Filter({ data, updateFilters }: FilterProps) {
-
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         const form = e.target.closest("form") as HTMLFormElement; // Get the closest form element
         const min =

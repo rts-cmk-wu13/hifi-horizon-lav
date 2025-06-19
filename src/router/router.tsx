@@ -1,4 +1,4 @@
-import { createBrowserRouter, type LoaderFunction } from "react-router";
+import { createBrowserRouter, type ActionFunction, type LoaderFunction } from "react-router";
 
 import Layout from "./Layout";
 
@@ -14,6 +14,7 @@ import Login from "../views/Login";
 import SignUp from "../views/SignUp";
 
 import { fetchProductById, fetchProducts, fetchFAQ, fetchAbout } from "../api/jsonserver";
+import { handleSubmit } from "../api/actions";
 
 
 
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
             {
                 path: "/contact",
                 element: <Contact />,
+                action: handleSubmit as ActionFunction,
             },
             {
                 path: "/about",

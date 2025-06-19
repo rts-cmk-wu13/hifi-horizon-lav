@@ -53,3 +53,26 @@ export const AboutListSchema = z.array(AboutSectionSchema);
 
 export type AboutType = z.infer<typeof AboutListSchema>;
 export type AboutSectionType = z.infer<typeof AboutSectionSchema>;
+
+
+/*--- Contact ---*/
+
+export const ContactSchema = z.object({
+    name: z.string().min(1, "Name is required"),
+    email: z.email(),
+    subject: z.string().min(1, "subject is required"),
+    message: z.string().min(1, "Message is required")
+})
+
+export type Contact = z.infer<typeof ContactSchema>
+
+type FieldError = {
+    errors: string[];
+};
+
+export type ContactErrors = {
+    name?: FieldError;
+    email?: FieldError;
+    subject?: FieldError;
+    message?: FieldError;
+};

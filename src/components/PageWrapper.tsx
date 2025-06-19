@@ -6,7 +6,7 @@ type PageWrapperProps = {
         heading: string
     }
     children: ReactNode | null;
-    className: string;
+    className?: string;
 }
 
 

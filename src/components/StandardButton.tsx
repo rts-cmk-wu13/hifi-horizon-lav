@@ -3,21 +3,20 @@ import { Link } from "react-router"
 
 type StandardButtonProps = {
     obj: {
-        text: string,
-        href?: string,
-        func?: () => void,
-        icon?: ReactNode,
-        width?: string,
-        form?: string
+        text?: string;
+        href?: string;
+        func?: () => void;
+        form?: string;
+        icon?: ReactNode;
     }
+    className?: string;
 }
 
 
-export default function StandardButton({ obj }: StandardButtonProps) {
-    let buttonStyling = `px-8 py-2 block flex-shrink-0 rounded-sm shadow-hifi-sm bg-hifi-accent text-hifi-gray-lightest text-sm text-center cursor-pointer ${obj.width ? obj.width : "w-fit"}`
+export default function StandardButton({ obj, className }: StandardButtonProps) {
 
     let buttonContent;
-    let buttonText = obj.text || "Read more" 
+    let buttonText = obj.text || "Read more";
 
     if (obj.icon) {
         buttonContent = <>{buttonText} {obj.icon}</>
@@ -25,18 +24,20 @@ export default function StandardButton({ obj }: StandardButtonProps) {
         buttonContent = <>{buttonText}</>
     }
 
+    const buttonStyle = `px-8 py-2 w-fit block flex-shrink-0 rounded-sm shadow-hifi-sm bg-hifi-accent text-hifi-gray-lightest text-sm text-center cursor-pointer ${className ?? ""}`
+
     return (
         <>
             {obj.href ? (
-                <Link to={obj.href} className={buttonStyling}>
+                <Link to={obj.href} className={buttonStyle}>
                     {buttonContent}
                 </Link>
             ) :
             (
-                <button onClick={obj.func} className={buttonStyling} form={obj.form ? obj.form : ""}>
+                <button onClick={obj.func} className={buttonStyle} {...(obj.form ? { form: obj.form } : {})}>
                     {buttonContent}
                 </button>
             )}
         </>
     )
-}
+} 

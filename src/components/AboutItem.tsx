@@ -9,10 +9,6 @@ export type AboutItemData = {
     body: string;
 };
 
-export type AboutItemProps = {
-    data: AboutItemData;
-};
-
 export const MarkdownStyle: Components = {
     p: ({ node, ...props }) => (
         <p className="text-xs text-gray-700 leading-relaxed" {...props} />
@@ -38,20 +34,24 @@ export const MarkdownStyle: Components = {
     li: ({ node, ...props }) => <li className="text-gray-700" {...props} />,
 };
 
-export default function AboutItem({ data }: AboutItemProps) {
-    return (
-        <section id={data.id} className="flex gap-12 *:w-full">
-            <div>
-                <img src={data.img} alt="" className="object-cover h-full"/>
-            </div>
-            <div className="flex flex-col gap-2">
-                <h3 className='text-xl font-semibold'>{data.title}</h3>
-                <p className='text-amber-400 font-semibold'>{data.subtitle}</p>
-                <ReactMarkdown components={MarkdownStyle}>
-                    {data.body}
-                </ReactMarkdown>
-            </div>
+export type AboutItemProps = {
+  data: AboutItemData;
+  className?: string;
+};
 
-        </section>
-    );
+export default function AboutItem({ data, className }: AboutItemProps) {
+  return (
+    <section id={data.id} className={`flex gap-12 *:w-full ${className ?? ""}`}>
+      <div>
+        <img src={data.img} alt="" className="object-cover h-full" />
+      </div>
+      <div className="flex flex-col gap-2">
+        <h3 className="text-xl font-semibold">{data.title}</h3>
+        <p className="text-amber-400 font-semibold">{data.subtitle}</p>
+        <ReactMarkdown components={MarkdownStyle}>
+          {data.body}
+        </ReactMarkdown>
+      </div>
+    </section>
+  );
 }

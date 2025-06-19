@@ -23,14 +23,27 @@ export default function Filter({ data, updateFilters }: FilterProps) {
         updateFilters("price", true, { min, max }); // Call updateFilters with the extracted values
     }
 
+    function handleStock(e: React.ChangeEvent<HTMLInputElement>) {
+        const checked = e.target.checked
+
+        updateFilters("stock", checked, "inStock")
+    }
+
     const filterConfig = {
         brand: Array.from(new Set(data.map((product) => product.brand))),
         color: Array.from(new Set(data.map((product) => product.color))),
         category: Array.from(
-            new Set(data.map((product) => 
-                product.category.replace("_", " ").replace("cd", "CD").replace("dvd", "DVD")))
+            new Set(
+                data.map((product) =>
+                    product.category
+                        .replace("_", " ")
+                        .replace("cd", "CD")
+                        .replace("dvd", "DVD")
+                )
+            )
         ),
         price: Array.from(new Set(data.map((product) => product.price))),
+        stock: Array.from(new Set(data.map((product) => product.stock))),
     };
 
     return (
@@ -53,6 +66,7 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                     </summary>
                     <div className="p-[10px]">
                         {filterType !== "price" &&
+                            filterType !== "stock" &&
                             options.map((option, index) => (
                                 <label
                                     key={index}
@@ -87,6 +101,16 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                                     onChange={handleChange}
                                 />
                             </form>
+                        )}
+                        {filterType == "stock" && (
+                            <label className="flex items-center gap-2 capitalize justify-between">
+                                Show only in stock
+                                <input
+                                    type="checkbox"
+                                    className="form-checkbox"
+                                    onChange={handleStock}
+                                />
+                            </label>
                         )}
                     </div>
                 </details>

@@ -60,6 +60,11 @@ export default function Products() {
                 return product.price >= minPrice && product.price <= maxPrice;
             }
 
+            if (key === "stock") {
+
+                return value.has("inStock") ? product.stock > 0 : true
+            }
+
             return (
                 value.size === 0 ||
                 value.has(product[key as keyof Product]?.toString() || "")

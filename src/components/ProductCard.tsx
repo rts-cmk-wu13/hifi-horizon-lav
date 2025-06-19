@@ -14,7 +14,7 @@ export default function ProductCard({ config, data }: ProductCardProps) {
     return (
         <div
             key={data.id}
-            className="w-full h-[400px] bg-hifi-white grid justify-items-center p-3 pt-10 rounded drop-shadow-md"
+            className="w-full max-w-2xs h-[400px] bg-hifi-white grid justify-items-center p-3 pt-10 rounded drop-shadow-md"
         >
             <div className="h-[9rem]">
                 <img src={data.img} alt="" className="h-full object-contain" />

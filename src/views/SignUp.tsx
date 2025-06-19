@@ -54,20 +54,22 @@ export default function SignUp() {
                         <input type="password" name="password2" id="password2" />
                     </FormField>
 
-                    <div className="*:*:[&>span]:text-red-500 *:*:[&>span]:font-bold">
-                        <div className="flex gap-3">
+                    <div className="flex flex-col gap-4 *:flex *:gap-3 *:*:[&>span]:text-red-500 *:*:[&>span]:font-bold">
+                        <div>
                             <input type="checkbox" name="" id="" />
                             <label htmlFor="">
                                 By using this form you agree with the storage and handling of your data by this website. <span>*</span>
                             </label>
                         </div>
-                        <div className="flex gap-3">
+                        <div>
                             <input type="checkbox" name="marketing" id="marketing" />
                             <label htmlFor="marketing">
                                 Accept marketing from HiFi Horizon (newsletter and discount offers by email). <span>*</span>
                             </label>
                         </div>
                     </div>
+
+                    <StandardButton obj={{ text: "Create an account", form: "signupForm" }} />
                 </form>
             </WhiteBox>
         </PageWrapper>

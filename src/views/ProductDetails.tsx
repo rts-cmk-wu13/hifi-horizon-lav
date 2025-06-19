@@ -4,6 +4,7 @@ import { FaChevronLeft, FaChevronRight, FaMinus, FaPlus } from "react-icons/fa";
 
 import PageWrapper from "../components/PageWrapper"
 import StandardButton from "../components/StandardButton";
+import CircleDot from "../components/CircleDot";
 
 
 export default function ProductDetails() {
@@ -12,9 +13,10 @@ export default function ProductDetails() {
 
     const productPrice = new Intl.NumberFormat("en-GB").format(product.price)
 
+
     return (
         <PageWrapper obj={{ heading: "Product" }}>
-            <div className="grid grid-cols-2 gap-12">
+            <div className="grid grid-cols-2 gap-12 items-center">
 
                 <div className="flex flex-col items-center">
                     <figure className="flex gap-12 justify-center items-center relative justify-self-center text-hifi-gray-medium text-6xl">
@@ -58,9 +60,15 @@ export default function ProductDetails() {
                             </figure>
                         </div>
 
-                        <p className="text-2xl font-semibold">
-                            £ {productPrice}.00
-                        </p>
+                        <div className="flex justify-between items-center">
+                            <p className="text-2xl font-semibold">
+                                £ {productPrice}.00
+                            </p>
+
+                            <p className="flex items-center gap-2 text-sm">
+                                In stock <CircleDot obj={{ color: "hifi-green" }} />
+                            </p>
+                        </div>
                     </div>
 
                     <div className="flex gap-12 justify-center">

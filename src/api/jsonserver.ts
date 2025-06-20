@@ -1,16 +1,20 @@
 import type { LoaderFunctionArgs } from "react-router";
 import { ProductListSchema, ProductSchema, type Product, type ProductList } from "../schemas/schemas";
-import { FAQSchema, type FAQType} from "../schemas/schemas";
+import { FAQSchema, type FAQType } from "../schemas/schemas";
 import { AboutListSchema, type AboutType } from "../schemas/schemas";
+import { handleImgPaths, liveOrLocalBaseURL } from "../utils/helpers";
 
 import queryClient from "./queryClient";
+
+const API_BASE_URL = liveOrLocalBaseURL();
+
 
 /*--- Fetch all products ---*/
 export const fetchProducts = async (): Promise<ProductList> => {
     return queryClient.fetchQuery({
         queryKey: ["products"],
         queryFn: async () => {
-            const response = await fetch("http://localhost:4000/products");
+            const response = await fetch(`${API_BASE_URL}/products`);
 
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -22,7 +26,9 @@ export const fetchProducts = async (): Promise<ProductList> => {
                 throw new Error("Invalid data format" + result.error.message);
             }
 
-            return result.data;
+            let data = result.data
+            data = handleImgPaths(data)
+            return data
         },
     })
 }
@@ -35,7 +41,7 @@ export const fetchProductById = async ({ params }: LoaderFunctionArgs): Promise<
         queryKey: ["products", id],
         queryFn: async () => {
 
-            const response = await fetch(`http://localhost:4000/products/${id}`);
+            const response = await fetch(`${API_BASE_URL}/products/${id}`);
 
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -59,7 +65,7 @@ export const fetchFAQ = async (): Promise<FAQType> => {
     return queryClient.fetchQuery({
         queryKey: ["faq"],
         queryFn: async () => {
-            const response = await fetch("http://localhost:4000/faq");
+            const response = await fetch(`${API_BASE_URL}/faq`);
 
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -83,7 +89,7 @@ export const fetchAbout = async (): Promise<AboutType> => {
     return queryClient.fetchQuery({
         queryKey: ["about"],
         queryFn: async () => {
-            const response = await fetch("http://localhost:4000/about");
+            const response = await fetch(`${API_BASE_URL}/about`);
 
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -95,8 +101,9 @@ export const fetchAbout = async (): Promise<AboutType> => {
                 throw new Error("Invalid data format" + result.error.message);
             }
 
-            console.log(result.data);
-            return result.data;
+            let data = result.data
+            data = handleImgPaths(data)
+            return data
         },
     })
 }

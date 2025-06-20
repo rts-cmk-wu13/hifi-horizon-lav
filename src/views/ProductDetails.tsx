@@ -59,6 +59,24 @@ export default function ProductDetails() {
                 </div>
 
             </div>
+
+            <hr className="my-24 border-0 h-0.5 bg-hifi-gray-light" />
+
+            <div>
+                <h2 className="mb-12 text-2xl font-semibold uppercase">Product Specifications</h2>
+                <ul className="text-sm capitalize *:odd:bg-hifi-gray-light">
+                    {Object.entries(product).map(([key, value]) => (
+                        <li key={key} className="flex *:py-3">
+                            <p className="px-8 w-56 font-bold text-right">
+                                {key}
+                            </p>
+                            <p className="px-8 flex-1 border-l-1 border-hifi-gray-medium">
+                                {String(value)}
+                            </p>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </PageWrapper>
     )
 

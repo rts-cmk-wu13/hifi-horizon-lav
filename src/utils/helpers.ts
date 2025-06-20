@@ -21,20 +21,22 @@ export function getBaseURL(url?: string): string {
 }
 
 export function isRunningLocal() {
-    //return getBaseURL().includes("localhost") ? true : false;
-    return false;
+    return getBaseURL().includes("localhost") ? true : false;
+
+    //Debugging to act as live
+    //return false;
 }
 
 export function liveOrLocalBaseURL() {
     let baseURL = ""
     if (isRunningLocal()) {
-        console.log("local")
+        //console.log("local")
         baseURL = "http://localhost:4000"
     } else {
-        console.log("live")
+        //console.log("live")
         baseURL = "https://hifi-horizon-api-lav.onrender.com"
     }
-    console.log(baseURL)
+    //console.log(baseURL)
     return baseURL
 }
 type HasImg = {
@@ -49,7 +51,7 @@ export function handleImgPaths<T extends HasImg>(data: T[]): T[] {
       img: item.img.replace("https://localhost:4000", liveOrLocalBaseURL()),
     }));
   }
-  console.log("Handle img paths", data)
+  //console.log("Handle img paths", data)
 
   return data;
 }

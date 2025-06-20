@@ -23,17 +23,17 @@ export function useAuth() {
 
 export const AuthProvider = ({ children }: React.PropsWithChildren) => {
     const [token, setToken] = useState<string | null>(
-        readFromSessionStorage("user")
+        readFromSessionStorage("token")
     );
 
     function login(newToken: string | null) {
         setToken(newToken);
-        saveToSessionStorage("user", newToken);
+        saveToSessionStorage("token", newToken);
     }
 
     function logout() {
         setToken(null);
-        removeFromSessionStorage("user");
+        removeFromSessionStorage("token");
     }
 
     return (

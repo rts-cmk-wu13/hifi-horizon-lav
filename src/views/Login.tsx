@@ -1,15 +1,17 @@
-import { Form, Link, useLocation, useNavigate } from "react-router"
+import { Form, Link, useActionData, useLocation, useNavigate } from "react-router"
 
 import PageWrapper from "../components/PageWrapper"
 import WhiteBox from "../components/WhiteBox"
 import FormField from "../components/FormField"
 import StandardButton from "../components/StandardButton"
-import { useState } from "react"
+import { useEffect } from "react"
 import { useAuth } from "../contexts/AuthContext"
+import type { UserLoginErrors } from "../schemas/schemas"
+import { readFromSessionStorage } from "../utils/localstorage"
 
 
 export default function Login() {
-    const [error, setError] = useState();
+    const errors = useActionData<UserLoginErrors>()
     const {login} = useAuth()
     const location = useLocation();
     const navigate = useNavigate()
@@ -17,36 +19,15 @@ export default function Login() {
 
     const from = location.state?.from?.pathname || "/"
 
-    async function handleLogin(event : React.FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-        console.log(event.currentTarget.password.value)
-
-        const formData = new FormData(event.currentTarget)
-        const data = Object.fromEntries(formData.entries())
-
-        console.log(data)
-        // validér her...
-
-        const response = await fetch("http://localhost:4000/login", {
-            method: "POST",
-            headers: { 
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-
-        const userdata = await response.json()
-
-        console.log(userdata)
-
-        if(!response.ok) {
-            setError(userdata.message || userdata.error || "Please provide login credentials")
-        } else {
-            login(userdata.accessToken)
+    useEffect(() => {
+        
+        const token = readFromSessionStorage<string>("token");
+        
+        if (token) {
+            login(token)
             navigate(from, { replace: true })
         }
-
-    }
+    })
 
     return (
         <PageWrapper obj={{ heading: "Login" }}>
@@ -55,13 +36,13 @@ export default function Login() {
                     <h2 className="pb-2 text-2xl font-semibold uppercase">Registered Customers</h2>
                     <p className="text-sm">If you have an account, sign in with your email address.</p>
 
-                    <Form onSubmit={handleLogin} id="loginForm" className="mt-12">
+                    <Form method="POST" id="loginForm" className="mt-12">
                         <div className="mb-12 flex flex-col gap-8">
-                            <FormField obj={{ label: "Email", required: true }}>
+                            <FormField obj={{ label: "Email", required: true, errorMessage: errors && errors?.email?.errors[0] }}>
                                 <input type="email" name="email" id="email" />
                             </FormField>
 
-                            <FormField obj={{ label: "Password", required: true }}>
+                            <FormField obj={{ label: "Password", required: true, errorMessage: errors && errors?.password?.errors[0] }}>
                                 <input type="password" name="password" id="password" />
                             </FormField>
 
@@ -70,7 +51,6 @@ export default function Login() {
                                 <label htmlFor="remember">Remember me</label>
                             </div>
                         </div>
-                        {error && (<div>{error}</div>)}
                         <StandardButton obj={{ text: "Sign in", form: "loginForm" }} />
                         <Link to="#" className="mt-4 inline-block text-sm hover:underline">Forgot your password?</Link>
                     </Form>

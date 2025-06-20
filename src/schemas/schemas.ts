@@ -127,7 +127,8 @@ export const UserSchema = z
             .min(1, "Please provide a password")
             .regex(PASSWORD_REGEX, {
                 error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters long, and include at least one uppercase letter, one lowercase letter, and one number.`,
-            }).optional(),
+            })
+            .optional(),
         terms: z.coerce
             .boolean()
             .default(false)
@@ -152,4 +153,21 @@ export type UserErrors = {
     password?: FieldError;
     cnf_password?: FieldError;
     terms: FieldError;
+};
+
+export const UserLoginSchema = z.object({
+    email: z.email(),
+    password: z
+        .string()
+        .min(1, "Please provide a password")
+        .regex(PASSWORD_REGEX, {
+            error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters long, and include at least one uppercase letter, one lowercase letter, and one number.`,
+        }),
+});
+
+export type UserLogin = z.infer<typeof UserLoginSchema>;
+
+export type UserLoginErrors = {
+    email?: FieldError;
+    password?: FieldError;
 };

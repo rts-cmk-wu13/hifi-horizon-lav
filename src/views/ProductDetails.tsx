@@ -8,6 +8,8 @@ import CircleDot from "../components/CircleDot";
 import StockStatus from "../components/StockStatus";
 import ItemCount from "../components/ItemCount";
 
+import { convertCasing } from "../utils/helpers";
+
 
 export default function ProductDetails() {
 
@@ -66,9 +68,9 @@ export default function ProductDetails() {
                 <h2 className="mb-12 text-2xl font-semibold uppercase">Product Specifications</h2>
                 <ul className="text-sm capitalize *:odd:bg-hifi-gray-light">
                     {Object.entries(product).map(([key, value]) => (
-                        <li key={key} className="flex *:py-3">
+                        <li key={key} className={`flex *:py-3 ${key == "img" ? "*:last:lowercase" : ""}`}>
                             <p className="px-8 w-56 font-bold text-right">
-                                {key}
+                                {convertCasing(String(key))}
                             </p>
                             <p className="px-8 flex-1 border-l-1 border-hifi-gray-medium">
                                 {String(value)}

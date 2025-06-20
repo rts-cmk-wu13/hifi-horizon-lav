@@ -12,3 +12,11 @@ export function scrollToHashElement() {
     });
   }
 }
+
+export function convertCasing(word: string) {
+  const match = word.match(/([a-z]+|[A-Z][^A-Z]*)/g);
+
+  if (match) {
+    return match.join(" ")
+  }
+}

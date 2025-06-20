@@ -3,6 +3,9 @@ import {
     NewsletterSchema,
     UserSchema,
     type ContactErrors,
+    type NewsletterErrors,
+    type UserErrors,
+    type UserLoginErrors,
 } from "../schemas/schemas";
 import { z } from "zod/v4";
 import { toast } from "react-toastify";
@@ -10,6 +13,7 @@ import {
     readFromSessionStorage,
     saveToSessionStorage,
 } from "../utils/localstorage";
+import Login from "../views/Login";
 
 export async function handleContactSubmit({ request }: { request: Request }) {
     const formData = await request.formData();
@@ -65,7 +69,7 @@ export async function handleNewsletterSubmit({
         });
         console.log(zodError);
 
-        return zodError.properties as ContactErrors;
+        return zodError.properties as NewsletterErrors;
     }
 
     const getExisting = await fetch(
@@ -73,8 +77,7 @@ export async function handleNewsletterSubmit({
     );
     const existing = await getExisting.json();
 
-
-    const accessToken = readFromSessionStorage("user")
+    const accessToken = readFromSessionStorage("token");
     const updateSubscribtion = await fetch(
         `http://localhost:4000/me?email=${result.data.email}`,
         {
@@ -84,8 +87,7 @@ export async function handleNewsletterSubmit({
             },
         }
     );
-    const user = await updateSubscribtion.json()
-
+    const user = await updateSubscribtion.json();
 
     if (existing.length === 0 || !user.marketing) {
         let response = await fetch("http://localhost:4000/newsletter_list", {
@@ -139,7 +141,7 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
         const zodError = z.treeifyError(result.error);
 
         // Show an error message using toast
-        return zodError.properties as ContactErrors;
+        return zodError.properties as UserErrors;
     }
 
     delete result.data.cnf_password;
@@ -207,7 +209,45 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
     });
 
     // Save the access token to session storage
-    saveToSessionStorage("user", responseData.accessToken);
+    saveToSessionStorage("token", responseData.accessToken);
 
     console.log("data was sent!");
+}
+
+export async function handleLoginSubmit({ request }: { request: Request }) {
+
+    console.log("handleLoginSubmit called");
+    
+
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData.entries());
+
+    const result = UserSchema.safeParse(data);
+
+    console.log("result", result);  
+    if (!result.success) {
+        const zodError = z.treeifyError(result.error);
+        return zodError.properties as UserLoginErrors;
+    }
+
+    let response = await fetch("http://localhost:4000/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(result.data),
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+        // If the response is not ok, throw an error
+        throw new Error(responseData.message || "Login failed");
+    }
+
+    saveToSessionStorage("token", responseData.accessToken);
+    toast.success("Login successful!", {
+        className: "mt-24",
+    });
+
 }

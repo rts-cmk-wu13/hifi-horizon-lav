@@ -1,6 +1,8 @@
 import { type Product } from "../schemas/schemas";
-import { FaCircle } from "react-icons/fa6";
+
 import StandardButton from "./StandardButton";
+import StockStatus from "./StockStatus";
+
 
 type ProductCardProps = {
     config?: {
@@ -9,6 +11,7 @@ type ProductCardProps = {
     };
     data: Product;
 };
+
 
 export default function ProductCard({ config, data }: ProductCardProps) {
     return (
@@ -34,23 +37,7 @@ export default function ProductCard({ config, data }: ProductCardProps) {
                 />
 
                 {config?.showStock && (
-                    <>
-                        {data.stock > 0 ? (
-                            <p className="gap-2 flex text-sm">
-                                In Stock
-                                <span className="text-green-600">
-                                    <FaCircle className="inline-block" />
-                                </span>
-                            </p>
-                        ) : (
-                            <p className="gap-1 flex text-sm">
-                                Out of Stock
-                                <span className="text-red-600">
-                                    <FaCircle className="inline-block" />
-                                </span>
-                            </p>
-                        )}
-                    </>
+                    <StockStatus obj={{ stock: data.stock }} />
                 )}
             </div>
         </div>

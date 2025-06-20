@@ -1,5 +1,5 @@
 export function scrollToHashElement() {
-    if (typeof window === "undefined") return;
+  if (typeof window === "undefined") return;
 
     const hash = window.location.hash;
     if (!hash) return;
@@ -13,6 +13,7 @@ export function scrollToHashElement() {
         window.scrollTo({ top: y, behavior: "smooth" });
     }
 }
+
 
 export function getBaseURL(url?: string): string {
     const locationObj = url ? new URL(url) : window.location;
@@ -55,3 +56,11 @@ export function handleImgPaths<T extends HasImg>(data: T[]): T[] {
 
   return data;
 }
+
+export function convertCasing(word: string) {
+  const match = word.match(/([a-z]+|[A-Z][^A-Z]*)/g);
+
+  if (match) {
+    return match.join(" ")
+}
+

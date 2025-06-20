@@ -8,6 +8,7 @@ type StandardButtonProps = {
         func?: () => void;
         form?: string;
         icon?: ReactNode;
+        type?: string;
     }
     className?: string;
 }

@@ -26,10 +26,10 @@ export default function ProductDetails() {
                         <FaChevronRight className="cursor-pointer" />
                     </figure>
 
-                    <div className="mt-12 flex gap-3 *:size-4 *:rounded-full *:cursor-pointer *:inset-shadow-[0_0_0_2px] *:inset-shadow-hifi-gray-medium [&>.active]:bg-hifi-gray-medium">
-                        <div className="active"></div>
-                        <div></div>
-                        <div></div>
+                    <div className=" mt-12 flex gap-3 *:size-4 *:rounded-full *:cursor-pointer [&>.active]:bg-hifi-gray-medium">
+                        <CircleDot obj={{ color: "grayMedium", fill: true }} />
+                        <CircleDot obj={{ color: "grayMedium" }} />
+                        <CircleDot obj={{ color: "grayMedium" }} />
                     </div>
                 </div>
 
@@ -43,31 +43,12 @@ export default function ProductDetails() {
                         <p>{product.longDescription}</p>
                     </div>
 
-                    <div className="flex flex-col gap-2">
-                        <div className="flex gap-6 active *:cursor-pointer *:data-[active=true]:*:first:outline-2 *:data-[active=true]:*:first:outline-offset-2">
-                            <figure data-active="true" className="flex flex-col items-center gap-1">
-                                <div className="bg-blue-500 size-7 rounded-full outline-blue-500"></div>
-                                <figcaption className="text-xs">Blue</figcaption>
-                            </figure>
+                    <div className="flex justify-between items-center">
+                        <p className="text-2xl font-semibold">
+                            £ {productPrice}.00
+                        </p>
 
-                            <figure className="flex flex-col items-center gap-1">
-                                <div className="bg-red-500 size-7 rounded-full outline-red-500"></div>
-                                <figcaption className="text-xs">Red</figcaption>
-                            </figure>
-
-                            <figure className="flex flex-col items-center gap-1">
-                                <div className="bg-yellow-500 size-7 rounded-full outline-yellow-500"></div>
-                                <figcaption className="text-xs">Yellow</figcaption>
-                            </figure>
-                        </div>
-
-                        <div className="flex justify-between items-center">
-                            <p className="text-2xl font-semibold">
-                                £ {productPrice}.00
-                            </p>
-
-                            <StockStatus obj={{ stock: product.stock }} />
-                        </div>
+                        <StockStatus obj={{ stock: product.stock }} />
                     </div>
 
                     <div className="flex gap-12 justify-center">

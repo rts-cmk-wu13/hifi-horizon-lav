@@ -1,11 +1,12 @@
 import { useLoaderData } from "react-router";
 
-import { FaChevronLeft, FaChevronRight, FaMinus, FaPlus } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import PageWrapper from "../components/PageWrapper"
 import StandardButton from "../components/StandardButton";
 import CircleDot from "../components/CircleDot";
 import StockStatus from "../components/StockStatus";
+import ItemCount from "../components/ItemCount";
 
 
 export default function ProductDetails() {
@@ -52,11 +53,7 @@ export default function ProductDetails() {
                     </div>
 
                     <div className="flex gap-12 justify-center">
-                        <div className="flex items-center gap-6">
-                            <FaMinus className="cursor-pointer" />
-                            <p className="text-sm font-semibold">1</p>
-                            <FaPlus className="cursor-pointer" />
-                        </div>
+                        <ItemCount />
                         <StandardButton obj={{ text: "Add to cart" }} className="flex-1" />
                     </div>
                 </div>

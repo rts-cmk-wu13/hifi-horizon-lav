@@ -1,4 +1,4 @@
-import { createBrowserRouter, type LoaderFunction } from "react-router";
+import { createBrowserRouter, type ActionFunction, type LoaderFunction } from "react-router";
 
 import Layout from "./Layout";
 
@@ -14,6 +14,7 @@ import Login from "../views/Login";
 import SignUp from "../views/SignUp";
 
 import { fetchProductById, fetchProducts, fetchFAQ, fetchAbout } from "../api/jsonserver";
+import { handleContactSubmit, handleNewsletterSubmit, handleSignupSubmit } from "../api/actions";
 
 
 
@@ -26,7 +27,8 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <Home />,
-                loader: fetchProducts as LoaderFunction, // Assuming Home also needs products data
+                loader: fetchProducts as LoaderFunction,
+                action: handleNewsletterSubmit as ActionFunction
             },
             {
                 path: "/products",
@@ -41,6 +43,7 @@ const router = createBrowserRouter([
             {
                 path: "/contact",
                 element: <Contact />,
+                action: handleContactSubmit as ActionFunction,
             },
             {
                 path: "/about",
@@ -59,6 +62,7 @@ const router = createBrowserRouter([
             {
                 path: "/signup",
                 element: <SignUp />,
+                action: handleSignupSubmit as ActionFunction
             },
             {
                 path: "*",

@@ -22,7 +22,6 @@ export const fetchProducts = async (): Promise<ProductList> => {
                 throw new Error("Invalid data format" + result.error.message);
             }
 
-            console.log(result.data);
             return result.data;
         },
     })

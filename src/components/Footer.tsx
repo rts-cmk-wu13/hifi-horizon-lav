@@ -11,8 +11,8 @@ export default function Footer() {
 
     return (
         <footer className="bg-hifi-black text-hifi-white">
-            <div className="px-16 pt-12 pb-8 grid grid-cols-2 gap-32">
-                <nav className="grid grid-cols-2 text-lg">
+            <div className="flex flex-col gap-8 p-8 md:flex-row md:px-16 md:gap-10 md:pt-12 md:pb-8 md:justify-between">
+                <nav className="flex flex-col gap-8 md:flex-row md:justify-between md:gap-10">
                     <ul className={linkListStyle}>
                         {MapListLinks(footerNavLinks)}
                     </ul>

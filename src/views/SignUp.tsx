@@ -1,20 +1,43 @@
-import PageWrapper from "../components/PageWrapper"
-import WhiteBox from "../components/WhiteBox"
-import FormField from "../components/FormField"
-import StandardButton from "../components/StandardButton"
+import PageWrapper from "../components/PageWrapper";
+import WhiteBox from "../components/WhiteBox";
+import FormField from "../components/FormField";
+import StandardButton from "../components/StandardButton";
+import { Form, useActionData } from "react-router";
+import type { UserErrors } from "../schemas/schemas";
 
 export default function SignUp() {
+    const errors = useActionData<UserErrors>();
+
     return (
         <PageWrapper obj={{ heading: "Create an account" }}>
             <WhiteBox>
-                <h2 className="text-2xl font-semibold uppercase">Create new customer account</h2>
+                <h2 className="text-2xl font-semibold uppercase">
+                    Create new customer account
+                </h2>
 
-                <form action="" method="post" id="signupForm" className="mt-9 flex flex-col gap-8">
-                    <FormField obj={{ label: "Full name", required: true }}>
-                        <input type="text" name="fullname" id="fullname" />
+                <Form
+                    method="POST"
+                    noValidate
+                    id="signupForm"
+                    className="mt-9 flex flex-col gap-8"
+                >
+                    <FormField
+                        obj={{
+                            label: "Full name",
+                            required: true,
+                            errorMessage: errors && errors?.name?.errors[0],
+                        }}
+                    >
+                        <input type="text" name="name" id="name" />
                     </FormField>
 
-                    <FormField obj={{ label: "Address", required: true }}>
+                    <FormField
+                        obj={{
+                            label: "Address",
+                            required: true,
+                            errorMessage: errors && errors?.address?.errors[0],
+                        }}
+                    >
                         <input type="text" name="address" id="address" />
                     </FormField>
 
@@ -23,11 +46,23 @@ export default function SignUp() {
                     </FormField>
 
                     <div className="grid grid-cols-2 gap-6">
-                        <FormField obj={{ label: "Zip code", required: true }}>
+                        <FormField
+                            obj={{
+                                label: "Zip code",
+                                required: true,
+                                errorMessage: errors && errors?.zip?.errors[0],
+                            }}
+                        >
                             <input type="number" name="zip" id="zip" />
                         </FormField>
 
-                        <FormField obj={{ label: "City", required: true }}>
+                        <FormField
+                            obj={{
+                                label: "City",
+                                required: true,
+                                errorMessage: errors && errors?.city?.errors[0],
+                            }}
+                        >
                             <input type="text" name="city" id="city" />
                         </FormField>
                     </div>
@@ -42,36 +77,76 @@ export default function SignUp() {
                         </FormField>
                     </div>
 
-                    <FormField obj={{ label: "Email", required: true }}>
+                    <FormField
+                        obj={{
+                            label: "Email",
+                            required: true,
+                            errorMessage: errors && errors?.email?.errors[0],
+                        }}
+                    >
                         <input type="email" name="email" id="email" />
                     </FormField>
 
-                    <FormField obj={{ label: "Password", required: true }}>
+                    <FormField
+                        obj={{
+                            label: "Password",
+                            required: true,
+                            errorMessage: errors && errors?.password?.errors[0],
+                        }}
+                    >
                         <input type="password" name="password" id="password" />
                     </FormField>
 
-                    <FormField obj={{ label: "Repeat password", required: true }}>
-                        <input type="password" name="password2" id="password2" />
+                    <FormField
+                        obj={{
+                            label: "Repeat password",
+                            required: true,
+                            errorMessage:errors && errors?.cnf_password?.errors[0],
+                        }}
+                    >
+                        <input
+                            type="password"
+                            name="cnf_password"
+                            id="cnf_password"
+                        />
                     </FormField>
 
                     <div className="flex flex-col gap-4 *:flex *:gap-3 *:*:[&>span]:text-red-500 *:*:[&>span]:font-bold">
                         <div>
-                            <input type="checkbox" name="" id="" />
+                            <input type="checkbox" name="terms" id="terms" />
                             <label htmlFor="">
-                                By using this form you agree with the storage and handling of your data by this website. <span>*</span>
+                                By using this form you agree with the storage
+                                and handling of your data by this website.{" "}
+                                <span>*</span>
                             </label>
+                            {errors?.terms && (
+                                <p className="text-red-600">
+                                    {errors?.terms?.errors[0]}
+                                </p>
+                            )}
                         </div>
                         <div>
-                            <input type="checkbox" name="marketing" id="marketing" />
+                            <input
+                                type="checkbox"
+                                name="marketing"
+                                id="marketing"
+                            />
                             <label htmlFor="marketing">
-                                Accept marketing from HiFi Horizon (newsletter and discount offers by email). <span>*</span>
+                                Accept marketing from HiFi Horizon (newsletter
+                                and discount offers by email). <span>*</span>
                             </label>
                         </div>
                     </div>
 
-                    <StandardButton obj={{ text: "Create an account", form: "signupForm" }} />
-                </form>
+                    <StandardButton
+                        obj={{
+                            text: "Create an account",
+                            form: "signupForm",
+                            type: "submit",
+                        }}
+                    />
+                </Form>
             </WhiteBox>
         </PageWrapper>
-    )
+    );
 }

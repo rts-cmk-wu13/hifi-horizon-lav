@@ -25,7 +25,7 @@ export function isRunningLocal() {
     return getBaseURL().includes("localhost") ? true : false;
 
     //Debugging to act as live
-    //return false;
+    // return false;
 }
 
 export function liveOrLocalBaseURL() {
@@ -63,4 +63,4 @@ export function convertCasing(word: string) {
   if (match) {
     return match.join(" ")
 }
-
+}

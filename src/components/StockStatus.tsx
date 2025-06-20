@@ -3,7 +3,7 @@ import CircleDot from "./CircleDot";
 
 type StockStatusProps = {
     obj?: {
-        stock?: string;
+        stock?: string | number;
     }
 }
 

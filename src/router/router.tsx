@@ -12,6 +12,7 @@ import ProductDetails from "../views/ProductDetails";
 
 import Login from "../views/Login";
 import SignUp from "../views/SignUp";
+import Profile from "../views/Profile";
 
 import { fetchProductById, fetchProducts, fetchFAQ, fetchAbout } from "../api/jsonserver";
 import { handleContactSubmit, handleLoginSubmit, handleNewsletterSubmit, handleSignupSubmit } from "../api/actions";
@@ -63,6 +64,11 @@ const router = createBrowserRouter([
             {
                 path: "/signup",
                 element: <SignUp />,
+                action: handleSignupSubmit as ActionFunction
+            },
+            {
+                path: "/profile",
+                element: <Profile />,
                 action: handleSignupSubmit as ActionFunction
             },
             {

@@ -1,6 +1,7 @@
 import {
     ContactSchema,
     NewsletterSchema,
+    UserLoginSchema,
     UserSchema,
     type ContactErrors,
     type NewsletterErrors,
@@ -14,6 +15,7 @@ import {
     saveToSessionStorage,
 } from "../utils/localstorage";
 import Login from "../views/Login";
+import { redirect } from "react-router";
 
 export async function handleContactSubmit({ request }: { request: Request }) {
     const formData = await request.formData();
@@ -215,16 +217,14 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
 }
 
 export async function handleLoginSubmit({ request }: { request: Request }) {
-
     console.log("handleLoginSubmit called");
-    
 
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
-    const result = UserSchema.safeParse(data);
+    const result = UserLoginSchema.safeParse(data);
 
-    console.log("result", result);  
+    console.log("result", result);
     if (!result.success) {
         const zodError = z.treeifyError(result.error);
         return zodError.properties as UserLoginErrors;
@@ -240,14 +240,19 @@ export async function handleLoginSubmit({ request }: { request: Request }) {
 
     const responseData = await response.json();
 
+    console.log("responseData", responseData);
+
     if (!response.ok) {
         // If the response is not ok, throw an error
         throw new Error(responseData.message || "Login failed");
     }
 
     saveToSessionStorage("token", responseData.accessToken);
+
     toast.success("Login successful!", {
         className: "mt-24",
     });
 
+    const redirectTo = data.redirectTo as string || "/";
+    return redirect(redirectTo);
 }

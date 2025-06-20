@@ -88,7 +88,7 @@ export type NewsletterErrors = {
 
 /*--- User ---*/
 
-const MIN_PASSWORD_LENGTH = 3;
+const MIN_PASSWORD_LENGTH = 4;
 const PASSWORD_REGEX = new RegExp(
     `^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{${MIN_PASSWORD_LENGTH},}$`
 );
@@ -122,12 +122,12 @@ export const UserSchema = z
             .regex(PASSWORD_REGEX, {
                 error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters long, and include at least one uppercase letter, one lowercase letter, and one number.`,
             }),
-        password2: z
+        cnf_password: z
             .string()
             .min(1, "Please provide a password")
             .regex(PASSWORD_REGEX, {
                 error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters long, and include at least one uppercase letter, one lowercase letter, and one number.`,
-            }),
+            }).optional(),
         terms: z.coerce
             .boolean()
             .default(false)
@@ -136,9 +136,9 @@ export const UserSchema = z
             }),
         marketing: z.coerce.boolean().default(false).optional(),
     })
-    .refine((values) => values.password === values.password2, {
+    .refine((values) => values.password === values.cnf_password, {
         message: "Passwords dont match",
-        path: ["password2"],
+        path: ["cnf_password"],
     });
 
 export type User = z.infer<typeof UserSchema>;
@@ -150,6 +150,6 @@ export type UserErrors = {
     city?: FieldError;
     email?: FieldError;
     password?: FieldError;
-    password2?: FieldError;
+    cnf_password?: FieldError;
     terms: FieldError;
 };

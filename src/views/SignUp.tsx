@@ -77,21 +77,37 @@ export default function SignUp() {
                         </FormField>
                     </div>
 
-                    <FormField obj={{ label: "Email", required: true, errorMessage: errors && errors?.email?.errors[0] }}>
+                    <FormField
+                        obj={{
+                            label: "Email",
+                            required: true,
+                            errorMessage: errors && errors?.email?.errors[0],
+                        }}
+                    >
                         <input type="email" name="email" id="email" />
                     </FormField>
 
-                    <FormField obj={{ label: "Password", required: true, errorMessage: errors && errors?.password?.errors[0] }}>
+                    <FormField
+                        obj={{
+                            label: "Password",
+                            required: true,
+                            errorMessage: errors && errors?.password?.errors[0],
+                        }}
+                    >
                         <input type="password" name="password" id="password" />
                     </FormField>
 
                     <FormField
-                        obj={{ label: "Repeat password", required: true, errorMessage: errors && errors?.password2?.errors[0] }}
+                        obj={{
+                            label: "Repeat password",
+                            required: true,
+                            errorMessage:errors && errors?.cnf_password?.errors[0],
+                        }}
                     >
                         <input
                             type="password"
-                            name="password2"
-                            id="password2"
+                            name="cnf_password"
+                            id="cnf_password"
                         />
                     </FormField>
 
@@ -104,7 +120,9 @@ export default function SignUp() {
                                 <span>*</span>
                             </label>
                             {errors?.terms && (
-                                <p className="text-red-600">{errors?.terms?.errors[0]}</p>
+                                <p className="text-red-600">
+                                    {errors?.terms?.errors[0]}
+                                </p>
                             )}
                         </div>
                         <div>

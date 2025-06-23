@@ -155,15 +155,10 @@ export type UserErrors = {
     terms: FieldError;
 };
 
-export const UserLoginSchema = z.object({
-    email: z.email(),
-    password: z
-        .string()
-        .min(1, "Please provide a password")
-        .regex(PASSWORD_REGEX, {
-            error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters long, and include at least one uppercase letter, one lowercase letter, and one number.`,
-        }),
-});
+export const UserLoginSchema = UserSchema.pick({
+    email: true,
+    password: true,
+})
 
 export type UserLogin = z.infer<typeof UserLoginSchema>;
 

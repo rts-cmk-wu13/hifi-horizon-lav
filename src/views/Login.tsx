@@ -1,43 +1,16 @@
-import {
-    Form,
-    Link,
-    useActionData,
-    useLocation,
-    useNavigate,
-    useNavigation,
-} from "react-router";
+import { Form, Link, useActionData } from "react-router";
 
 import PageWrapper from "../components/PageWrapper";
 import WhiteBox from "../components/WhiteBox";
 import FormField from "../components/FormField";
 import StandardButton from "../components/StandardButton";
-import { useEffect } from "react";
-import { useAuth } from "../contexts/AuthContext";
 import type { UserLoginErrors } from "../schemas/schemas";
-import { readFromSessionStorage } from "../utils/localstorage";
+import { useRedirectAfterAuth } from "../utils/helpers";
 
 export default function Login() {
     const errors = useActionData<UserLoginErrors>();
-    const { login } = useAuth();
-    const location = useLocation();
-    const navigate = useNavigate();
-    const navigation = useNavigation();
 
-    console.log("location: ", location);
-    const from =
-        (location.state as { from?: { pathname: string } })?.from?.pathname ||
-        "/";
-
-    console.log(from);
-
-    useEffect(() => {
-        const token = readFromSessionStorage<string>("token");
-
-        if (navigation.state === "idle" && token) {
-            login(token); // this updates your AuthContext
-            navigate(from, { replace: true }); // this redirects after context is updated
-        }
-    }, [navigation.state, login, navigate, from]);
+    useRedirectAfterAuth();
 
     return (
         <PageWrapper obj={{ heading: "Login" }}>
@@ -77,11 +50,6 @@ export default function Login() {
                                     id="password"
                                 />
                             </FormField>
-                            <input
-                                type="hidden"
-                                name="redirectTo"
-                                value={from}
-                            />
 
                             <div className="flex gap-3 text-sm">
                                 <input

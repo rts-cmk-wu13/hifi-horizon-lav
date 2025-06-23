@@ -4,7 +4,7 @@ import { FaUser, FaShoppingCart, FaSearch } from "react-icons/fa";
 
 import { headerNavLinks, headerDropdownLinks } from "../data/HeaderArrays";
 
-import MapListLinks from "./mapListLinks";
+import ListLinks from "./ListLinks";
 
 export default function Header() {
     return (
@@ -27,7 +27,7 @@ export default function Header() {
                                 <ul id="dropdown" className="hidden w-96 p-9 group-hover:flex flex-col gap-5 fixed top-24 bg-hifi-white text-xl text-hifi-gray-dark">
                                     <li className="text-2xl font-semibold text-hifi-black">Browse Categories</li>
 
-                                    {MapListLinks(headerDropdownLinks)}
+                                    {ListLinks(headerDropdownLinks)}
                                 </ul>
                             )}
                         </li>

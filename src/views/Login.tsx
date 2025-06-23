@@ -1,11 +1,14 @@
 import { Form, Link, useActionData } from "react-router";
+import type { UserLoginErrors } from "../schemas/schemas";
 
 import PageWrapper from "../components/PageWrapper";
 import WhiteBox from "../components/WhiteBox";
 import FormField from "../components/FormField";
 import StandardButton from "../components/StandardButton";
-import type { UserLoginErrors } from "../schemas/schemas";
+import CtaBanner from "../components/CtaBanner";
+
 import { useRedirectAfterAuth } from "../utils/helpers";
+
 
 export default function Login() {
     const errors = useActionData<UserLoginErrors>();
@@ -73,19 +76,9 @@ export default function Login() {
                     </Form>
                 </WhiteBox>
 
-                <WhiteBox className="flex flex-col items-center">
-                    <h2 className="pb-2 text-2xl font-semibold uppercase">
-                        New Customer
-                    </h2>
-                    <p className="mb-6 text-sm">
-                        Creating an account has many benefits: check out faster,
-                        track orders and more.
-                    </p>
-
-                    <StandardButton
-                        obj={{ text: "Create an account", href: "/signup" }}
-                    />
-                </WhiteBox>
+                <CtaBanner obj={{ heading: "New customer", text: "Creating an account has many benefits: check out faster, track orders and more." }}>
+                    <StandardButton obj={{ text: "Create an account", href: "/signup" }}/>
+                </CtaBanner>
             </div>
         </PageWrapper>
     );

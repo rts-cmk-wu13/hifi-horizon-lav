@@ -16,7 +16,7 @@ type CtaBannerProps = {
 export default function CtaBanner({ obj, children, className }: CtaBannerProps) {
     return (
         <WhiteBox className={`flex flex-col items-center ${className ?? ""}`}>
-            <h2 className="text-2xl font-semibold">{obj.heading}</h2>
+            <h2 className="text-2xl font-semibold uppercase">{obj.heading}</h2>
             <p className="mb-6 text-sm">{obj.text}</p>
 
             {children}

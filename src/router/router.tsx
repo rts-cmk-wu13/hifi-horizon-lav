@@ -46,11 +46,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/products",
-                element: (
-                    <RequireAuth>
-                        <Products />
-                    </RequireAuth>
-                ),
+                element: <Products />,
                 loader: fetchProducts as LoaderFunction,
             },
             {
@@ -85,8 +81,12 @@ const router = createBrowserRouter([
             },
             {
                 path: "/profile",
-                element: <Profile />,
-                action: handleSignupSubmit as ActionFunction
+                element: (
+                    <RequireAuth>
+                        <Profile />
+                    </RequireAuth>
+                ),
+                action: handleSignupSubmit as ActionFunction,
             },
             {
                 path: "*",

@@ -14,8 +14,6 @@ import {
     readFromSessionStorage,
     saveToSessionStorage,
 } from "../utils/localstorage";
-import Login from "../views/Login";
-import { redirect } from "react-router";
 
 export async function handleContactSubmit({ request }: { request: Request }) {
     const formData = await request.formData();

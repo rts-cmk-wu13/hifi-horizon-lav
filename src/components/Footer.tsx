@@ -1,6 +1,6 @@
 import { FaPhoneAlt, FaCcStripe, FaCcVisa, FaCcMastercard } from "react-icons/fa";
 
-import MapListLinks from "./MapListLinks";
+import MapListLinks from "./mapListLinks";
 import { footerNavLinks, footerFaqLinks, footerSoMeLinks } from "../data/FooterArrays";
 
 

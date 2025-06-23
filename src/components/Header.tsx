@@ -4,7 +4,7 @@ import { FaUser, FaShoppingCart, FaSearch } from "react-icons/fa";
 
 import { headerNavLinks, headerDropdownLinks } from "../data/HeaderArrays";
 
-import MapListLinks from "./MapListLinks";
+import MapListLinks from "./mapListLinks";
 
 export default function Header() {
     return (

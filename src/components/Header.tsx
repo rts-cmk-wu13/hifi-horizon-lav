@@ -42,7 +42,9 @@ export default function Header() {
                     </search>
 
                     <div className="flex items-center gap-6 text-2xl">
-                        <FaUser />
+                        <NavLink to="/profile">
+                            <FaUser />
+                        </NavLink>
                         <FaShoppingCart />
                     </div>
                 </div>

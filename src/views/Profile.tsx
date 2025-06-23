@@ -1,7 +1,9 @@
-import { FaUser, FaPhoneAlt, FaEnvelope, FaPen } from "react-icons/fa";
+import { useState } from "react";
+import { FaUser, FaPhoneAlt, FaEnvelope, FaInfoCircle } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 
 import WhiteBox from "../components/WhiteBox"
+import StandardButton from "../components/StandardButton";
 
 
 type userDummyType = {
@@ -52,37 +54,69 @@ const userInfoSections = [
         "id": "address",
         "title": "Address",
         "icon": <FaLocationDot />
+    },
+    {
+        "id": "marketing",
+        "title": "Marketing",
+        "icon": <FaInfoCircle />,
+        "body": "Accept marketing from HiFi Horizon (newsletter and discount offers by email).",
+        "hidden": true
     }
 ]
 
 
 export default function Profile() {
 
+    const [editFields, setEditFields] = useState(false);
+
+    const handleEditFields = () => {
+        setEditFields(!editFields)
+    }
+
+
     return (
         <div className="p-hifi-default">
             <WhiteBox>
-                <h2 className="mb-8 text-2xl font-semibold uppercase">Your Profile Information</h2>
+                <div className="flex justify-between items-start">
+                    <h2 className="mb-8 text-2xl font-semibold uppercase">Your Profile Information</h2>
 
-                <ul>
-                    {userInfoSections.map((info, i) => (
-                        <li key={i} className="py-12 flex justify-between border-hifi-gray-light border-b-2 last:border-b-0">
-                            <div className="flex gap-8">
-                                <span className="text-4xl mt-1">
-                                    {info.icon}
-                                </span>
+                    <div className="flex gap-4">
+                        <StandardButton obj={{ text: editFields ? "Undo changes" : "Edit user information", func: handleEditFields}} className={editFields ? "bg-hifi-gray-light text-hifi-black!" : ""} />
+                    </div>
+                </div>
 
-                                <div>
-                                    <h3 className="font-bold">{info.title}</h3>
-                                    <p>{userDummy[info.id as keyof typeof userDummy]}</p>
-                                </div>
-                            </div>
+                <form action="" id="profileForm" className="flex flex-col">
+                    <ul>
+                        {userInfoSections.map((info, i) => (
+                                <li key={i} className="py-12 flex justify-between border-hifi-gray-light border-b-2 last:border-b-0">
+                                    <div className="flex items-center gap-8 w-full">
+                                        <span className="text-4xl mt-1">
+                                            {info.icon}
+                                        </span>
 
-                            <button className="p-3.5 rounded border-2 border-hifi-gray-medium shadow-hifi-sm text-hifi-gray-dark text-lg cursor-pointer">
-                                <FaPen />
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                                        <div className="w-full *:last:h-9">
+                                            <h3 className="font-bold">{info.title}</h3>
+
+                                            {(editFields && info.id !== "marketing") ? (
+                                                <input type="text" name={info.id} id={info.id} defaultValue={info.body ? info.body : String(userDummy[info.id as keyof typeof userDummy])} className="px-3 w-full rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0" />
+                                            ) : (editFields && info.id === "marketing") ? (
+                                                <select name="marketing" id="marketing" className="px-3 w-full rounded-sm bg-hifi-gray-light shadow-hifi-sm">
+                                                    <option value="true">Accept marketing from HiFi Horizon (newsletter and discount offers by email).</option>
+                                                    <option value="false">Don't accept marketing from HiFi Horizon (newsletter and discount offers by email).</option>
+                                                </select>
+                                            ) : (
+                                                <p>
+                                                    {info.body ? info.body : userDummy[info.id as keyof typeof userDummy]}
+                                                </p>
+                                            )}
+                                        </div>
+                                    </div>
+                                </li>
+                            ))}
+                    </ul>
+
+                    {editFields && <StandardButton obj={{ text: "Save changes", func: handleEditFields}} className="self-end" />}
+                </form>
             </WhiteBox>
         </div>
     )

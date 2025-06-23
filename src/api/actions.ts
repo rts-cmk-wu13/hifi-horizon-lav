@@ -158,7 +158,9 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
     });
 
     if (!response.ok) {
-        throw new Error("Could not save data");
+        toast.error("A user with that email already exists. Please try again.");
+
+        return;
     }
 
     // Parse the response data
@@ -213,7 +215,15 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
     // Save the access token to session storage
     saveToSessionStorage("token", responseData.accessToken);
 
+    // Redirect the user to the home page or a specified page
+
+    // const redirectTo = readFromSessionStorage<string>("redirectTo") || "/";
+
     console.log("data was sent!");
+
+    //    return redirect(redirectTo);
+
+    return null;
 }
 
 export async function handleLoginSubmit({ request }: { request: Request }) {
@@ -244,6 +254,7 @@ export async function handleLoginSubmit({ request }: { request: Request }) {
 
     if (!response.ok) {
         // If the response is not ok, throw an error
+
         throw new Error(responseData.message || "Login failed");
     }
 
@@ -253,6 +264,9 @@ export async function handleLoginSubmit({ request }: { request: Request }) {
         className: "mt-24",
     });
 
-    const redirectTo = data.redirectTo as string || "/";
-    return redirect(redirectTo);
+    // const redirectTo = readFromSessionStorage<string>("redirectTo") || "/";
+
+    // return redirect(redirectTo);
+
+    return null; // Return null to indicate no errors, and let the router handle the redirect
 }

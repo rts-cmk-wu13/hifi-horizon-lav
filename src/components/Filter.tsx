@@ -21,26 +21,29 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                 ?.value || "";
 
         updateFilters("price", true, { min, max }); // Call updateFilters with the extracted values
-    };
+    }
 
     function handleStock(e: React.ChangeEvent<HTMLInputElement>) {
         const checked = e.target.checked;
 
         updateFilters("stock", checked, "inStock");
-    };
+    }
 
     const filterConfig = {
         brand: Array.from(new Set(data.map((product) => product.brand))),
         color: Array.from(new Set(data.map((product) => product.color))),
         category: Array.from(
-            new Set(
-                data.map((product) =>
-                    product.category
+            new Map(
+                data.map((product) => {
+                    const original = product.category;
+                    const display = original
                         .replace("_", " ")
                         .replace("cd", "CD")
-                        .replace("dvd", "DVD")
-                )
-            )
+                        .replace("dvd", "DVD");
+        
+                    return [original, { original, display }];
+                })
+            ).values()
         ),
         price: Array.from(new Set(data.map((product) => product.price))),
         stock: Array.from(new Set(data.map((product) => product.stock))),
@@ -72,14 +75,19 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                                     key={index}
                                     className="flex items-center gap-2 capitalize justify-between"
                                 >
-                                    {option}
+                                    {typeof option === "object" &&
+                                    "display" in option
+                                        ? option.display // Render the display property if option is an object
+                                        : option.toString()}
                                     <input
                                         type="checkbox"
                                         onChange={(e) =>
                                             updateFilters(
                                                 filterType,
                                                 e.target.checked,
-                                                option.toString()
+                                                typeof option === "object" && "original" in option
+                                                ? option.original // Use the original value if option is an object
+                                                : option.toString()
                                             )
                                         }
                                         className="form-checkbox"
@@ -117,4 +125,4 @@ export default function Filter({ data, updateFilters }: FilterProps) {
             ))}
         </div>
     );
-};
+}

@@ -4,10 +4,13 @@ import FormField from "../components/FormField";
 import StandardButton from "../components/StandardButton";
 import { Form, useActionData } from "react-router";
 import type { UserErrors } from "../schemas/schemas";
+import { useRedirectAfterAuth } from "../utils/helpers";
 
 export default function SignUp() {
     const errors = useActionData<UserErrors>();
 
+    useRedirectAfterAuth();
+    
     return (
         <PageWrapper obj={{ heading: "Create an account" }}>
             <WhiteBox>

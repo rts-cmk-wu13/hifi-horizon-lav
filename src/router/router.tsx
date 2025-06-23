@@ -45,7 +45,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/products",
-                element: <Products />,
+                element: (
+                    <RequireAuth>
+                        <Products />
+                    </RequireAuth>
+                ),
                 loader: fetchProducts as LoaderFunction,
             },
             {

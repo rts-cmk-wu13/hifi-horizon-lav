@@ -1,25 +1,13 @@
-import StandardButton from "../components/StandardButton"
-import CtaBanner from "../components/CtaBanner"
 import { Form, useLoaderData } from "react-router"
 import type { Product } from "../schemas/schemas"
+
+import StandardButton from "../components/StandardButton"
+import CtaBanner from "../components/CtaBanner"
 import ProductCard from "../components/ProductCard"
 
 export default function Home() {
 
     const data = useLoaderData()
-
-    const CtaBannerContent = {
-        heading: "SIGN UP FOR OUR NEWSLETTER",
-        text: "Subscribing to our newsletter secures you up to date information about HiFi Horizons latest updates and offers.",
-        input: (
-            <Form method="POST" noValidate id="newsletter" className="flex items-center gap-6">
-                <input type="email" name="email" id="email" className="px-3 h-9 w-96 rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0" />
-
-                <StandardButton obj={{text: "Sign up", form: "newsletter"}}/>
-            </Form>
-        )
-    }
-
 
     return (
         <>
@@ -69,7 +57,13 @@ export default function Home() {
             </section>
 
             <section className="p-hifi-default bg-hifi-gray-lightest">
-                <CtaBanner obj={CtaBannerContent} />
+                <CtaBanner obj={{ heading: "Sign up for our newsletter", text: "Subscribing to our newsletter secures you up to date information about HiFi Horizons latest updates and offers." }}>
+                    <Form method="POST" noValidate id="newsletter" className="flex items-center gap-6">
+                        <input type="email" name="email" id="email" className="px-3 h-9 w-96 rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0" />
+
+                        <StandardButton obj={{text: "Sign up", form: "newsletter"}}/>
+                    </Form>
+                </CtaBanner>
             </section>
         </>
     )

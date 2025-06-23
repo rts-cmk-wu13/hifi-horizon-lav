@@ -1,4 +1,8 @@
-import { createBrowserRouter, type ActionFunction, type LoaderFunction } from "react-router";
+import {
+    createBrowserRouter,
+    type ActionFunction,
+    type LoaderFunction,
+} from "react-router";
 
 import Layout from "./Layout";
 
@@ -13,10 +17,19 @@ import ProductDetails from "../views/ProductDetails";
 import Login from "../views/Login";
 import SignUp from "../views/SignUp";
 
-import { fetchProductById, fetchProducts, fetchFAQ, fetchAbout } from "../api/jsonserver";
-import { handleContactSubmit, handleLoginSubmit, handleNewsletterSubmit, handleSignupSubmit } from "../api/actions";
-
-
+import {
+    fetchProductById,
+    fetchProducts,
+    fetchFAQ,
+    fetchAbout,
+} from "../api/jsonserver";
+import {
+    handleContactSubmit,
+    handleLoginSubmit,
+    handleNewsletterSubmit,
+    handleSignupSubmit,
+} from "../api/actions";
+import RequireAuth from "../components/RequireAuth";
 
 const router = createBrowserRouter([
     {
@@ -28,7 +41,7 @@ const router = createBrowserRouter([
                 index: true,
                 element: <Home />,
                 loader: fetchProducts as LoaderFunction,
-                action: handleNewsletterSubmit as ActionFunction
+                action: handleNewsletterSubmit as ActionFunction,
             },
             {
                 path: "/products",
@@ -58,12 +71,12 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login />,
-                action: handleLoginSubmit as ActionFunction
+                action: handleLoginSubmit as ActionFunction,
             },
             {
                 path: "/signup",
                 element: <SignUp />,
-                action: handleSignupSubmit as ActionFunction
+                action: handleSignupSubmit as ActionFunction,
             },
             {
                 path: "*",

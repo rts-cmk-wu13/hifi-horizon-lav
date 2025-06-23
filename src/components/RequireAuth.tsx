@@ -15,5 +15,5 @@ export default function RequireAuth({ children } : React.PropsWithChildren) {
         return <Navigate to="/login" state={{ from: location }} replace/>
     }
 
-    return children
+    return <>{children}</>
 }

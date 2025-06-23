@@ -160,7 +160,7 @@ export const UserLoginSchema = UserSchema.pick({
     password: true,
 })
 
-export type UserLogin = z.infer<typeof UserLoginSchema>;
+export type UserLoginType = z.infer<typeof UserLoginSchema>;
 
 export type UserLoginErrors = {
     email?: FieldError;

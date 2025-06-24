@@ -80,6 +80,10 @@ export function convertCasing(word: string) {
     }
 }
 
+export function removeParentheses(title: string) {
+  return title.replace(/\s*\([^)]*\)/g, "").trim();
+}
+
 import { useEffect } from "react";
 import { useNavigate, useNavigation, useLocation } from "react-router";
 import { useAuth } from "../contexts/AuthContext";

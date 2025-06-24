@@ -54,14 +54,14 @@ export default function Filter({ data, updateFilters }: FilterProps) {
     };
 
     return (
-        <div className="w-full min-w-[260px]">
+        <div className="w-[220px]">
             {Object.entries(filterConfig).map(([filterType, options]) => (
                 <details
                     key={filterType}
-                    className="mb-2.5 bg-hifi-gray-light rounded-lg group"
+                    className="mb-2.5 bg-hifi-gray-light rounded-lg group border-[0.25px] border-hifi-black/1"
                 >
-                    <summary className="px-3 py-2 flex items-center justify-between relative z-10 list-none capitalize bg-hifi-gray-light shadow-[0px_2px_10px_0px_rgba(0,_0,_0,_0.05)] rounded-lg hifi-hover-dark">
-                        <p>{filterType}</p>
+                    <summary className="px-3 py-2 flex items-center justify-between relative z-10 list-none capitalize bg-hifi-gray-light shadow-[0px_8px_16px_0px_rgba(0,_0,_0,_0.075)] rounded-lg hifi-hover-dark">
+                        <p className="font-semibold">{filterType}</p>
                         <span className="group-open:hidden">
                             <FaChevronDown />
                         </span>
@@ -69,13 +69,13 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                             <FaChevronUp />
                         </span>
                     </summary>
-                    <div className="text-sm">
+                    <div className="text-sm pb-2">
                         {filterType !== "price" &&
                             filterType !== "stock" &&
                             options.map((option, index) => (
                                 <label
                                     key={index}
-                                    className="px-3 py-2 flex items-center justify-between gap-2 rounded-lg bg-hifi-gray-light capitalize hifi-hover-dark"
+                                    className="px-3 py-1.5 flex items-center justify-between gap-2 rounded-lg bg-hifi-gray-light capitalize hifi-hover-dark"
                                 >
                                     {typeof option === "object" &&
                                         "display" in option

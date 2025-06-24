@@ -36,27 +36,28 @@ export default function Footer() {
                     <ul className="pb-5 flex flex-col gap-5 text-sm font-bold *:flex *:flex-col *:gap-4">
                         <li>
                             <p>2 Joppa Rd, Edinburgh, EH15 2EU</p>
-                            <a href="tel:01315567901" className="w-fit flex items-center gap-5"><FaPhoneAlt className="text-xl" />0131 556 7901</a>
+                            <a href="tel:01315567901" className="w-fit flex items-center gap-5 hifi-hover-75"><FaPhoneAlt className="size-5" />0131 556 7901</a>
                         </li>
                         <li>
                             <p>44 Cow Wynd, Falkirk, Central Region, FK1 1PU</p>
-                            <a href="tel:01324629011" className="w-fit flex items-center gap-5"><FaPhoneAlt className="text-xl" />01324 629 011</a>
+                            <a href="tel:01324629011" className="w-fit flex items-center gap-5 hifi-hover-75"><FaPhoneAlt className="size-5" />01324 629 011</a>
                         </li>
                     </ul>
 
-                    <ul className="flex gap-3 text-2xl">
+                    <ul className="flex gap-3 *:*:*:size-7">
                         {ListLinks(footerSoMeLinks)}
                     </ul>
                 </address>
             </div>
 
-            <div className="mx-5 px-12 py-3 border-t">
-                <div className="flex gap-3 text-6xl">
+            <div className="flex flex-col gap-2 mx-5 px-12 py-3 border-t">
+                <div className="flex gap-3 *:h-12 *:w-auto">
                     <FaCcStripe />
                     <FaCcVisa />
                     <FaCcMastercard />
                 </div>
-                <small className="text-[0.5rem] font-bold">HiFi Horizon (Edinburgh) Ltd is registered in Scotland. No: SC049298. Registered office: 2 Joppa Rd, Edinburgh EH15 2EU</small>
+                <small className="text-xs font-bold">HiFi Horizon (Edinburgh) Ltd is registered in Scotland. No: SC049298. Registered office: 2 Joppa Rd, Edinburgh EH15 2EU</small>
+                <small className="text-xs font-bold">This website was made for a school project at Roskilde Tekniske Skole</small>
             </div>
         </footer>
     )

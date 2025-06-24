@@ -1,6 +1,6 @@
 import { FaPhoneAlt, FaCcStripe, FaCcVisa, FaCcMastercard } from "react-icons/fa";
 
-import MapListLinks from "./mapListLinks";
+import ListLinks from "./ListLinks";
 import { footerNavLinks, footerFaqLinks, footerSoMeLinks } from "../data/FooterArrays";
 
 
@@ -14,18 +14,18 @@ export default function Footer() {
             <div className="flex flex-col gap-8 p-8 md:flex-row md:px-16 md:gap-10 md:pt-12 md:pb-8 md:justify-between">
                 <nav className="flex flex-col gap-8 md:flex-row md:justify-between md:gap-10">
                     <ul className={linkListStyle}>
-                        {MapListLinks(footerNavLinks)}
+                        {ListLinks(footerNavLinks)}
                     </ul>
 
                     <div>
                         <ul className={linkListStyle}>
-                            {MapListLinks(footerFaqLinks.faq)}
+                            {ListLinks(footerFaqLinks.faq)}
                         </ul>
 
                         <hr className="my-3" />
 
                         <ul className={linkListStyle}>
-                            {MapListLinks(footerFaqLinks.external)}
+                            {ListLinks(footerFaqLinks.external)}
                         </ul>
                     </div>
                 </nav>
@@ -45,7 +45,7 @@ export default function Footer() {
                     </ul>
 
                     <ul className="flex gap-3 text-2xl">
-                        {MapListLinks(footerSoMeLinks)}
+                        {ListLinks(footerSoMeLinks)}
                     </ul>
                 </address>
             </div>

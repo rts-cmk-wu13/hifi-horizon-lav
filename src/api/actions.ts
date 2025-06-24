@@ -1,5 +1,6 @@
 import {
     ContactSchema,
+    CurrentUserSchema,
     NewsletterSchema,
     UserLoginSchema,
     UserSchema,
@@ -15,6 +16,7 @@ import {
     saveToSessionStorage,
 } from "../utils/localstorage";
 import { fetchCurrentUser } from "./jsonserver";
+import { checkUserSession } from "../utils/helpers";
 
 export async function handleContactSubmit({ request }: { request: Request }) {
     const formData = await request.formData();
@@ -288,4 +290,39 @@ export async function handleLoginSubmit({ request }: { request: Request }) {
     // return redirect(redirectTo);
 
     return null; // Return null to indicate no errors, and let the router handle the redirect
+}
+
+export async function handleUpdateSubmit({request}:{request : Request}) {
+    
+    console.log("handleUpdateSubmit called");
+    const formData = await request.formData();
+    
+    const data = Object.fromEntries(formData.entries());
+
+    const result = CurrentUserSchema.safeParse(data);
+
+    const accessToken = readFromSessionStorage("token");
+
+    const user = await fetchCurrentUser({
+        token: accessToken,
+    });
+
+    console.log("user", user);
+    
+    if (checkUserSession()) {
+        let userResponse = await fetch(
+            `http://localhost:4000/users/${user.id}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify(result.data),
+            }
+        );
+
+        console.log("userResponse", userResponse);
+        
+    }
 }

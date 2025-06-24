@@ -1,12 +1,12 @@
-import { use, useEffect, useState } from "react";
-import { Form, redirect, useLoaderData, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { Form, useLoaderData, useNavigation } from "react-router";
 import { FaUser, FaPhoneAlt, FaEnvelope, FaInfoCircle } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 
 import WhiteBox from "../components/WhiteBox";
 import StandardButton from "../components/StandardButton";
 import type { CurrentUser } from "../schemas/schemas";
-import { checkUserSession } from "../utils/helpers";
+import { removeFromSessionStorage } from "../utils/localstorage";
 
 type userDummyType = {
     id: number;
@@ -66,9 +66,19 @@ const userInfoSections = [
 ];
 
 export default function Profile() {
-    
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        removeFromSessionStorage("redirectTo");
+    }, []);
+
+    useEffect(() => {
+        if (navigation.state === "idle") {
+            setEditFields(false);
+        }
+    }, [navigation.state]);
+
     const data = useLoaderData<CurrentUser>();
-    console.log("user data: ", data);
 
     const [editFields, setEditFields] = useState(false);
 
@@ -102,7 +112,7 @@ export default function Profile() {
                 </div>
 
                 <Form
-                    method="POST"
+                    method="post"
                     noValidate
                     id="profileForm"
                     className="flex flex-col"
@@ -176,7 +186,6 @@ export default function Profile() {
                         <StandardButton
                             obj={{
                                 text: "Save changes",
-                                func: handleEditFields,
                                 form: "profileForm",
                                 type: "submit",
                             }}

@@ -88,12 +88,16 @@ export function useRedirectAfterAuth() {
         readFromSessionStorage<string>("redirectTo") ||
         "/";
 
+        console.log(from);
+        
+
     useEffect(() => {
         const token = readFromSessionStorage<string>("token");
 
         if (navigation.state === "idle" && token) {
             login(token);
             navigate(from, { replace: true });
+
         }
     }, [navigation.state, login, navigate, from]);
 }

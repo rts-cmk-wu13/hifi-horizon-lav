@@ -30,6 +30,7 @@ import {
     handleLoginSubmit,
     handleNewsletterSubmit,
     handleSignupSubmit,
+    handleUpdateSubmit,
 } from "../api/actions";
 import RequireAuth from "../components/RequireAuth";
 
@@ -88,7 +89,7 @@ const router = createBrowserRouter([
                     </RequireAuth>
                 ),
                 loader: profileLoader as LoaderFunction,
-                action: handleSignupSubmit as ActionFunction,
+                action: handleUpdateSubmit as ActionFunction,
             },
             {
                 path: "*",

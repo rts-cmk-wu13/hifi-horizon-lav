@@ -9,11 +9,14 @@ export default function RequireAuth({ children } : React.PropsWithChildren) {
     const { token } = useAuth()
     const navigate = useNavigate()
 
-    saveToSessionStorage("redirectTo", window.location.pathname);
+    
 
     useEffect(() => {
         if (!checkUserSession()) {
             
+            if (window.location.pathname !== "/login") {
+                saveToSessionStorage("redirectTo", window.location.pathname);
+            }
             navigate("/login", { replace: true });
             return;
         }
@@ -21,8 +24,7 @@ export default function RequireAuth({ children } : React.PropsWithChildren) {
     
     if(!token) {
         // no token - redirect to login
-        
-        navigate("/login", { replace: true });
+        return null
     }
 
     return <>{children}</>

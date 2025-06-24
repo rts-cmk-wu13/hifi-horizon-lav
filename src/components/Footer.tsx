@@ -11,7 +11,7 @@ export default function Footer() {
 
     return (
         <footer className="bg-hifi-black text-hifi-white">
-            <nav className="flex flex-col gap-12 px-8 py-6 md:flex-row md:justify-between">
+            <nav className="flex flex-col gap-12 px-8 py-6 md:flex-row md:justify-between hifi-max-w">
                 <ul className={linkListStyle}>
                     {ListLinks(footerNavLinks)}
                 </ul>

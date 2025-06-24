@@ -12,7 +12,7 @@ type PageWrapperProps = {
 
 export default function PageWrapper({ obj, children, className }: PageWrapperProps) {
 
-    const wrapperStyle = `p-hifi-default pb-16 pt-32 ${className ?? ""} hifi-max-w`
+    const wrapperStyle = `w-full p-hifi-default pb-16 pt-32 ${className ?? ""}`
 
     return (
         <div className={wrapperStyle}>

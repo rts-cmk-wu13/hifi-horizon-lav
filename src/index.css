@@ -76,4 +76,5 @@
 
 body {
     font-family: var(--font-open-sans);
+    overflow-x: hidden;
 }

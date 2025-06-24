@@ -44,7 +44,7 @@ export type FAQSectionType = z.infer<typeof FAQSectionSchema>;
 
 /*--- About ---*/
 export const AboutSectionSchema = z.object({
-    img: z.string().min(1),
+    images: z.array(z.string().url()),
     id: z.string().min(1),
     title: z.string().min(1),
     subtitle: z.string().min(1),

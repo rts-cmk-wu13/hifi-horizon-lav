@@ -53,23 +53,22 @@ export function liveOrLocalBaseURL() {
     //console.log(baseURL)
     return baseURL;
 }
-type HasImg = {
-    img: string;
+
+type HasImages = {
+    images: string[];
     [key: string]: any;
 };
 
-export function handleImgPaths<T extends HasImg>(data: T[]): T[] {
+export function handleImgPaths<T extends HasImages>(data: T[]): T[] {
     if (!isRunningLocal()) {
         data = data.map((item) => ({
             ...item,
-            img: item.img.replace(
-                "http://localhost:4000",
-                liveOrLocalBaseURL()
+            images: item.images.map((url) =>
+                url.replace("http://localhost:4000", liveOrLocalBaseURL())
             ),
         }));
     }
     //console.log("Handle img paths", data)
-
     return data;
 }
 

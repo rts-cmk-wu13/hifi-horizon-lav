@@ -1,18 +1,30 @@
-import { Navigate, useLocation } from "react-router"
+import { useNavigate } from "react-router"
 import { useAuth } from "../contexts/AuthContext"
+import { checkUserSession } from "../utils/helpers";
+import { useEffect } from "react";
+import { saveToSessionStorage } from "../utils/localstorage";
 
 export default function RequireAuth({ children } : React.PropsWithChildren) {
 
     const { token } = useAuth()
-    const location = useLocation()
-
-    console.log(location)
+    const navigate = useNavigate()
 
     
 
-    if(!token){
+    useEffect(() => {
+        if (!checkUserSession()) {
+            
+            if (window.location.pathname !== "/login") {
+                saveToSessionStorage("redirectTo", window.location.pathname);
+            }
+            navigate("/login", { replace: true });
+            return;
+        }
+    }, [navigate]);
+    
+    if(!token) {
         // no token - redirect to login
-        return <Navigate to="/login" state={{ from: location }} replace/>
+        return null
     }
 
     return <>{children}</>

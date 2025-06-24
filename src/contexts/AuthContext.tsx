@@ -14,11 +14,13 @@ type AuthContextType = {
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export function useAuth() {
+
     const context = useContext(AuthContext);
     if (!context) {
         throw new Error("useAuth must be used within an AuthProvider");
     }
     return context;
+
 }
 
 export const AuthProvider = ({ children }: React.PropsWithChildren) => {
@@ -29,11 +31,13 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
     function login(newToken: string | null) {
         setToken(newToken);
         saveToSessionStorage("token", newToken);
+        saveToSessionStorage("sessionStart", Date.now())
     }
 
     function logout() {
         setToken(null);
         removeFromSessionStorage("token");
+        removeFromSessionStorage("sessionStart");
     }
 
     return (

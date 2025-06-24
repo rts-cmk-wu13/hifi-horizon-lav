@@ -27,7 +27,7 @@ export default function CircleDot({ obj, children }: CircleDotProps) {
         obj?.color && obj.color in ColorVariants
             ? ColorVariants[obj.color as ColorKey]
             : ColorVariants["black" as ColorKey];
-    let size = obj?.size ? obj.size : "size-4"
+    let size = obj?.size ? obj.size : "size-4 min-w-4 min-h-4"
     let displayType = children ? "inline-flex justify-center items-center" : "inline-block"
     let fill = obj?.fill ?? "bg-transparent inset-shadow-[0_0_0_2px]"
 

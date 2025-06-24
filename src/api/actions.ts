@@ -18,6 +18,9 @@ import {
 } from "../utils/localstorage";
 import { fetchCurrentUser } from "./jsonserver";
 import { checkUserSession, json } from "../utils/helpers";
+import { liveOrLocalBaseURL } from "../utils/helpers";
+
+const API_BASE_URL = liveOrLocalBaseURL();
 
 
 export async function handleContactSubmit({ request }: { request: Request }) {
@@ -36,7 +39,7 @@ export async function handleContactSubmit({ request }: { request: Request }) {
         return zodError.properties as ContactErrors;
     }
 
-    let response = await fetch("http://localhost:4000/contact_inquiries", {
+    let response = await fetch(`${API_BASE_URL}/contact_inquiries`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -78,7 +81,7 @@ export async function handleNewsletterSubmit({
     }
 
     const getExisting = await fetch(
-        `http://localhost:4000/newsletter_list?email=${result.data.email}`
+        `${API_BASE_URL}/newsletter_list?email=${result.data.email}`
     );
     const existing = await getExisting.json();
 
@@ -94,6 +97,10 @@ export async function handleNewsletterSubmit({
 
     let checkUserToken = await fetch(
         `http://localhost:4000/users/${user.id}`,
+
+    const updateSubscribtion = await fetch(
+        `${API_BASE_URL}/me?email=${result.data.email}`,
+
         {
             method: "GET",
             headers: {
@@ -103,9 +110,24 @@ export async function handleNewsletterSubmit({
         }
     );
 
+    const user = await updateSubscribtion.json();
+
+    if (existing.length === 0 || !user.marketing) {
+        let response = await fetch(`${API_BASE_URL}/newsletter_list`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(result.data),
+        });
+
+        if (!response.ok) {
+            throw new Error("Could not save data");
+        }
+
     if (checkUserToken.ok) {
         let userResponse = await fetch(
-            `http://localhost:4000/users/${user.id}`,
+            `${API_BASE_URL}/users/${user.id}`,
             {
                 method: "PATCH",
                 headers: {
@@ -172,7 +194,7 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
     delete result.data.cnf_password;
 
     // Send the parsed data to the server
-    let response = await fetch("http://localhost:4000/register", {
+    let response = await fetch(`${API_BASE_URL}/register`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -194,7 +216,7 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
     if (responseData.user.marketing === true) {
         // If the user has opted in for marketing, check if they are already in the newsletter list
         const getExisting = await fetch(
-            `http://localhost:4000/newsletter_list?email=${responseData.user.email}`
+            `${API_BASE_URL}/newsletter_list?email=${responseData.user.email}`
         );
         const existing = await getExisting.json();
 
@@ -207,7 +229,7 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
             };
 
             let response = await fetch(
-                "http://localhost:4000/newsletter_list",
+                 `${API_BASE_URL}/newsletter_list`,
                 {
                     method: "POST",
                     headers: {
@@ -263,7 +285,7 @@ export async function handleLoginSubmit({ request }: { request: Request }) {
         return zodError.properties as UserLoginErrors;
     }
 
-    let response = await fetch("http://localhost:4000/login", {
+    let response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

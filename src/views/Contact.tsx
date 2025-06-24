@@ -66,16 +66,8 @@ export default function Contact() {
                 <StandardButton obj={{ text: "Submit", form: "contactForm" }} />
             </Form>
 
-            <h2 className="mt-9 text-2xl font-semibold text-center">
-                Visit our sister companies{" "}
-                <Link to="#" className="text-hifi-accent">
-                    Home Sound
-                </Link>{" "}
-                and{" "}
-                <Link to="#" className="text-hifi-accent">
-                    The Movie Rooms
-                </Link>{" "}
-                part of the HiFi Horizon Group.
+            <h2 className="mt-9 text-2xl font-semibold text-center *:text-hifi-accent *:hover:underline">
+                Visit our sister companies <Link to="#">Home Sound</Link> and <Link to="#">The Movie Rooms</Link> part of the HiFi Horizon Group.
             </h2>
         </PageWrapper>
     );

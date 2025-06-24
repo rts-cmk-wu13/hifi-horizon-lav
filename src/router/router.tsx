@@ -34,11 +34,16 @@ import {
 } from "../api/actions";
 import RequireAuth from "../components/RequireAuth";
 
+import ErrorPage from "../errors/ErrorPage";
+import ErrorElement from "../errors/ErrorElement";
+import Loading from "../errors/Loading";
+
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Layout />,
-        hydrateFallbackElement: <div>Loading...</div>,
+        hydrateFallbackElement: <Loading />,
+        errorElement: <ErrorElement />,
         children: [
             {
                 index: true,
@@ -93,7 +98,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "*",
-                element: <div>Error - Page not found</div>,
+                element: <ErrorPage />,
             },
         ],
     },

@@ -50,13 +50,14 @@ export default function Footer() {
                 </address>
             </div>
 
-            <div className="mx-5 px-12 py-3 border-t">
+            <div className="flex flex-col gap-2 mx-5 px-12 py-3 border-t">
                 <div className="flex gap-3 text-6xl">
                     <FaCcStripe />
                     <FaCcVisa />
                     <FaCcMastercard />
                 </div>
-                <small className="text-[0.5rem] font-bold">HiFi Horizon (Edinburgh) Ltd is registered in Scotland. No: SC049298. Registered office: 2 Joppa Rd, Edinburgh EH15 2EU</small>
+                <small className="text-xs font-bold">HiFi Horizon (Edinburgh) Ltd is registered in Scotland. No: SC049298. Registered office: 2 Joppa Rd, Edinburgh EH15 2EU</small>
+                <small className="text-xs font-bold">This website was made for a school project at Roskilde Tekniske Skole</small>
             </div>
         </footer>
     )

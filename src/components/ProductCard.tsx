@@ -23,7 +23,7 @@ export default function ProductCard({ config, data }: ProductCardProps) {
             className="w-full bg-hifi-white grid justify-items-center rounded drop-shadow-md"
         >
             <div className="relative h-full image-tint">
-                <img src={data.images[0]} alt="" className="h-full object-contain" loading="lazy"/>
+                <img src={data.images[0]} alt={`${data.brand} ${data.name}`} className="h-full object-contain" />
             </div>
             <div className="w-full flex flex-col gap-2 p-4 items-center h-38">
                 <h3 className="text-sm text-center">

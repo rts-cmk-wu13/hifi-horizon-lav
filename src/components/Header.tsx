@@ -7,6 +7,8 @@ import { headerNavLinks, headerDropdownLinks } from "../data/HeaderArrays";
 
 import ListLinks from "./ListLinks";
 
+import { hifiLogo } from "../utils/helpers";
+
 
 export default function Header() {
 
@@ -33,7 +35,7 @@ export default function Header() {
                 <ul className="flex items-center gap-6 text-sm *:h-full *:content-center" onMouseLeave={handleDropdownClose}>
                     <li className="w-16">
                         <NavLink to="/" className="hover:opacity-75">
-                            <img src="/src/assets/svg/logo-wo-text-border.svg" alt=""/>
+                            <img src={hifiLogo()} alt="Hifi Horizon logo"/>
                         </NavLink>
                     </li>
 

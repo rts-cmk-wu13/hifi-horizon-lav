@@ -5,13 +5,15 @@ import StandardButton from "../components/StandardButton"
 import CtaBanner from "../components/CtaBanner"
 import ProductCard from "../components/ProductCard"
 
+import { hifiHeroImg } from "../utils/helpers"
+
 export default function Home() {
 
     const data = useLoaderData()
 
     return (
         <>
-            <img src="/src/assets/img/home_hero-image.jpg" alt="" className='w-full' />
+            <img src={hifiHeroImg()} alt="Hifi Horizon logo" className='w-full' />
 
             <section className="px-hifi-default pt-5 pb-16 bg-hifi-gray-lightest">
                 <div className="flex justify-between">

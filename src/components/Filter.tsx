@@ -31,7 +31,11 @@ export default function Filter({ data, updateFilters }: FilterProps) {
 
     const filterConfig = {
         brand: Array.from(new Set(data.map((product) => product.brand))),
-        color: Array.from(new Set(data.map((product) => product.color))),
+        color: Array.from(
+            new Set(
+                data.flatMap((product) => product.colors)
+            )
+        ),
         category: Array.from(
             new Map(
                 data.map((product) => {
@@ -40,7 +44,7 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                         .replace("_", " ")
                         .replace("cd", "CD")
                         .replace("dvd", "DVD");
-        
+
                     return [original, { original, display }];
                 })
             ).values()
@@ -74,7 +78,7 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                                     className="px-3 py-2 flex items-center justify-between gap-2 rounded-lg bg-hifi-gray-light capitalize hifi-hover-dark"
                                 >
                                     {typeof option === "object" &&
-                                    "display" in option
+                                        "display" in option
                                         ? option.display // Render the display property if option is an object
                                         : option.toString()}
                                     <input
@@ -84,8 +88,8 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                                                 filterType,
                                                 e.target.checked,
                                                 typeof option === "object" && "original" in option
-                                                ? option.original // Use the original value if option is an object
-                                                : option.toString()
+                                                    ? option.original // Use the original value if option is an object
+                                                    : option.toString()
                                             )
                                         }
                                         className="form-checkbox cursor-pointer"

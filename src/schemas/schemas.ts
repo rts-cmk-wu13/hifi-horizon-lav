@@ -6,18 +6,18 @@ type FieldError = {
 
 /*--- Product ---*/
 export const ProductSchema = z.object({
-    id: z.number().int(),
-    img: z.url(),
+    id: z.string().min(1),
+    images: z.array(z.string().url()),
     name: z.string().min(1),
     brand: z.string().min(1),
     category: z.string().min(1),
-    color: z.string().min(1),
+    colors: z.array(z.string().min(1)),
     price: z.number().min(0),
     stock: z.number().int().min(0),
-    popularity: z.number().int().min(0).max(100),
+    rating: z.number().min(0).max(10),
     discount: z.number().int().min(0).max(100).optional(),
-    shortDescription: z.string().min(1),
-    longDescription: z.string().min(1),
+    description: z.string().min(1),
+    slug: z.string().min(1),
 });
 
 export const ProductListSchema = z.array(ProductSchema);
@@ -44,7 +44,7 @@ export type FAQSectionType = z.infer<typeof FAQSectionSchema>;
 
 /*--- About ---*/
 export const AboutSectionSchema = z.object({
-    img: z.string().min(1),
+    images: z.array(z.string().url()),
     id: z.string().min(1),
     title: z.string().min(1),
     subtitle: z.string().min(1),

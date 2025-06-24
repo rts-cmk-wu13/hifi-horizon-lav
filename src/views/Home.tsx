@@ -17,13 +17,13 @@ export default function Home() {
 
             <section className="px-hifi-default pt-5 pb-16 bg-hifi-gray-lightest">
                 <div className="flex justify-between">
-                    <h2 className='text-2xl font-bold uppercase text-hifi-gray-dark'>Popular Products</h2>
+                    <h2 className='text-2xl font-bold uppercase text-hifi-gray-dark'>High-rated Products</h2>
                     <StandardButton obj={{text: "See all products", href: "/products"}}/>
                 </div>
 
                 <div className="mt-6 grid grid-cols-1 gap-4 justify-items-center h-full auto-rows-[minmax(23rem,_auto)] sm:grid-cols-2 lg:grid-cols-4">
                    {data.
-                   sort((a: Product, b: Product) => a.popularity - b.popularity)
+                   sort((a: Product, b: Product) => b.rating - a.rating)
                    .slice(0, 4)
                    .map((product : Product) => (
                         <ProductCard key={product.id} data={product} config={{showStock:false, text: "Read more"}} />

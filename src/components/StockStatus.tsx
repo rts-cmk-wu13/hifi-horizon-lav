@@ -32,7 +32,7 @@ export default function StockStatus({ obj }: StockStatusProps) {
 
 
     return (
-        <p className="flex items-center gap-2 text-sm">
+        <p className="flex items-center gap-2 text-xs">
             {stockText} <CircleDot obj={ { color: stockColor, fill: true } } />
         </p>
     )

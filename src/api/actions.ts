@@ -1,11 +1,27 @@
 import {
-    ContactSchema, NewsletterSchema, UserLoginSchema, UserSchema, type ContactErrors, type NewsletterErrors, type UserErrors, type UserLoginErrors} from "../schemas/schemas";
+    ContactSchema,
+    CurrentUserSchema,
+    NewsletterSchema,
+    UserLoginSchema,
+    UserSchema,
+    type ContactErrors,
+    type CurrentUserErrors,
+    type NewsletterErrors,
+    type UserErrors,
+    type UserLoginErrors,
+} from "../schemas/schemas";
 import { z } from "zod/v4";
 import { toast } from "react-toastify";
-import { readFromSessionStorage, saveToSessionStorage, } from "../utils/localstorage";
+import {
+    readFromSessionStorage,
+    saveToSessionStorage,
+} from "../utils/localstorage";
+import { fetchCurrentUser } from "./jsonserver";
+import { checkUserSession, json } from "../utils/helpers";
 import { liveOrLocalBaseURL } from "../utils/helpers";
 
 const API_BASE_URL = liveOrLocalBaseURL();
+
 
 export async function handleContactSubmit({ request }: { request: Request }) {
     const formData = await request.formData();
@@ -70,30 +86,27 @@ export async function handleNewsletterSubmit({
     const existing = await getExisting.json();
 
     const accessToken = readFromSessionStorage("token");
-    const updateSubscribtion = await fetch(
-        `${API_BASE_URL}/me?email=${result.data.email}`,
+
+    const user = await fetchCurrentUser({
+        queryString: `email=${result.data.email}`,
+        token: accessToken,
+    });
+
+    console.log("user", user);
+    
+
+    let checkUserToken = await fetch(
+        `${API_BASE_URL}/users/${user.id}`,
         {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${accessToken}`,
             },
         }
     );
-    const user = await updateSubscribtion.json();
 
-    if (existing.length === 0 || !user.marketing) {
-        let response = await fetch(`${API_BASE_URL}/newsletter_list`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(result.data),
-        });
-
-        if (!response.ok) {
-            throw new Error("Could not save data");
-        }
-
+    if (checkUserToken.ok) {
         let userResponse = await fetch(
             `${API_BASE_URL}/users/${user.id}`,
             {
@@ -111,9 +124,24 @@ export async function handleNewsletterSubmit({
         }
     }
 
+    if (existing.length === 0) {
+        let response = await fetch(`${API_BASE_URL}/newsletter_list`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(result.data),
+        });
+
+        if (!response.ok) {
+            throw new Error("Could not save data");
+        }
+    }
+
     toast.success("Thank you for signing up to our newsletter!", {
         className: "mt-24",
     });
+
 }
 
 export async function handleSignupSubmit({ request }: { request: Request }) {
@@ -121,11 +149,20 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
+    if (!data.hasOwnProperty("marketing")) {
+        data.marketing = "false";
+    }
+    if (!data.hasOwnProperty("terms")) {
+        data.terms = "false"; // defensive, in case users bypass frontend
+    }
+
     const result = UserSchema.safeParse(data);
 
     console.log("result", result);
 
     console.log("data", result.data);
+
+
 
     // Check if the parsed data is valid
     if (!result.success) {
@@ -243,9 +280,10 @@ export async function handleLoginSubmit({ request }: { request: Request }) {
     console.log("responseData", responseData);
 
     if (!response.ok) {
+        
         // If the response is not ok, throw an error
-
         throw new Error(responseData.message || "Login failed");
+
     }
 
     saveToSessionStorage("token", responseData.accessToken);
@@ -259,4 +297,61 @@ export async function handleLoginSubmit({ request }: { request: Request }) {
     // return redirect(redirectTo);
 
     return null; // Return null to indicate no errors, and let the router handle the redirect
+}
+
+export async function handleUpdateSubmit({request}:{request : Request}) {
+    
+    console.log("handleUpdateSubmit called");
+    const formData = await request.formData();
+    
+    const data = Object.fromEntries(formData.entries());
+
+    const result = CurrentUserSchema.safeParse(data);
+
+    console.log("result", result);
+
+    if (!result.success) {
+        // If not, convert the error into a tree structure
+        const zodError = z.treeifyError(result.error);
+
+        return zodError.properties as CurrentUserErrors;
+    }
+    
+    const accessToken = readFromSessionStorage("token");
+
+    const user = await fetchCurrentUser({
+        token: accessToken,
+    });
+
+    console.log("user", user);
+    
+    if (checkUserSession()) {
+        let userResponse = await fetch(
+            `${API_BASE_URL}/users/${user.id}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify(result.data),
+            }
+        );
+
+        if (!userResponse.ok) {
+            throw new Error("Could not update user data");
+        }
+
+        toast.success("Profile updated successfully!");
+
+        console.log("userResponse", userResponse);
+        
+    }
+
+    
+
+
+    console.log("updated data", result.data);
+    
+    return json({success: true, user: result.data})
 }

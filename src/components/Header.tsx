@@ -30,8 +30,8 @@ export default function Header() {
     }
 
     return (
-        <header className="pt-24" data-header>
-            <nav className="h-24 px-9 flex justify-between items-center fixed z-999 inset-x-0 top-0 bg-hifi-black text-hifi-white *:h-full">
+        <header className="bg-hifi-black fixed z-999 inset-x-0 top-0" data-header>
+            <nav className="h-24 px-8 flex justify-between items-center text-hifi-white *:h-full hifi-max-w">
                 <ul className="flex items-center gap-6 text-sm *:h-full *:content-center" onMouseLeave={handleDropdownClose}>
                     <li className="w-16">
                         <NavLink to="/" className="hover:opacity-75">
@@ -73,11 +73,11 @@ export default function Header() {
                         <FaSearch className="absolute z-10 right-1.5 text-xl text-hifi-black cursor-pointer" />
                     </search>
 
-                    <div className="flex items-center gap-6 text-2xl">
-                        <NavLink to="/profile">
-                            <FaUser />
+                    <div className="flex items-center gap-6">
+                        <NavLink to="/profile" className="hifi-hover-75">
+                            <FaUser className="size-6" />
                         </NavLink>
-                        <FaShoppingCart />
+                        <FaShoppingCart className="hifi-hover-75 size-6" />
                     </div>
                 </div>
             </nav>

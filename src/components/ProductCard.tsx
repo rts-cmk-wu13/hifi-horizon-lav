@@ -3,6 +3,7 @@ import { type Product } from "../schemas/schemas";
 
 import StandardButton from "./StandardButton";
 import StockStatus from "./StockStatus";
+import { removeParentheses } from "../utils/helpers";
 
 
 type ProductCardProps = {
@@ -20,14 +21,14 @@ export default function ProductCard({ config, data }: ProductCardProps) {
     return (
         <div
             key={data.id}
-            className="w-full bg-hifi-white grid justify-items-center rounded drop-shadow-md"
+            className="w-full bg-hifi-white grid justify-items-center rounded drop-shadow-md border-[0.25px] border-hifi-black/10 overflow-hidden"
         >
             <div className="relative h-full image-tint">
-                <img src={data.images[0]} alt="" className="h-full object-contain" />
+                <img src={data.images[0]} alt={`${data.brand} ${data.name}`} className="h-full object-contain" />
             </div>
             <div className="w-full flex flex-col gap-2 p-4 items-center h-38">
                 <h3 className="text-sm text-center">
-                    {data.brand} {data.name}
+                    {data.brand} {removeParentheses(data.name)}
                 </h3>
                 <h2 className="font-semibold text-center">£ {data.price}.00</h2>
                 <div className={`mt-auto w-full flex gap-2 items-center ${config?.showStock ? "justify-between" : "justify-center"

@@ -35,6 +35,31 @@
     --spacing-hifi-default: 2.25rem;
 }
 
+
+@layer components {
+  .hifi-hover-75 {
+    cursor: pointer;
+    transition: opacity 100ms ease-out;
+    &:hover {
+      opacity: 75%;
+    }
+  }
+  .hifi-hover-50 {
+    cursor: pointer;
+    transition: opacity 100ms ease-out;
+    &:hover {
+      opacity: 50%;
+    }
+  }
+  .hifi-hover-dark {
+    cursor: pointer;
+    transition: filter 100ms ease-out;
+    &:hover {
+      filter: brightness(92%);
+    }
+  }
+}
+
 .image-tint::after {
   content: "";
   position: absolute;
@@ -44,6 +69,12 @@
   pointer-events: none;
 }
 
+.hifi-max-w{
+  max-width: 1320px;
+  margin-inline: auto;
+}
+
 body {
     font-family: var(--font-open-sans);
+    overflow-x: hidden;
 }

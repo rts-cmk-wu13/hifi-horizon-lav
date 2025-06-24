@@ -53,22 +53,22 @@ export const footerFaqLinks = {
 
 export const footerSoMeLinks = [
     {
-        content: <FaFacebookSquare />,
+        content: <FaFacebookSquare className="hifi-hover-75" />,
         href: "https://www.facebook.com",
         external: true,
     },
     {
-        content: <FaTwitterSquare />,
+        content: <FaTwitterSquare className="hifi-hover-75" />,
         href: "https://www.twitter.com",
         external: true,
     },
     {
-        content: <FaInstagramSquare />,
+        content: <FaInstagramSquare className="hifi-hover-75" />,
         href: "https://www.instagram.com",
         external: true,
     },
     {
-        content: <FaYoutubeSquare />,
+        content: <FaYoutubeSquare className="hifi-hover-75" />,
         href: "https://www.youtube.com",
         external: true,
     },

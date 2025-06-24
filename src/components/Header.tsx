@@ -1,37 +1,69 @@
+import { useState } from "react";
 import { NavLink } from "react-router"
 
 import { FaUser, FaShoppingCart, FaSearch } from "react-icons/fa";
 
 import { headerNavLinks, headerDropdownLinks } from "../data/HeaderArrays";
 
-import MapListLinks from "./mapListLinks";
+import ListLinks from "./ListLinks";
+
+import { hifiLogo } from "../utils/helpers";
+
 
 export default function Header() {
+
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const dropdownElm = document.querySelector("#dropdownMenu") as HTMLElement
+
+    const handleDropdownOpen = () => {
+        setDropdownOpen(true)
+        if (dropdownElm && "openPopover" in dropdownElm && typeof (dropdownElm as any).openPopover === "function") {
+            (dropdownElm as any).openPopover();
+        }
+    }
+
+    const handleDropdownClose = () => {
+        setDropdownOpen(false)
+        if (dropdownElm && "closePopover" in dropdownElm && typeof (dropdownElm as any).closePopover === "function") {
+            (dropdownElm as any).closePopover();
+        }
+    }
+
     return (
         <header className="pt-24" data-header>
             <nav className="h-24 px-9 flex justify-between items-center fixed z-999 inset-x-0 top-0 bg-hifi-black text-hifi-white *:h-full">
-                <ul className="flex items-center gap-6 text-sm *:h-full *:content-center">
+                <ul className="flex items-center gap-6 text-sm *:h-full *:content-center" onMouseLeave={handleDropdownClose}>
                     <li className="w-16">
                         <NavLink to="/" className="hover:opacity-75">
-                            <img src="/src/assets/svg/logo-wo-text-border.svg" alt=""/>
+                            <img src={hifiLogo()} alt="Hifi Horizon logo"/>
                         </NavLink>
                     </li>
 
-                    {headerNavLinks.map((link, i) => (
-                        <li className="relative group" key={i}>
-                            <NavLink to={link.href} className="uppercase relative transition-all [&.active]:[text-shadow:0_0_1px_currentColor] hover:[text-shadow:0_0_1px_currentColor] duration-300" key={i}>
-                                {link.content}
-                            </NavLink>
+                    {headerNavLinks.map((link, i) => {
+                        if (i === 0) {
+                            return (
+                                <li className="relative group" key={i} onMouseEnter={handleDropdownOpen} popoverTarget="dropdownMenu">
+                                    <NavLink to={link.href} className="uppercase relative transition-all [&.active]:[text-shadow:0_0_1px_currentColor] hover:[text-shadow:0_0_1px_currentColor] duration-300" key={i}>
+                                        {link.content}
+                                    </NavLink>
 
-                            {i == 0 && (
-                                <ul id="dropdown" className="hidden w-96 p-9 group-hover:flex flex-col gap-5 fixed top-24 bg-hifi-white text-xl text-hifi-gray-dark">
-                                    <li className="text-2xl font-semibold text-hifi-black">Browse Categories</li>
+                                    <ul id="dropdownMenu" className={`w-96 p-9 flex flex-col gap-5 absolute top-24 bg-hifi-white text-xl text-hifi-gray-dark ${dropdownOpen ? "flex" : "hidden"}`} popover="manual">
+                                        <li className="text-2xl font-semibold text-hifi-black">Browse Categories</li>
 
-                                    {MapListLinks(headerDropdownLinks)}
-                                </ul>
-                            )}
-                        </li>
-                    ))}
+                                        {ListLinks(headerDropdownLinks)}
+                                    </ul>
+                                </li>
+                            )
+                        } else {
+                            return (
+                                <li className="relative group" key={i}>
+                                    <NavLink to={link.href} className="uppercase relative transition-all [&.active]:[text-shadow:0_0_1px_currentColor] hover:[text-shadow:0_0_1px_currentColor] duration-300" key={i}>
+                                        {link.content}
+                                    </NavLink>
+                                </li>
+                            )
+                        }
+                    })}
                 </ul>
 
 
@@ -41,11 +73,11 @@ export default function Header() {
                         <FaSearch className="absolute z-10 right-1.5 text-xl text-hifi-black cursor-pointer" />
                     </search>
 
-                    <div className="flex items-center gap-6 text-2xl">
-                        <NavLink to="/profile">
-                            <FaUser />
+                    <div className="flex items-center gap-6">
+                        <NavLink to="/profile" className="hifi-hover-75">
+                            <FaUser className="size-6" />
                         </NavLink>
-                        <FaShoppingCart />
+                        <FaShoppingCart className="hifi-hover-75 size-6" />
                     </div>
                 </div>
             </nav>

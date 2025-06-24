@@ -96,11 +96,7 @@ export async function handleNewsletterSubmit({
     
 
     let checkUserToken = await fetch(
-        `http://localhost:4000/users/${user.id}`,
-
-    const updateSubscribtion = await fetch(
-        `${API_BASE_URL}/me?email=${result.data.email}`,
-
+        `${API_BASE_URL}/users/${user.id}`,
         {
             method: "GET",
             headers: {
@@ -109,21 +105,6 @@ export async function handleNewsletterSubmit({
             },
         }
     );
-
-    const user = await updateSubscribtion.json();
-
-    if (existing.length === 0 || !user.marketing) {
-        let response = await fetch(`${API_BASE_URL}/newsletter_list`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(result.data),
-        });
-
-        if (!response.ok) {
-            throw new Error("Could not save data");
-        }
 
     if (checkUserToken.ok) {
         let userResponse = await fetch(
@@ -144,7 +125,7 @@ export async function handleNewsletterSubmit({
     }
 
     if (existing.length === 0) {
-        let response = await fetch("http://localhost:4000/newsletter_list", {
+        let response = await fetch(`${API_BASE_URL}/newsletter_list`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -160,6 +141,7 @@ export async function handleNewsletterSubmit({
     toast.success("Thank you for signing up to our newsletter!", {
         className: "mt-24",
     });
+
 }
 
 export async function handleSignupSubmit({ request }: { request: Request }) {
@@ -345,7 +327,7 @@ export async function handleUpdateSubmit({request}:{request : Request}) {
     
     if (checkUserSession()) {
         let userResponse = await fetch(
-            `http://localhost:4000/users/${user.id}`,
+            `${API_BASE_URL}/users/${user.id}`,
             {
                 method: "PATCH",
                 headers: {

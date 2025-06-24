@@ -13,7 +13,7 @@ export default function Home() {
 
     return (
         <>
-            <img src={hifiHeroImg()} alt="Hifi Horizon logo" className='w-full' />
+            <img src={hifiHeroImg()} alt="Hifi Horizon Hero" className='w-full' />
 
             <section className="px-hifi-default pt-5 pb-16 bg-hifi-gray-lightest">
                 <div className="flex justify-between">

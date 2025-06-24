@@ -58,6 +58,7 @@
       filter: brightness(92%);
     }
   }
+}
 
 .image-tint::after {
   content: "";

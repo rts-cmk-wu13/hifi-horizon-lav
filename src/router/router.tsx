@@ -33,12 +33,14 @@ import {
 import RequireAuth from "../components/RequireAuth";
 
 import ErrorPage from "../errors/ErrorPage";
+import ErrorElement from "../errors/ErrorElement";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Layout />,
         hydrateFallbackElement: <div>Loading...</div>,
+        errorElement: <ErrorElement />,
         children: [
             {
                 index: true,

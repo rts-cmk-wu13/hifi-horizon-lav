@@ -72,7 +72,10 @@ export function convertCasing(word: string) {
 import { useEffect } from "react";
 import { useNavigate, useNavigation, useLocation } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
-import { readFromSessionStorage, removeFromSessionStorage } from "../utils/localstorage";
+import {
+    readFromSessionStorage,
+    removeFromSessionStorage,
+} from "../utils/localstorage";
 
 export function useRedirectAfterAuth() {
     const { login } = useAuth();
@@ -95,7 +98,6 @@ export function useRedirectAfterAuth() {
     }, [navigation.state, login, navigate, from]);
 }
 
-
 export async function validateToken(token: string): Promise<boolean> {
     const response = await fetch("http://localhost:4000/me", {
         headers: {
@@ -110,18 +112,17 @@ export function checkUserSession() {
     let isActive;
     const sessionStart = readFromSessionStorage("sessionStart") as number;
     const now = Date.now();
-    // const hourInMilliseconds = 60 * 60 * 1000;
-    const hourInMilliseconds = 10 * 1000;
+    const hourInMilliseconds = 60 * 60 * 1000;
+    // const hourInMilliseconds = 10 * 1000;
 
     if (!sessionStart || now - sessionStart > hourInMilliseconds) {
         // Session expired, clear session storage
         removeFromSessionStorage("token");
         removeFromSessionStorage("sessionStart");
 
-        console.log("Session expired, clearing session storage");
         isActive = false;
         return false;
-    }else{
+    } else {
         isActive = true;
     }
 

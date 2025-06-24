@@ -66,15 +66,7 @@ const userInfoSections = [
 ];
 
 export default function Profile() {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!checkUserSession()) {
-            navigate("/login");
-            return;
-        }
-    }, [navigate]);
-
+    
     const data = useLoaderData<CurrentUser>();
     console.log("user data: ", data);
 

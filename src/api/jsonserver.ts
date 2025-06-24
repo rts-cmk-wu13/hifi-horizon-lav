@@ -143,11 +143,7 @@ export const fetchCurrentUser = async ({
                     Authorization: `Bearer ${token}`,
                 },
             });
-
-            if (!response.ok) {
-                
-            }
-
+            
             const rawData = await response.json();
 
             const result = await CurrentUserSchema.safeParseAsync(

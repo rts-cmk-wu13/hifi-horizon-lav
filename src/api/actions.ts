@@ -5,6 +5,7 @@ import {
     UserLoginSchema,
     UserSchema,
     type ContactErrors,
+    type CurrentUserErrors,
     type NewsletterErrors,
     type UserErrors,
     type UserLoginErrors,
@@ -16,7 +17,8 @@ import {
     saveToSessionStorage,
 } from "../utils/localstorage";
 import { fetchCurrentUser } from "./jsonserver";
-import { checkUserSession } from "../utils/helpers";
+import { checkUserSession, json } from "../utils/helpers";
+
 
 export async function handleContactSubmit({ request }: { request: Request }) {
     const formData = await request.formData();
@@ -274,9 +276,10 @@ export async function handleLoginSubmit({ request }: { request: Request }) {
     console.log("responseData", responseData);
 
     if (!response.ok) {
+        
         // If the response is not ok, throw an error
-
         throw new Error(responseData.message || "Login failed");
+
     }
 
     saveToSessionStorage("token", responseData.accessToken);
@@ -301,6 +304,15 @@ export async function handleUpdateSubmit({request}:{request : Request}) {
 
     const result = CurrentUserSchema.safeParse(data);
 
+    console.log("result", result);
+
+    if (!result.success) {
+        // If not, convert the error into a tree structure
+        const zodError = z.treeifyError(result.error);
+
+        return zodError.properties as CurrentUserErrors;
+    }
+    
     const accessToken = readFromSessionStorage("token");
 
     const user = await fetchCurrentUser({
@@ -322,7 +334,20 @@ export async function handleUpdateSubmit({request}:{request : Request}) {
             }
         );
 
+        if (!userResponse.ok) {
+            throw new Error("Could not update user data");
+        }
+
+        toast.success("Profile updated successfully!");
+
         console.log("userResponse", userResponse);
         
     }
+
+    
+
+
+    console.log("updated data", result.data);
+    
+    return json({success: true, user: result.data})
 }

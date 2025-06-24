@@ -168,18 +168,27 @@ export type UserLoginErrors = {
 };
 
 export const CurrentUserSchema = z.object({
-    id: z.number().int().optional(),
-    name: z.string().optional(),
-    address: z.string().optional(),
+    id: z.preprocess((val) => Number(val), z.number().int()).optional(),
+
+    phone: z.preprocess((val) => {
+        if (val === "" || val === undefined || val === null) return undefined;
+        const num = Number(val);
+        return isNaN(num) ? undefined : num;
+    }, z.number().int().optional()),
+
+    marketing: z.preprocess((val) => val === "true", z.boolean().optional()),
+
+    name: z.string().min(1, "Name is required").optional(),
+    address: z.string().min(1, "Address is required").optional(),
     city: z.string().optional(),
     zip: z.string().optional(),
     country: z.string().optional(),
     email: z.email().optional(),
-    phone: z.number().int().optional(),
     terms: z.boolean().optional(),
-    marketing: z.boolean().optional(),
 });
 
 export type CurrentUser = z.infer<typeof CurrentUserSchema>;
+
+export type CurrentUserErrors = Omit<UserErrors, 'password' | 'terms' | 'cnf_password' >
 
 

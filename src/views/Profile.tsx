@@ -1,40 +1,45 @@
-import { useEffect, useState } from "react";
-import { Form, useLoaderData, useNavigation } from "react-router";
+import { use, useEffect, useState } from "react";
+import {
+    Form,
+    useActionData,
+    useLoaderData,
+    useNavigation,
+} from "react-router";
 import { FaUser, FaPhoneAlt, FaEnvelope, FaInfoCircle } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 
 import WhiteBox from "../components/WhiteBox";
 import StandardButton from "../components/StandardButton";
-import type { CurrentUser } from "../schemas/schemas";
+import type { CurrentUser, CurrentUserErrors } from "../schemas/schemas";
 import { removeFromSessionStorage } from "../utils/localstorage";
 
-type userDummyType = {
-    id: number;
-    email: string;
-    name: string;
-    address: string;
-    address2: string;
-    zip: string;
-    city: string;
-    country: string;
-    phone: number;
-    terms: boolean;
-    marketing: boolean;
-};
+// type userDummyType = {
+//     id: number;
+//     email: string;
+//     name: string;
+//     address: string;
+//     address2: string;
+//     zip: string;
+//     city: string;
+//     country: string;
+//     phone: number;
+//     terms: boolean;
+//     marketing: boolean;
+// };
 
-const userDummy: userDummyType = {
-    id: 7,
-    email: "loke@test.dk",
-    name: "Loke",
-    address: "Roskildevej 187",
-    address2: "3. tv",
-    zip: "2500",
-    city: "København",
-    country: "Danmark",
-    phone: 52651653,
-    terms: false,
-    marketing: false,
-};
+// const userDummy: userDummyType = {
+//     id: 7,
+//     email: "loke@test.dk",
+//     name: "Loke",
+//     address: "Roskildevej 187",
+//     address2: "3. tv",
+//     zip: "2500",
+//     city: "København",
+//     country: "Danmark",
+//     phone: 52651653,
+//     terms: false,
+//     marketing: false,
+// };
 
 const userInfoSections = [
     {
@@ -67,6 +72,15 @@ const userInfoSections = [
 
 export default function Profile() {
     const navigation = useNavigation();
+    const actionData = useActionData();
+
+    const success = actionData && "success" in actionData && actionData.success;
+    const errors: CurrentUserErrors | null = actionData && !("success" in actionData) ? (actionData as CurrentUserErrors) : null;
+
+    const loaderData = useLoaderData<CurrentUser>();
+    const [userData, setUserData] = useState<CurrentUser>(loaderData);
+
+    const [editFields, setEditFields] = useState(false);
 
     useEffect(() => {
         removeFromSessionStorage("redirectTo");
@@ -74,13 +88,21 @@ export default function Profile() {
 
     useEffect(() => {
         if (navigation.state === "idle") {
+            if (!success) {
+                return; // Don't close on validation error
+            }
             setEditFields(false);
         }
-    }, [navigation.state]);
+    }, [navigation.state, success]);
 
-    const data = useLoaderData<CurrentUser>();
-
-    const [editFields, setEditFields] = useState(false);
+    useEffect(() => {
+        if (
+            success &&
+            actionData?.user
+        ) {
+            setUserData((prev) => ({ ...prev, ...actionData.user }));
+        }
+    }, [success, actionData]);
 
     const handleEditFields = () => {
         setEditFields(!editFields);
@@ -135,24 +157,37 @@ export default function Profile() {
 
                                         {editFields &&
                                         info.id !== "marketing" ? (
-                                            <input
-                                                type="text"
-                                                name={info.id}
-                                                id={info.id}
-                                                defaultValue={String(
-                                                    data[
-                                                        info.id as keyof typeof data
-                                                    ]
+                                            <>
+                                                <input
+                                                    type="text"
+                                                    name={info.id}
+                                                    id={info.id}
+                                                    defaultValue={String(
+                                                        userData[
+                                                            info.id as keyof typeof userData
+                                                        ]
+                                                    )}
+                                                    className="px-3 w-full rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0"
+                                                />
+                                                {errors?.[
+                                                    info.id as keyof CurrentUserErrors
+                                                ]?.errors?.[0] && (
+                                                    <span className="text-red-600">
+                                                        {String(
+                                                            errors[
+                                                                info.id as keyof CurrentUserErrors
+                                                            ]?.errors?.[0]
+                                                        )}
+                                                    </span>
                                                 )}
-                                                className="px-3 w-full rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0"
-                                            />
+                                            </>
                                         ) : editFields &&
                                           info.id === "marketing" ? (
                                             <select
                                                 name="marketing"
                                                 id="marketing"
                                                 defaultValue={String(
-                                                    data.marketing
+                                                    userData.marketing
                                                 )}
                                                 className="px-3 w-full rounded-sm bg-hifi-gray-light shadow-hifi-sm"
                                             >
@@ -171,9 +206,11 @@ export default function Profile() {
                                             <p className="content-center">
                                                 {info.body
                                                     ? info.body
-                                                    : data[
-                                                          info.id as keyof typeof data
-                                                      ]}
+                                                    : String(
+                                                          userData[
+                                                              info.id as keyof typeof userData
+                                                          ] ?? ""
+                                                      )}
                                             </p>
                                         )}
                                     </div>

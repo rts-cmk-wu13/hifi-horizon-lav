@@ -20,13 +20,15 @@ export default function ProductDetails() {
 
     return (
         <PageWrapper obj={{ heading: "Product" }}>
-            <div className="grid grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-2 gap-12">
 
                 <div className="flex flex-col items-center">
-                    <figure className="flex gap-12 justify-center items-center relative justify-self-center text-hifi-gray-medium text-6xl">
-                        <FaChevronLeft className="cursor-pointer" />
-                        <img src={product.img} alt="" />
-                        <FaChevronRight className="cursor-pointer" />
+                    <figure className="flex gap-4 justify-center items-center relative justify-self-center text-hifi-gray-medium">
+                        <FaChevronLeft className="cursor-pointer size-8" />
+                        <div className="relative h-full image-tint">
+                            <img src={product.images[0]} alt="" />
+                        </div>
+                        <FaChevronRight className="cursor-pointer size-8" />
                     </figure>
 
                     <div className=" mt-12 flex gap-3 *:size-4 *:rounded-full *:cursor-pointer [&>.active]:bg-hifi-gray-medium">
@@ -43,7 +45,7 @@ export default function ProductDetails() {
                             {product.brand} {product.name}
                         </h2>
 
-                        <p>{product.longDescription}</p>
+                        <p>{product.description}</p>
                     </div>
 
                     <div className="flex justify-between items-center">
@@ -67,16 +69,21 @@ export default function ProductDetails() {
             <div>
                 <h2 className="mb-12 text-2xl font-semibold uppercase">Product Specifications</h2>
                 <ul className="text-sm capitalize *:odd:bg-hifi-gray-light">
-                    {Object.entries(product).map(([key, value]) => (
-                        <li key={key} className={`flex *:py-3 ${key == "img" ? "*:last:lowercase" : ""}`}>
-                            <p className="px-8 w-56 font-bold text-right">
-                                {convertCasing(String(key))}
-                            </p>
-                            <p className="px-8 flex-1 border-l-1 border-hifi-gray-medium">
-                                {String(value)}
-                            </p>
-                        </li>
-                    ))}
+                    {Object.entries(product)
+                        .filter(([key]) => key !== "images")
+                        .map(([key, value]) => (
+                            <li
+                                key={key}
+                                className={`flex *:py-3 ${key === "img" ? "*:last:lowercase" : ""}`}
+                            >
+                                <p className="px-8 w-56 font-bold text-right">
+                                    {convertCasing(String(key))}
+                                </p>
+                                <p className="px-8 flex-1 border-l-1 border-hifi-gray-medium">
+                                    {String(value)}
+                                </p>
+                            </li>
+                        ))}
                 </ul>
             </div>
         </PageWrapper>

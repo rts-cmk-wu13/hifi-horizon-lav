@@ -44,7 +44,7 @@ export default function Footer() {
                         </li>
                     </ul>
 
-                    <ul className="flex gap-3 text-2xl">
+                    <ul className="flex gap-3 *:*:*:size-7">
                         {ListLinks(footerSoMeLinks)}
                     </ul>
                 </address>

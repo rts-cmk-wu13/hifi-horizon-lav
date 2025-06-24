@@ -32,6 +32,8 @@ import {
 } from "../api/actions";
 import RequireAuth from "../components/RequireAuth";
 
+import ErrorPage from "../errors/ErrorPage";
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -90,7 +92,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "*",
-                element: <div>Error - Page not found</div>,
+                element: <ErrorPage />,
             },
         ],
     },

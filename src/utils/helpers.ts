@@ -1,3 +1,15 @@
+import HifiLogo from "/src/assets/svg/logo-wo-text-border.svg"
+import HifiHeroImg from "/src/assets/img/home_hero-image.jpg"
+
+export function hifiLogo() {
+    return HifiLogo
+}
+
+export function hifiHeroImg() {
+    return HifiHeroImg
+}
+
+
 export function scrollToHashElement() {
     if (typeof window === "undefined") return;
 

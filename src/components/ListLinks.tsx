@@ -2,14 +2,14 @@ import type { ReactElement } from "react"
 import { Link } from "react-router"
 
 
-type ListLinkProps= {
+type ListLinksProps= {
     content: string | ReactElement;
     href: string;
     external?: boolean;
 }
 
 
-export default function MapListLinks(linksArray: ListLinkProps[]) {
+export default function ListLinks(linksArray: ListLinksProps[]) {
     return linksArray.map((link, i) => {
         return (
             <li key={i}>

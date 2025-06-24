@@ -40,23 +40,15 @@ export default function Products() {
 
     const filteredProducts = products.filter((product: Product) => {
         return Object.entries(filters).every(([key, value]) => {
+            if (value.size === 0) return true;
+
             if (key === "price") {
                 const range = Array.from(value).find(
                     (v) => typeof v === "object"
-                ) as { min: string; max: string };
-                const minPrice = range ? parseFloat(range?.min || "0") : 0;
-                const maxPrice = range
-                    ? parseFloat(range?.max || Infinity.toString())
-                    : Infinity;
+                ) as { min: string; max: string } | undefined;
+                const minPrice = range ? parseFloat(range.min || "0") : 0;
+                const maxPrice = range ? parseFloat(range.max || Infinity.toString()) : Infinity;
 
-                console.log(
-                    "minprice: ",
-                    minPrice,
-                    "maxprice: ",
-                    maxPrice,
-                    "productprice: ",
-                    product.price
-                );
                 return product.price >= minPrice && product.price <= maxPrice;
             }
 
@@ -64,23 +56,31 @@ export default function Products() {
                 return value.has("inStock") ? product.stock > 0 : true;
             }
 
-            return (
-                value.size === 0 ||
-                value.has(product[key as keyof Product]?.toString() || "")
-            );
+            if (key === "color") {
+                // check if any of the product's colors exist in the selected filter values
+                return product.colors.some((color) => value.has(color));
+            }
+
+            // default for brand, category, etc.
+            return value.has(product[key as keyof Product]?.toString() || "");
         });
     });
+
+    // Sort products by brand name ascending (case insensitive)
+    const sortedProducts = [...filteredProducts].sort((a, b) =>
+        a.brand.localeCompare(b.brand, undefined, { sensitivity: 'base' })
+    );
 
     return (
         <PageWrapper obj={{ heading: "products" }}>
             <div className="grid grid-cols-[auto_1fr] gap-6">
                 <Filter data={products} updateFilters={updateFilters} />
                 <div className="grid grid-cols-[repeat(auto-fit,_minmax(15rem,_1fr))] gap-4 *:max-w-85">
-                    {filteredProducts.map((product: Product) => (
+                    {sortedProducts.map((product: Product) => (
                         <ProductCard
                             key={product.id}
                             data={product}
-                            config={{ showStock: true, text: "Add to cart" }}
+                            config={{ showStock: true, text: "See more"}}
                         />
                     ))}
                 </div>

@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs } from "react-router";
-import { ProductListSchema, ProductSchema, type Product, type ProductList } from "../schemas/schemas";
+import { ProductListSchema, ProductSchema, UserSchema, type Product, type ProductList } from "../schemas/schemas";
 import { FAQSchema, type FAQType } from "../schemas/schemas";
 import { AboutListSchema, type AboutType } from "../schemas/schemas";
 import { handleImgPaths, liveOrLocalBaseURL } from "../utils/helpers";
@@ -103,6 +103,30 @@ export const fetchAbout = async (): Promise<AboutType> => {
 
             let data = result.data
             data = handleImgPaths(data)
+            return data
+        },
+    })
+}
+
+
+
+export const fetchUser = async (): Promise<ProductList> => {
+    return queryClient.fetchQuery({
+        queryKey: ["products"],
+        queryFn: async () => {
+            const response = await fetch(`${API_BASE_URL}/me`);
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            const result = await UserSchema.safeParseAsync(await response.json());
+
+            if (!result.success) {
+                throw new Error("Invalid data format" + result.error.message);
+            }
+
+            let data = result.data
             return data
         },
     })

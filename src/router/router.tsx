@@ -16,6 +16,7 @@ import ProductDetails from "../views/ProductDetails";
 
 import Login from "../views/Login";
 import SignUp from "../views/SignUp";
+import Profile from "../views/Profile";
 
 import {
     fetchProductById,
@@ -31,11 +32,16 @@ import {
 } from "../api/actions";
 import RequireAuth from "../components/RequireAuth";
 
+import ErrorPage from "../errors/ErrorPage";
+import ErrorElement from "../errors/ErrorElement";
+import Loading from "../errors/Loading";
+
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Layout />,
-        hydrateFallbackElement: <div>Loading...</div>,
+        hydrateFallbackElement: <Loading />,
+        errorElement: <ErrorElement />,
         children: [
             {
                 index: true,
@@ -45,11 +51,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/products",
-                element: (
-                    <RequireAuth>
-                        <Products />
-                    </RequireAuth>
-                ),
+                element: <Products />,
                 loader: fetchProducts as LoaderFunction,
             },
             {
@@ -83,8 +85,17 @@ const router = createBrowserRouter([
                 action: handleSignupSubmit as ActionFunction,
             },
             {
+                path: "/profile",
+                element: (
+                    <RequireAuth>
+                        <Profile />
+                    </RequireAuth>
+                ),
+                action: handleSignupSubmit as ActionFunction,
+            },
+            {
                 path: "*",
-                element: <div>Error - Page not found</div>,
+                element: <ErrorPage />,
             },
         ],
     },

@@ -1,39 +1,29 @@
-import StandardButton from "../components/StandardButton"
-import CtaBanner from "../components/CtaBanner"
 import { Form, useLoaderData } from "react-router"
 import type { Product } from "../schemas/schemas"
+
+import StandardButton from "../components/StandardButton"
+import CtaBanner from "../components/CtaBanner"
 import ProductCard from "../components/ProductCard"
+
+import { hifiHeroImg } from "../utils/helpers"
 
 export default function Home() {
 
     const data = useLoaderData()
 
-    const CtaBannerContent = {
-        heading: "SIGN UP FOR OUR NEWSLETTER",
-        text: "Subscribing to our newsletter secures you up to date information about HiFi Horizons latest updates and offers.",
-        input: (
-            <Form method="POST" noValidate id="newsletter" className="flex items-center gap-6">
-                <input type="email" name="email" id="email" className="px-3 h-9 w-96 rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0" />
-
-                <StandardButton obj={{text: "Sign up", form: "newsletter"}}/>
-            </Form>
-        )
-    }
-
-
     return (
         <>
-            <img src="/src/assets/img/home_hero-image.jpg" alt="" className='w-full' />
+            <img src={hifiHeroImg()} alt="Hifi Horizon logo" className='w-full' />
 
             <section className="px-hifi-default pt-5 pb-16 bg-hifi-gray-lightest">
                 <div className="flex justify-between">
-                    <h2 className='text-2xl font-bold uppercase text-hifi-gray-dark'>Popular Products</h2>
+                    <h2 className='text-2xl font-bold uppercase text-hifi-gray-dark'>High-rated Products</h2>
                     <StandardButton obj={{text: "See all products", href: "/products"}}/>
                 </div>
 
                 <div className="mt-6 grid grid-cols-1 gap-4 justify-items-center h-full auto-rows-[minmax(23rem,_auto)] sm:grid-cols-2 lg:grid-cols-4">
                    {data.
-                   sort((a: Product, b: Product) => a.popularity - b.popularity)
+                   sort((a: Product, b: Product) => b.rating - a.rating)
                    .slice(0, 4)
                    .map((product : Product) => (
                         <ProductCard key={product.id} data={product} config={{showStock:false, text: "Read more"}} />
@@ -69,7 +59,13 @@ export default function Home() {
             </section>
 
             <section className="p-hifi-default bg-hifi-gray-lightest">
-                <CtaBanner obj={CtaBannerContent} />
+                <CtaBanner obj={{ heading: "Sign up for our newsletter", text: "Subscribing to our newsletter secures you up to date information about HiFi Horizons latest updates and offers." }}>
+                    <Form method="POST" noValidate id="newsletter" className="flex items-center gap-6">
+                        <input type="email" name="email" id="email" className="px-3 h-9 w-96 rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0" />
+
+                        <StandardButton obj={{text: "Sign up", form: "newsletter"}}/>
+                    </Form>
+                </CtaBanner>
             </section>
         </>
     )

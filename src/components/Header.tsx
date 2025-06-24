@@ -74,10 +74,10 @@ export default function Header() {
                     </search>
 
                     <div className="flex items-center gap-6 text-2xl">
-                        <NavLink to="/profile">
+                        <NavLink to="/profile" className="hifi-hover-75">
                             <FaUser />
                         </NavLink>
-                        <FaShoppingCart />
+                        <FaShoppingCart className="hifi-hover-75" />
                     </div>
                 </div>
             </nav>

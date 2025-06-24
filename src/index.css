@@ -35,6 +35,30 @@
     --spacing-hifi-default: 2.25rem;
 }
 
+@layer components {
+  .hifi-hover-75 {
+    cursor: pointer;
+    transition: opacity 100ms ease-out;
+    &:hover {
+      opacity: 75%;
+    }
+  }
+  .hifi-hover-50 {
+    cursor: pointer;
+    transition: opacity 100ms ease-out;
+    &:hover {
+      opacity: 50%;
+    }
+  }
+  .hifi-hover-dark {
+    cursor: pointer;
+    transition: filter 100ms ease-out;
+    &:hover {
+      filter: brightness(92%);
+    }
+  }
+}
+
 body {
     font-family: var(--font-open-sans);
 }

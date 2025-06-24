@@ -54,11 +54,9 @@ export default function Filter({ data, updateFilters }: FilterProps) {
             {Object.entries(filterConfig).map(([filterType, options]) => (
                 <details
                     key={filterType}
-                    className="group bg-hifi-gray-light mb-2.5"
+                    className="mb-2.5 bg-hifi-gray-light rounded-lg group"
                 >
-                    <summary className="capitalize list-none flex items-center justify-between bg-hifi-gray-light shadow-[0px_2px_10px_0px_rgba(0,_0,_0,_0.05)] px-[10px] p-1.5">
-                        {/* background: #E8E8E8;
-                    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.05); */}
+                    <summary className="px-3 py-2 flex items-center justify-between relative z-10 list-none capitalize bg-hifi-gray-light shadow-[0px_2px_10px_0px_rgba(0,_0,_0,_0.05)] rounded-lg hifi-hover-dark">
                         <p>{filterType}</p>
                         <span className="group-open:hidden">
                             <FaChevronDown />
@@ -67,13 +65,13 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                             <FaChevronUp />
                         </span>
                     </summary>
-                    <div className="p-[10px]">
+                    <div className="text-sm">
                         {filterType !== "price" &&
                             filterType !== "stock" &&
                             options.map((option, index) => (
                                 <label
                                     key={index}
-                                    className="flex items-center gap-2 capitalize justify-between"
+                                    className="px-3 py-2 flex items-center justify-between gap-2 rounded-lg bg-hifi-gray-light capitalize hifi-hover-dark"
                                 >
                                     {typeof option === "object" &&
                                     "display" in option
@@ -90,32 +88,32 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                                                 : option.toString()
                                             )
                                         }
-                                        className="form-checkbox"
+                                        className="form-checkbox cursor-pointer"
                                     />
                                 </label>
                             ))}
                         {filterType == "price" && (
-                            <form className="flex flex-col gap-3">
+                            <form className="p-3 flex flex-col gap-3">
                                 <input
                                     type="number"
-                                    className="bg-hifi-white w-full p-2 rounded"
+                                    className="bg-hifi-white w-full p-2 rounded focus:outline-0"
                                     placeholder="min"
                                     onChange={handleChange}
                                 />
                                 <input
                                     type="number"
-                                    className="bg-hifi-white w-full p-2 rounded"
+                                    className="bg-hifi-white w-full p-2 rounded focus:outline-0"
                                     placeholder="max"
                                     onChange={handleChange}
                                 />
                             </form>
                         )}
                         {filterType == "stock" && (
-                            <label className="flex items-center gap-2 capitalize justify-between">
+                            <label className="px-3 py-2 flex items-center gap-2 capitalize justify-between bg-hifi-gray-light rounded-lg hifi-hover-dark">
                                 Show only in stock
                                 <input
                                     type="checkbox"
-                                    className="form-checkbox"
+                                    className="form-checkbox cursor-pointer"
                                     onChange={handleStock}
                                 />
                             </label>

@@ -18,6 +18,9 @@ import {
 } from "../utils/localstorage";
 import { fetchCurrentUser } from "./jsonserver";
 import { checkUserSession, json } from "../utils/helpers";
+import { liveOrLocalBaseURL } from "../utils/helpers";
+
+const API_BASE_URL = liveOrLocalBaseURL();
 
 
 export async function handleContactSubmit({ request }: { request: Request }) {
@@ -36,7 +39,7 @@ export async function handleContactSubmit({ request }: { request: Request }) {
         return zodError.properties as ContactErrors;
     }
 
-    let response = await fetch("http://localhost:4000/contact_inquiries", {
+    let response = await fetch(`${API_BASE_URL}/contact_inquiries`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -78,7 +81,7 @@ export async function handleNewsletterSubmit({
     }
 
     const getExisting = await fetch(
-        `http://localhost:4000/newsletter_list?email=${result.data.email}`
+        `${API_BASE_URL}/newsletter_list?email=${result.data.email}`
     );
     const existing = await getExisting.json();
 
@@ -93,7 +96,7 @@ export async function handleNewsletterSubmit({
     
 
     let checkUserToken = await fetch(
-        `http://localhost:4000/users/${user.id}`,
+        `${API_BASE_URL}/users/${user.id}`,
         {
             method: "GET",
             headers: {
@@ -103,12 +106,9 @@ export async function handleNewsletterSubmit({
         }
     );
 
-    console.log("hello");
-    
-
     if (checkUserToken.ok) {
         let userResponse = await fetch(
-            `http://localhost:4000/users/${user.id}`,
+            `${API_BASE_URL}/users/${user.id}`,
             {
                 method: "PATCH",
                 headers: {
@@ -125,7 +125,7 @@ export async function handleNewsletterSubmit({
     }
 
     if (existing.length === 0) {
-        let response = await fetch("http://localhost:4000/newsletter_list", {
+        let response = await fetch(`${API_BASE_URL}/newsletter_list`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -141,6 +141,7 @@ export async function handleNewsletterSubmit({
     toast.success("Thank you for signing up to our newsletter!", {
         className: "mt-24",
     });
+
 }
 
 export async function handleSignupSubmit({ request }: { request: Request }) {
@@ -175,7 +176,7 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
     delete result.data.cnf_password;
 
     // Send the parsed data to the server
-    let response = await fetch("http://localhost:4000/register", {
+    let response = await fetch(`${API_BASE_URL}/register`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -197,7 +198,7 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
     if (responseData.user.marketing === true) {
         // If the user has opted in for marketing, check if they are already in the newsletter list
         const getExisting = await fetch(
-            `http://localhost:4000/newsletter_list?email=${responseData.user.email}`
+            `${API_BASE_URL}/newsletter_list?email=${responseData.user.email}`
         );
         const existing = await getExisting.json();
 
@@ -210,7 +211,7 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
             };
 
             let response = await fetch(
-                "http://localhost:4000/newsletter_list",
+                 `${API_BASE_URL}/newsletter_list`,
                 {
                     method: "POST",
                     headers: {
@@ -266,7 +267,7 @@ export async function handleLoginSubmit({ request }: { request: Request }) {
         return zodError.properties as UserLoginErrors;
     }
 
-    let response = await fetch("http://localhost:4000/login", {
+    let response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -326,7 +327,7 @@ export async function handleUpdateSubmit({request}:{request : Request}) {
     
     if (checkUserSession()) {
         let userResponse = await fetch(
-            `http://localhost:4000/users/${user.id}`,
+            `${API_BASE_URL}/users/${user.id}`,
             {
                 method: "PATCH",
                 headers: {

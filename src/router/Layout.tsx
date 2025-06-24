@@ -27,7 +27,7 @@ export default function Layout() {
         <>
             <Header />
 
-            <main className="flex-1">
+            <main className="flex-1 w-full hifi-max-w">
                 <ScrollWrapper>
                     <Outlet />
                 </ScrollWrapper>

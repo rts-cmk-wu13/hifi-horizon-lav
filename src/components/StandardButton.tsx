@@ -25,7 +25,7 @@ export default function StandardButton({ obj, className }: StandardButtonProps) 
         buttonContent = <>{buttonText}</>
     }
 
-    const buttonStyle = `px-8 py-2 w-fit block rounded-sm shadow-hifi-sm bg-hifi-accent text-hifi-gray-lightest text-sm text-center cursor-pointer ${className ?? ""}`
+    const buttonStyle = `px-6 py-2 w-fit block rounded-sm shadow-hifi-sm bg-hifi-accent text-hifi-gray-lightest text-sm text-center cursor-pointer ${className ?? ""}`
 
     return (
         <>

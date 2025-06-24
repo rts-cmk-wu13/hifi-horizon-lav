@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { FaPhoneAlt, FaCcStripe, FaCcVisa, FaCcMastercard } from "react-icons/fa";
 
 import ListLinks from "./ListLinks";
@@ -36,11 +37,15 @@ export default function Footer() {
                     <ul className="pb-5 flex flex-col gap-5 text-sm font-bold *:flex *:flex-col *:gap-4">
                         <li>
                             <p>2 Joppa Rd, Edinburgh, EH15 2EU</p>
-                            <a href="tel:01315567901" className="w-fit flex items-center gap-5 hifi-hover-75"><FaPhoneAlt className="size-5" />0131 556 7901</a>
+                            <Link to="tel:01315567901" className="w-fit flex items-center gap-5 hifi-hover-75">
+                                <FaPhoneAlt className="size-5" />0131 556 7901
+                            </Link>
                         </li>
                         <li>
                             <p>44 Cow Wynd, Falkirk, Central Region, FK1 1PU</p>
-                            <a href="tel:01324629011" className="w-fit flex items-center gap-5 hifi-hover-75"><FaPhoneAlt className="size-5" />01324 629 011</a>
+                            <Link to="tel:01324629011" className="w-fit flex items-center gap-5 hifi-hover-75">
+                                <FaPhoneAlt className="size-5" />01324 629 011
+                            </Link>
                         </li>
                     </ul>
 

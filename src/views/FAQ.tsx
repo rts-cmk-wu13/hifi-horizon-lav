@@ -22,7 +22,7 @@ export default function FAQ() {
   return (
     <PageWrapper obj={{ heading: "FAQ" }}>
       <WhiteBox className="flex flex-col gap-4">
-        <h2 className="text-2xl font-regular">{data.headline}</h2>
+        <h2 className="text-2xl font-regular max-w-[1040px]">{data.headline}</h2>
         <p className="text-sm text-gray-700 leading-relaxed">{data.subheading}</p>
 
         {data.sections.map((obj: FAQItemData, index: number) => (

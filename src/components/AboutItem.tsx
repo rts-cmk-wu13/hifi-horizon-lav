@@ -18,7 +18,7 @@ export default function AboutItem({ data, className }: AboutItemProps) {
   return (
     <section
       id={data.id}
-      className={`flex flex-col-reverse gap-4 justify-center *:w-full lg:*:max-w-[520px] lg:gap-12 ${className ?? ""}`}
+      className={`flex flex-col-reverse gap-4 justify-center *:w-full lg:gap-12 ${className ?? ""}`}
     >
       <div>
         <img src={data.images[0]} alt="" className="object-cover size-full" loading="lazy"/>

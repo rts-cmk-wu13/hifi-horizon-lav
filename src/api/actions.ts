@@ -14,6 +14,7 @@ import {
     readFromSessionStorage,
     saveToSessionStorage,
 } from "../utils/localstorage";
+import { fetchCurrentUser } from "./jsonserver";
 
 export async function handleContactSubmit({ request }: { request: Request }) {
     const formData = await request.formData();
@@ -78,30 +79,27 @@ export async function handleNewsletterSubmit({
     const existing = await getExisting.json();
 
     const accessToken = readFromSessionStorage("token");
-    const updateSubscribtion = await fetch(
-        `http://localhost:4000/me?email=${result.data.email}`,
+
+    const user = await fetchCurrentUser({
+        queryString: `email=${result.data.email}`,
+        token: accessToken,
+    });
+
+    console.log("user", user);
+    
+
+    let checkUserToken = await fetch(
+        `http://localhost:4000/users/${user.id}`,
         {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${accessToken}`,
             },
         }
     );
-    const user = await updateSubscribtion.json();
 
-    if (existing.length === 0 || !user.marketing) {
-        let response = await fetch("http://localhost:4000/newsletter_list", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(result.data),
-        });
-
-        if (!response.ok) {
-            throw new Error("Could not save data");
-        }
-
+    if (checkUserToken.ok) {
         let userResponse = await fetch(
             `http://localhost:4000/users/${user.id}`,
             {
@@ -119,6 +117,20 @@ export async function handleNewsletterSubmit({
         }
     }
 
+    if (existing.length === 0) {
+        let response = await fetch("http://localhost:4000/newsletter_list", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(result.data),
+        });
+
+        if (!response.ok) {
+            throw new Error("Could not save data");
+        }
+    }
+
     toast.success("Thank you for signing up to our newsletter!", {
         className: "mt-24",
     });
@@ -129,11 +141,20 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
+    if (!data.hasOwnProperty("marketing")) {
+        data.marketing = "false";
+    }
+    if (!data.hasOwnProperty("terms")) {
+        data.terms = "false"; // defensive, in case users bypass frontend
+    }
+
     const result = UserSchema.safeParse(data);
 
     console.log("result", result);
 
     console.log("data", result.data);
+
+
 
     // Check if the parsed data is valid
     if (!result.success) {

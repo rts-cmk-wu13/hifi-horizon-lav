@@ -114,7 +114,7 @@ export const UserSchema = z
                 return undefined;
             const num = Number(val);
             return isNaN(num) ? undefined : num;
-        }, z.number().min(1).optional()),
+        }, z.number().int().min(1).optional()),
         email: z.email(),
         password: z
             .string()
@@ -166,3 +166,20 @@ export type UserLoginErrors = {
     email?: FieldError;
     password?: FieldError;
 };
+
+export const CurrentUserSchema = z.object({
+    id: z.number().int().optional(),
+    name: z.string().optional(),
+    address: z.string().optional(),
+    city: z.string().optional(),
+    zip: z.string().optional(),
+    country: z.string().optional(),
+    email: z.email().optional(),
+    phone: z.number().int().optional(),
+    terms: z.boolean().optional(),
+    marketing: z.boolean().optional(),
+});
+
+export type CurrentUser = z.infer<typeof CurrentUserSchema>;
+
+

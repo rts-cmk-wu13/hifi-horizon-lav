@@ -23,6 +23,7 @@ import {
     fetchProducts,
     fetchFAQ,
     fetchAbout,
+    profileLoader,
 } from "../api/jsonserver";
 import {
     handleContactSubmit,
@@ -86,6 +87,7 @@ const router = createBrowserRouter([
                         <Profile />
                     </RequireAuth>
                 ),
+                loader: profileLoader as LoaderFunction,
                 action: handleSignupSubmit as ActionFunction,
             },
             {

@@ -103,6 +103,9 @@ export async function handleNewsletterSubmit({
         }
     );
 
+    console.log("hello");
+    
+
     if (checkUserToken.ok) {
         let userResponse = await fetch(
             `http://localhost:4000/users/${user.id}`,

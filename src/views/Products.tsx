@@ -4,9 +4,12 @@ import type { Product } from "../schemas/schemas";
 import Filter from "../components/Filter";
 import { useState } from "react";
 import PageWrapper from "../components/PageWrapper";
+import usePageTitle from "../utils/helpers";
 
 export default function Products() {
     const products = useLoaderData();
+
+    usePageTitle("Products");
 
     const [filters, setFilters] = useState<
         Record<string, Set<string | number | { min: string; max: string }>>
@@ -73,9 +76,9 @@ export default function Products() {
 
     return (
         <PageWrapper obj={{ heading: "products" }}>
-            <div className="grid grid-cols-[auto_1fr] gap-4">
+            <div className="grid gap-4 sm:grid-cols-[auto_1fr]">
                 <Filter data={products} updateFilters={updateFilters} />
-                <div className="grid grid-cols-[repeat(auto-fit,_minmax(15rem,_1fr))] gap-4 *:max-w-85">
+                <div className="grid grid-cols-[repeat(auto-fit,_minmax(15rem,_1fr))] gap-4 sm:*:max-w-85">
                     {sortedProducts.map((product: Product) => (
                         <ProductCard
                             key={product.id}

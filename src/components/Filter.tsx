@@ -1,5 +1,6 @@
 import { type ProductList } from "../schemas/schemas";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
+import CircleDot from "./CircleDot";
 
 type FilterProps = {
     data: ProductList;
@@ -77,10 +78,15 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                                     key={index}
                                     className="px-3 py-1.5 flex items-center justify-between gap-2 rounded-lg bg-hifi-gray-light capitalize hifi-hover-dark"
                                 >
+                                    <span className="flex items-center gap-1.5">
+                                    {filterType === "color" &&
+                                        <CircleDot obj={{ color: String(option), size: "size-3.5 inline-block", fill: true }} />
+                                    }
                                     {typeof option === "object" &&
                                         "display" in option
                                         ? option.display // Render the display property if option is an object
                                         : option.toString()}
+                                        </span>
                                     <input
                                         type="checkbox"
                                         onChange={(e) =>
@@ -92,7 +98,7 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                                                     : option.toString()
                                             )
                                         }
-                                        className="form-checkbox cursor-pointer"
+                                        className="form-checkbox cursor-pointer hifi-checkbox"
                                     />
                                 </label>
                             ))}
@@ -117,7 +123,7 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                                 Show only in stock
                                 <input
                                     type="checkbox"
-                                    className="form-checkbox cursor-pointer"
+                                    className="form-checkbox cursor-pointer hifi-checkbox"
                                     onChange={handleStock}
                                 />
                             </label>

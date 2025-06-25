@@ -4,25 +4,30 @@ import FormField from "../components/FormField";
 import StandardButton from "../components/StandardButton";
 import { Form, useActionData } from "react-router";
 import type { UserErrors } from "../schemas/schemas";
-import { useRedirectAfterAuth } from "../utils/helpers";
+import usePageTitle, { useRedirectAfterAuth } from "../utils/helpers";
 
 export default function SignUp() {
     const errors = useActionData<UserErrors>();
 
+    usePageTitle("Sign up");
+
     useRedirectAfterAuth();
-    
+
     return (
         <PageWrapper obj={{ heading: "Create an account" }}>
             <WhiteBox>
-                <h2 className="text-2xl font-semibold uppercase">
+                <h2 className="text-2xl font-semibold uppercase mb-2">
                     Create new customer account
                 </h2>
+                <p className="text-sm">
+                   Fill in the required information below to create an account.
+                </p>
 
                 <Form
                     method="POST"
                     noValidate
                     id="signupForm"
-                    className="mt-9 flex flex-col gap-8"
+                    className="mt-6 flex flex-col gap-6"
                 >
                     <FormField
                         obj={{
@@ -104,7 +109,7 @@ export default function SignUp() {
                         obj={{
                             label: "Repeat password",
                             required: true,
-                            errorMessage:errors && errors?.cnf_password?.errors[0],
+                            errorMessage: errors && errors?.cnf_password?.errors[0],
                         }}
                     >
                         <input
@@ -115,8 +120,8 @@ export default function SignUp() {
                     </FormField>
 
                     <div className="flex flex-col gap-4 *:flex *:gap-3 *:*:[&>span]:text-red-500 *:*:[&>span]:font-bold">
-                        <div>
-                            <input type="checkbox" name="terms" id="terms" />
+                        <div className="flex flex-row items-center">
+                            <input type="checkbox" name="terms" id="terms" className="hifi-checkbox"/>
                             <label htmlFor="">
                                 By using this form you agree with the storage
                                 and handling of your data by this website.{" "}
@@ -128,15 +133,16 @@ export default function SignUp() {
                                 </p>
                             )}
                         </div>
-                        <div>
+                        <div className="flex flex-row items-center">
                             <input
                                 type="checkbox"
                                 name="marketing"
                                 id="marketing"
+                                className="hifi-checkbox"
                             />
                             <label htmlFor="marketing">
                                 Accept marketing from HiFi Horizon (newsletter
-                                and discount offers by email). <span>*</span>
+                                and discount offers by email).
                             </label>
                         </div>
                     </div>

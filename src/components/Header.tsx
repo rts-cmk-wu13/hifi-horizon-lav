@@ -16,7 +16,7 @@ export default function Header() {
     const dropdownElm = document.querySelector("#dropdownMenu") as HTMLElement
 
     const handleDropdownOpen = () => {
-        setDropdownOpen(true)
+        setTimeout(() => setDropdownOpen(true), 1)
         if (dropdownElm && "openPopover" in dropdownElm && typeof (dropdownElm as any).openPopover === "function") {
             (dropdownElm as any).openPopover();
         }
@@ -30,12 +30,12 @@ export default function Header() {
     }
 
     return (
-        <header className="bg-hifi-black fixed z-999 inset-x-0 top-0" data-header>
-            <nav className="h-24 px-8 flex justify-between items-center text-hifi-white *:h-full hifi-max-w">
-                <ul className="flex items-center gap-6 text-sm *:h-full *:content-center" onMouseLeave={handleDropdownClose}>
-                    <li className="w-16">
-                        <NavLink to="/" className="hover:opacity-75">
-                            <img src={hifiLogo()} alt="Hifi Horizon logo"/>
+        <header className="bg-hifi-black fixed z-999 left-0 top-0 w-full" data-header>
+            <nav className="h-24 px-8 flex gap-8 md:justify-between text-hifi-white *:h-full hifi-max-w">
+                <ul className="flex items-center gap-3 *:h-full *:content-center text-xs md:gap-6 md:text-sm" onMouseLeave={handleDropdownClose}>
+                    <li className="w-10 sm:w-16">
+                        <NavLink to="/" className="hifi-hover-75">
+                            <img src={hifiLogo()} alt="Hifi Horizon logo" />
                         </NavLink>
                     </li>
 
@@ -43,12 +43,12 @@ export default function Header() {
                         if (i === 0) {
                             return (
                                 <li className="relative group" key={i} onMouseEnter={handleDropdownOpen} popoverTarget="dropdownMenu">
-                                    <NavLink to={link.href} className="uppercase relative transition-all [&.active]:[text-shadow:0_0_1px_currentColor] hover:[text-shadow:0_0_1px_currentColor] duration-300" key={i}>
+                                    <NavLink to={link.href} className="uppercase relative transition-all [&.active]:[text-shadow:0_0_1px_currentColor] hover:[text-shadow:0_0_1px_currentColor] duration-200" key={i}>
                                         {link.content}
                                     </NavLink>
 
-                                    <ul id="dropdownMenu" className={`w-96 p-9 flex flex-col gap-5 absolute top-24 bg-hifi-white text-xl text-hifi-gray-dark ${dropdownOpen ? "flex" : "hidden"}`} popover="manual">
-                                        <li className="text-2xl font-semibold text-hifi-black">Browse Categories</li>
+                                    <ul id="dropdownMenu" className={`w-96 p-8 flex flex-col gap-3 rounded-bl rounded-br border-[0.25px] border-hifi-black/10 absolute top-24 bg-hifi-white text-md text-hifi-gray-dark ${dropdownOpen ? "flex" : "hidden"}`} popover="manual">
+                                        <li className="text-lg font-semibold text-hifi-black">Browse Categories</li>
 
                                         {ListLinks(headerDropdownLinks)}
                                     </ul>
@@ -57,7 +57,7 @@ export default function Header() {
                         } else {
                             return (
                                 <li className="relative group" key={i}>
-                                    <NavLink to={link.href} className="uppercase relative transition-all [&.active]:[text-shadow:0_0_1px_currentColor] hover:[text-shadow:0_0_1px_currentColor] duration-300" key={i}>
+                                    <NavLink to={link.href} className="uppercase relative transition-all [&.active]:[text-shadow:0_0_1px_currentColor] hover:[text-shadow:0_0_1px_currentColor] duration-200" key={i}>
                                         {link.content}
                                     </NavLink>
                                 </li>

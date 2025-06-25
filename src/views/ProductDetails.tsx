@@ -107,7 +107,7 @@ export default function ProductDetails() {
 
                         <div className="flex gap-12 justify-center">
                             <ItemCount />
-                            <StandardButton obj={{ text: "Add to cart" }} className="ml-auto" />
+                            <StandardButton obj={{ text: "Add to cart" }} className="ml-auto flex-shrink-0" />
                         </div>
                     </div>
                 </WhiteBox>

@@ -118,8 +118,8 @@ export default function SignUp() {
                     </FormField>
 
                     <div className="flex flex-col gap-4 *:flex *:gap-3 *:*:[&>span]:text-red-500 *:*:[&>span]:font-bold">
-                        <div>
-                            <input type="checkbox" name="terms" id="terms" />
+                        <div className="flex flex-row items-center">
+                            <input type="checkbox" name="terms" id="terms" className="hifi-checkbox"/>
                             <label htmlFor="">
                                 By using this form you agree with the storage
                                 and handling of your data by this website.{" "}
@@ -131,15 +131,16 @@ export default function SignUp() {
                                 </p>
                             )}
                         </div>
-                        <div>
+                        <div className="flex flex-row items-center">
                             <input
                                 type="checkbox"
                                 name="marketing"
                                 id="marketing"
+                                className="hifi-checkbox"
                             />
                             <label htmlFor="marketing">
                                 Accept marketing from HiFi Horizon (newsletter
-                                and discount offers by email). <span>*</span>
+                                and discount offers by email).
                             </label>
                         </div>
                     </div>

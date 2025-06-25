@@ -4,7 +4,6 @@ import type { Product } from "../schemas/schemas"
 import StandardButton from "../components/StandardButton"
 import CtaBanner from "../components/CtaBanner"
 import ProductCard from "../components/ProductCard"
-import PageWrapper from "../components/PageWrapper"
 
 import { hifiHeroImg } from "../utils/helpers"
 

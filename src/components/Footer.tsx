@@ -12,7 +12,7 @@ export default function Footer() {
 
     return (
         <footer className="bg-hifi-black text-hifi-white border-t border-gray-800">
-            <nav className="flex flex-col gap-12 px-8 py-6 md:flex-row md:justify-between hifi-max-w">
+            <nav className="flex flex-col gap-12 px-hifi-default py-6 md:flex-row md:justify-between hifi-max-w">
                 <ul className={linkListStyle}>
                     {ListLinks(footerNavLinks)}
                 </ul>
@@ -52,7 +52,7 @@ export default function Footer() {
                 </address>
             </nav>
 
-            <div className="flex flex-col gap-3 px-8 pb-6 hifi-max-w">
+            <div className="flex flex-col gap-3 px-hifi-default pb-6 hifi-max-w">
                 <hr className="border-t-1 border-hifi-accent mb-2" />
                 <div className="flex gap-3 *:h-12 *:w-auto">
                     <FaCcStripe />

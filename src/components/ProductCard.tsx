@@ -21,7 +21,7 @@ export default function ProductCard({ config, data }: ProductCardProps) {
     return (
         <div
             key={data.id}
-            className="w-full bg-hifi-white grid justify-items-center rounded drop-shadow-md border-[0.25px] border-hifi-black/10 overflow-hidden"
+            className="w-full h-fit bg-hifi-white grid justify-items-center rounded drop-shadow-md border-[0.25px] border-hifi-black/10 overflow-hidden"
         >
             <div className="relative h-full image-tint">
                 <img src={data.images[0]} alt={`${data.brand} ${data.name}`} className="h-full object-contain" />

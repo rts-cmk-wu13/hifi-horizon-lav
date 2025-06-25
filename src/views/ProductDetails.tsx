@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLoaderData } from "react-router";
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -16,6 +17,38 @@ export default function ProductDetails() {
 
     const productPrice = new Intl.NumberFormat("en-GB").format(product.price)
 
+    const [imageColorFilter, setImageColorFilter] = useState(product.images);
+    const [selectedColor, setSelectedColor] = useState<string | null>(null);
+    const handleImageColor = (color: string) => {
+        if (selectedColor === color) {
+            setSelectedColor(null);
+            setImageColorFilter(product.images);
+        } else {
+            const filteredImages = product.images.filter((image: string) => image.includes(color));
+            setSelectedColor(color)
+            setImageColorFilter(filteredImages)
+            setImageIndex(0)
+        }
+    }
+
+    let imageMax = imageColorFilter.length - 1
+    const [imageIndex, setImageIndex] = useState(0);
+    const handleImageIndex = (add: boolean) => {
+        if (add) {
+            if (imageIndex < imageMax) {
+                setImageIndex(imageIndex + 1)
+            } else {
+                setImageIndex(0)
+            }
+        } else {
+            if (imageIndex > 0) {
+                setImageIndex(imageIndex - 1)
+            } else {
+                setImageIndex(imageMax)
+            }
+        }
+    }
+
     usePageTitle(`${product.brand} ${product.name}`);
 
 
@@ -23,19 +56,21 @@ export default function ProductDetails() {
         <PageWrapper>
             <div className="grid grid-cols-2 gap-12">
 
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center gap-12">
                     <figure className="flex gap-4 justify-center items-center relative justify-self-center text-hifi-gray-medium">
-                        <FaChevronLeft className="cursor-pointer size-8" />
+                        <FaChevronLeft className="size-8 hifi-hover-75" onClick={() => handleImageIndex(false)} />
+
                         <div className="relative h-full image-tint">
-                            <img src={product.images[0]} alt="" />
+                            <img src={imageColorFilter[imageIndex]} alt={`${product.brand} ${product.name}`} className="select-none" />
                         </div>
-                        <FaChevronRight className="cursor-pointer size-8" />
+
+                        <FaChevronRight className="size-8 hifi-hover-75" onClick={() => handleImageIndex(true)} />
                     </figure>
 
-                    <div className=" mt-12 flex gap-3 *:size-4 *:rounded-full *:cursor-pointer [&>.active]:bg-hifi-gray-medium">
-                        <CircleDot obj={{ color: "grayMedium", fill: true }} />
-                        <CircleDot obj={{ color: "grayMedium" }} />
-                        <CircleDot obj={{ color: "grayMedium" }} />
+                    <div className="flex gap-3 *:size-4 *:rounded-full *:cursor-pointer [&>.active]:bg-hifi-gray-medium group">
+                        {imageColorFilter.map((_: any, i: number) => (
+                            <CircleDot obj={{ color: "grayMedium", fill: i === imageIndex ? true : false }} className="hover:bg-hifi-gray-medium hover:opacity-50" onClick={() => setImageIndex(i)} key={i} />
+                        ))}
                     </div>
                 </div>
 
@@ -47,6 +82,17 @@ export default function ProductDetails() {
                         </h2>
 
                         <p>{product.description}</p>
+                    </div>
+
+                    <div className="flex gap-3">
+                        {product.colors.map((color: string, i: number) => (
+                            <figure className={`p-2 min-w-16 flex flex-col items-center gap-1 text-center rounded-lg cursor-pointer select-none duration-100 hover:bg-hifi-gray-light ${selectedColor === color ? "bg-hifi-gray-light" : ""}`} onClick={() => handleImageColor(color)} key={i}>
+                                <CircleDot obj={{ color: color, fill: true, size: "size-7 min-w-7 min-h-7" }} />
+                                <figcaption className="text-xs capitalize">
+                                    {color}
+                                </figcaption>
+                            </figure>
+                        ))}
                     </div>
 
                     <div className="flex justify-between items-center">
@@ -78,10 +124,10 @@ export default function ProductDetails() {
                                 className={`flex *:py-3 ${key === "img" ? "*:last:lowercase" : ""}`}
                             >
                                 <p className="px-8 w-56 font-bold text-right">
-                                    {convertCasing(String(key))}
+                                    {convertCasing(String(key))}:
                                 </p>
-                                <p className="px-8 flex-1 border-l-1 border-hifi-gray-medium">
-                                    {String(value)}
+                                <p className={`px-8 flex-1 border-l-1 border-hifi-gray-medium ${key === "slug" ? "lowercase" : ""}`}>
+                                    {key === "colors" ? String(value).replace(",", ", ") : String(value)}
                                 </p>
                             </li>
                         ))}

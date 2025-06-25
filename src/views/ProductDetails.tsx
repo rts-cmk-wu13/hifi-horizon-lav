@@ -67,7 +67,7 @@ export default function ProductDetails() {
                     </figure>
 
                     <div className="flex gap-3 *:size-4 *:rounded-full *:cursor-pointer [&>.active]:bg-hifi-gray-medium">
-                        {imageColorFilter.map((image: string, i: number) => (
+                        {imageColorFilter.map((_: any, i: number) => (
                             <CircleDot obj={{ color: "grayMedium", fill: i === imageIndex ? true : false }} onClick={() => setImageIndex(i)} key={i} />
                         ))}
                     </div>
@@ -85,8 +85,8 @@ export default function ProductDetails() {
 
                     <div className="flex gap-3">
                         {product.colors.map((color: string, i: number) => (
-                            <figure className={`p-2 min-w-16 flex flex-col items-center gap-1 text-center rounded-lg cursor-pointer select-none hover:bg-hifi-gray-light ${selectedColor === color ? "bg-hifi-gray-light" : ""}`} onClick={() => handleImageColor(color)}>
-                                <CircleDot obj={{ color: color, fill: true, size: "size-7 min-w-7 min-h-7" }} key={i} />
+                            <figure className={`p-2 min-w-16 flex flex-col items-center gap-1 text-center rounded-lg cursor-pointer select-none duration-100 hover:bg-hifi-gray-light ${selectedColor === color ? "bg-hifi-gray-light" : ""}`} onClick={() => handleImageColor(color)} key={i}>
+                                <CircleDot obj={{ color: color, fill: true, size: "size-7 min-w-7 min-h-7" }} />
                                 <figcaption className="text-xs capitalize">
                                     {color}
                                 </figcaption>

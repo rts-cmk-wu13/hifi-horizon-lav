@@ -37,9 +37,9 @@ export default function CircleDot({ obj, onClick, ...rest }: CircleDotProps) {
             ? ColorVariants[obj.color as ColorKey]
             : ColorVariants["black" as ColorKey];
     let size = obj?.size ? obj.size : "size-4 min-w-4 min-h-4"
-    let fill = obj?.fill ? "" : "bg-transparent inset-shadow-[0_0_0_2px]"
+    let fill = obj?.fill ? "" : "bg-transparent inset-shadow-[0_0_0_2px] hover:bg-hifi-gray-medium/35"
 
     return (
-        <span className={`rounded-full outline-offset-2 text-xs text-hifi-white border-[0.25px] border-hifi-gray-medium ${color} ${size} ${fill}`} {...(onClick ? { onClick: onClick } : {})} {...rest}></span>
+        <span className={`rounded-full outline-offset-2 text-xs text-hifi-white border-[0.25px] border-hifi-gray-medium duration-350 ease-out ${color} ${size} ${fill}`} {...(onClick ? { onClick: onClick } : {})} {...rest}></span>
     )
 }

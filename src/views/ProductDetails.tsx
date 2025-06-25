@@ -18,9 +18,22 @@ export default function ProductDetails() {
 
     const productPrice = new Intl.NumberFormat("en-GB").format(product.price)
 
-    const imageMax = product.images.length - 1
-    const [imageIndex, setImageIndex] = useState(0);
+    const [imageColorFilter, setImageColorFilter] = useState(product.images);
+    const [selectedColor, setSelectedColor] = useState<string | null>(null);
+    const handleImageColor = (color: string) => {
+        if (selectedColor === color) {
+            setSelectedColor(null);
+            setImageColorFilter(product.images);
+        } else {
+            const filteredImages = product.images.filter((image: string) => image.includes(color));
+            setSelectedColor(color)
+            setImageColorFilter(filteredImages)
+            setImageIndex(0)
+        }
+    }
 
+    let imageMax = imageColorFilter.length - 1
+    const [imageIndex, setImageIndex] = useState(0);
     const handleImageIndex = (add: boolean) => {
         if (add) {
             if (imageIndex < imageMax) {
@@ -47,14 +60,14 @@ export default function ProductDetails() {
                         <FaChevronLeft className="cursor-pointer size-8" onClick={() => handleImageIndex(false)} />
 
                         <div className="relative h-full image-tint">
-                            <img src={product.images[imageIndex]} alt="Product image" className="select-none" />
+                            <img src={imageColorFilter[imageIndex]} alt="Product image" className="select-none" />
                         </div>
 
                         <FaChevronRight className="cursor-pointer size-8" onClick={() => handleImageIndex(true)} />
                     </figure>
 
                     <div className="flex gap-3 *:size-4 *:rounded-full *:cursor-pointer [&>.active]:bg-hifi-gray-medium">
-                        {product.images.map((image: string, i: number) => (
+                        {imageColorFilter.map((image: string, i: number) => (
                             <CircleDot obj={{ color: "grayMedium", fill: i === imageIndex ? true : false }} onClick={() => setImageIndex(i)} key={i} />
                         ))}
                     </div>
@@ -72,7 +85,7 @@ export default function ProductDetails() {
 
                     <div className="flex gap-3">
                         {product.colors.map((color: string, i: number) => (
-                            <figure className={`p-2 min-w-16 flex flex-col items-center gap-1 text-center rounded-lg cursor-pointer select-none hover:bg-hifi-gray-light`}>
+                            <figure className={`p-2 min-w-16 flex flex-col items-center gap-1 text-center rounded-lg cursor-pointer select-none hover:bg-hifi-gray-light ${selectedColor === color ? "bg-hifi-gray-light" : ""}`} onClick={() => handleImageColor(color)}>
                                 <CircleDot obj={{ color: color, fill: true, size: "size-7 min-w-7 min-h-7" }} key={i} />
                                 <figcaption className="text-xs capitalize">
                                     {color}

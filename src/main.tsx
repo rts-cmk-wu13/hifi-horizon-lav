@@ -16,7 +16,7 @@ createRoot(document.getElementById("root")!).render(
         <AuthProvider>
             <QueryClientProvider client={queryClient}>
                 <RouterProvider router={router} />
-                <ToastContainer hideProgressBar={true} />
+                <ToastContainer hideProgressBar={true} pauseOnHover={false} autoClose={2000}/>
                 <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>
         </AuthProvider>

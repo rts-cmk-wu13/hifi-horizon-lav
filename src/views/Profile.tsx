@@ -3,6 +3,7 @@ import {
     Form,
     useActionData,
     useLoaderData,
+    useNavigate,
     useNavigation,
     useRevalidator,
 } from "react-router";
@@ -12,7 +13,12 @@ import { FaLocationDot } from "react-icons/fa6";
 import WhiteBox from "../components/WhiteBox";
 import StandardButton from "../components/StandardButton";
 import type { CurrentUser, CurrentUserErrors } from "../schemas/schemas";
-import { readFromSessionStorage, removeFromSessionStorage } from "../utils/localstorage";
+import {
+    readFromSessionStorage,
+    removeFromSessionStorage,
+} from "../utils/localstorage";
+import { useAuth } from "../contexts/AuthContext";
+import { toast } from "react-toastify";
 
 const userInfoSections = [
     {
@@ -47,15 +53,19 @@ export default function Profile() {
     const navigation = useNavigation();
     const actionData = useActionData();
     const revalidator = useRevalidator();
+    const { logout } = useAuth();
+    const navigate = useNavigate();
 
     const success = actionData && "success" in actionData && actionData.success;
-    const errors: CurrentUserErrors | null = actionData && !("success" in actionData) ? (actionData as CurrentUserErrors) : null;
+    const errors: CurrentUserErrors | null =
+        actionData && !("success" in actionData)
+            ? (actionData as CurrentUserErrors)
+            : null;
 
     const loaderData = useLoaderData<CurrentUser>();
     const [userData, setUserData] = useState<CurrentUser>(loaderData);
 
     console.log("Profile loader data", loaderData);
-    
 
     const [editFields, setEditFields] = useState(false);
 
@@ -64,7 +74,6 @@ export default function Profile() {
     }, []);
 
     useEffect(() => {
-
         const justLoggedIn = readFromSessionStorage("justLoggedIn");
 
         if (justLoggedIn === true) {
@@ -83,10 +92,7 @@ export default function Profile() {
     }, [navigation.state, success]);
 
     useEffect(() => {
-        if (
-            success &&
-            actionData?.user
-        ) {
+        if (success && actionData?.user) {
             setUserData((prev) => ({ ...prev, ...actionData.user }));
         }
     }, [success, actionData]);
@@ -95,6 +101,13 @@ export default function Profile() {
         setEditFields(!editFields);
     };
 
+    const handleLogout = () => {
+        logout();
+        navigate("/")
+        toast.success("You have been logged out successfully!", {
+            className: "mt-24",
+        });
+    };
 
     return (
         <div className="p-hifi-default pt-32">
@@ -105,6 +118,10 @@ export default function Profile() {
                     </h2>
 
                     <div className="flex gap-4">
+                        <StandardButton
+                            obj={{ text: "Log out", func: handleLogout }}
+                            className="bg-hifi-gray-dark"
+                        />
                         <StandardButton
                             obj={{
                                 text: editFields

@@ -3,9 +3,13 @@ import AboutItem from "../components/AboutItem";
 import { useLoaderData } from "react-router";
 import { type AboutItemData } from "../components/AboutItem";
 import WhiteBox from "../components/WhiteBox";
+import usePageTitle from "../utils/helpers";
 
 export default function About() {
     const data = useLoaderData();
+
+    usePageTitle("About");
+
     return (
         <PageWrapper obj={{ heading: "About us" }}>
             <WhiteBox className="flex flex-col gap-10">

@@ -9,8 +9,7 @@ import CircleDot from "../components/CircleDot";
 import StockStatus from "../components/StockStatus";
 import ItemCount from "../components/ItemCount";
 
-import { convertCasing } from "../utils/helpers";
-
+import usePageTitle, { convertCasing } from "../utils/helpers";
 
 export default function ProductDetails() {
 
@@ -50,9 +49,11 @@ export default function ProductDetails() {
         }
     }
 
+    usePageTitle(`${product.brand} ${product.name}`);
+
 
     return (
-        <PageWrapper obj={{ heading: "Product" }}>
+        <PageWrapper>
             <div className="grid grid-cols-2 gap-12">
 
                 <div className="flex flex-col items-center gap-12">

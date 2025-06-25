@@ -4,11 +4,11 @@ export const headerNavLinks = [
         href: "/products"
     },
     {
-        content: "About Us",
+        content: "About",
         href: "/about"
     },
     {
-        content: "Contact Us",
+        content: "Contact",
         href: "/contact"
     },
 ]

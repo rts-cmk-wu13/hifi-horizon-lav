@@ -92,7 +92,7 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                                                     : option.toString()
                                             )
                                         }
-                                        className="form-checkbox cursor-pointer"
+                                        className="form-checkbox cursor-pointer hifi-checkbox"
                                     />
                                 </label>
                             ))}
@@ -117,7 +117,7 @@ export default function Filter({ data, updateFilters }: FilterProps) {
                                 Show only in stock
                                 <input
                                     type="checkbox"
-                                    className="form-checkbox cursor-pointer"
+                                    className="form-checkbox cursor-pointer hifi-checkbox"
                                     onChange={handleStock}
                                 />
                             </label>

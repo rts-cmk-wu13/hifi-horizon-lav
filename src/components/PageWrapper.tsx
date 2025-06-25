@@ -2,8 +2,8 @@ import type { ReactNode } from "react"
 
 
 type PageWrapperProps = {
-    obj: {
-        heading: string
+    obj?: {
+        heading?: string
     }
     children: ReactNode | null;
     className?: string;
@@ -16,10 +16,11 @@ export default function PageWrapper({ obj, children, className }: PageWrapperPro
 
     return (
         <div className={wrapperStyle}>
-            <h1 className="mb-12 text-5xl font-semibold uppercase text-hifi-gray-dark">
-                {obj.heading}
-            </h1>
-
+            {obj?.heading &&
+                <h1 className="mb-12 text-5xl font-semibold uppercase text-hifi-gray-dark">
+                    {obj?.heading}
+                </h1>
+            }
             {children}
         </div>
     )

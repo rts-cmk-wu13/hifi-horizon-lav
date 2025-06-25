@@ -105,13 +105,15 @@ export function useRedirectAfterAuth() {
 
         console.log(from);
         
-
     useEffect(() => {
         const token = readFromSessionStorage<string>("token");
 
         if (navigation.state === "idle" && token) {
             login(token);
+            console.log("redirect token: ", token);
+            
             navigate(from, { replace: true });
+            
 
         }
     }, [navigation.state, login, navigate, from]);
@@ -157,3 +159,17 @@ export function json(data: unknown, init?: ResponseInit): Response {
         },
     });
 }
+
+export const usePageTitle = (title: string, appName: string = "HiFi Horizon") => {
+    useEffect(() => {
+        // Set the document title with a pipe
+        document.title = `${appName} | ${title}`;
+
+        // Optionally, clean up or reset the title when the component unmounts
+        return () => {
+            document.title = appName;
+        };
+    }, [title, appName]);
+};
+
+export default usePageTitle;

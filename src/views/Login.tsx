@@ -7,11 +7,13 @@ import FormField from "../components/FormField";
 import StandardButton from "../components/StandardButton";
 import CtaBanner from "../components/CtaBanner";
 
-import { useRedirectAfterAuth } from "../utils/helpers";
+import usePageTitle, { useRedirectAfterAuth } from "../utils/helpers";
 
 
 export default function Login() {
     const errors = useActionData<UserLoginErrors>();
+
+    usePageTitle("Log in");
 
     useRedirectAfterAuth();
 
@@ -19,15 +21,15 @@ export default function Login() {
         <PageWrapper obj={{ heading: "Login" }}>
             <div className="flex flex-col gap-8">
                 <WhiteBox>
-                    <h2 className="pb-2 text-2xl font-semibold uppercase">
+                    <h2 className="mb-2 text-2xl font-semibold uppercase">
                         Registered Customers
                     </h2>
                     <p className="text-sm">
                         If you have an account, sign in with your email address.
                     </p>
 
-                    <Form method="POST" id="loginForm" className="mt-12">
-                        <div className="mb-12 flex flex-col gap-8">
+                    <Form method="POST" id="loginForm" className="mt-6">
+                        <div className="mb-6 flex flex-col gap-8">
                             <FormField
                                 obj={{
                                     label: "Email",

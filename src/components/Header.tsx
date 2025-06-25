@@ -30,12 +30,12 @@ export default function Header() {
     }
 
     return (
-        <header className="bg-hifi-black fixed z-999 inset-x-0 top-0" data-header>
-            <nav className="h-24 px-8 flex justify-between items-center text-hifi-white *:h-full hifi-max-w">
-                <ul className="flex items-center gap-6 text-sm *:h-full *:content-center" onMouseLeave={handleDropdownClose}>
-                    <li className="w-16">
+        <header className="bg-hifi-black fixed z-999 left-0 top-0 w-full border-b border-gray-800" data-header>
+            <nav className="h-24 px-8 flex gap-12 sm:justify-between text-hifi-white *:h-full hifi-max-w">
+                <ul className="flex items-center gap-3 *:h-full *:content-center text-xs md:gap-6 sm:text-sm" onMouseLeave={handleDropdownClose}>
+                    <li className="w-10 sm:w-16">
                         <NavLink to="/" className="hifi-hover-75">
-                            <img src={hifiLogo()} alt="Hifi Horizon logo"/>
+                            <img src={hifiLogo()} alt="Hifi Horizon logo" />
                         </NavLink>
                     </li>
 
@@ -47,8 +47,8 @@ export default function Header() {
                                         {link.content}
                                     </NavLink>
 
-                                    <ul id="dropdownMenu" className={`w-96 p-9 flex flex-col gap-5 absolute top-24 bg-hifi-white text-xl text-hifi-gray-dark ${dropdownOpen ? "flex" : "hidden"}`} popover="manual">
-                                        <li className="text-2xl font-semibold text-hifi-black">Browse Categories</li>
+                                    <ul id="dropdownMenu" className={`w-96 p-8 flex flex-col gap-3 rounded-bl rounded-br border-[0.25px] border-hifi-black/10 absolute top-24 bg-hifi-white text-md text-hifi-gray-dark ${dropdownOpen ? "flex" : "hidden"}`} popover="manual">
+                                        <li className="text-lg font-semibold text-hifi-black">Browse Categories</li>
 
                                         {ListLinks(headerDropdownLinks)}
                                     </ul>
@@ -67,7 +67,7 @@ export default function Header() {
                 </ul>
 
 
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-6 ml-auto">
                     <search className="hidden md:relative md:flex md:items-center">
                         <input type="search" name="search" id="search" placeholder="Search products..." className="w-48 h-9 px-3 text-xs rounded-sm bg-hifi-white text-hifi-black placeholder:text-hifi-black focus:outline-0" />
                         <FaSearch className="absolute z-10 right-1.5 text-xl text-hifi-black cursor-pointer" />

@@ -1,9 +1,11 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Form,
     useActionData,
     useLoaderData,
+    useNavigate,
     useNavigation,
+    useRevalidator,
 } from "react-router";
 import { FaUser, FaPhoneAlt, FaEnvelope, FaInfoCircle } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
@@ -11,35 +13,16 @@ import { FaLocationDot } from "react-icons/fa6";
 import WhiteBox from "../components/WhiteBox";
 import StandardButton from "../components/StandardButton";
 import type { CurrentUser, CurrentUserErrors } from "../schemas/schemas";
-import { removeFromSessionStorage } from "../utils/localstorage";
+import {
+    readFromSessionStorage,
+    removeFromSessionStorage,
+} from "../utils/localstorage";
+import { useAuth } from "../contexts/AuthContext";
+import { toast } from "react-toastify";
 
-// type userDummyType = {
-//     id: number;
-//     email: string;
-//     name: string;
-//     address: string;
-//     address2: string;
-//     zip: string;
-//     city: string;
-//     country: string;
-//     phone: number;
-//     terms: boolean;
-//     marketing: boolean;
-// };
+import usePageTitle from "../utils/helpers";
+import PageWrapper from "../components/PageWrapper";
 
-// const userDummy: userDummyType = {
-//     id: 7,
-//     email: "loke@test.dk",
-//     name: "Loke",
-//     address: "Roskildevej 187",
-//     address2: "3. tv",
-//     zip: "2500",
-//     city: "København",
-//     country: "Danmark",
-//     phone: 52651653,
-//     terms: false,
-//     marketing: false,
-// };
 
 const userInfoSections = [
     {
@@ -73,17 +56,36 @@ const userInfoSections = [
 export default function Profile() {
     const navigation = useNavigation();
     const actionData = useActionData();
+    const revalidator = useRevalidator();
+    const { logout } = useAuth();
+    const navigate = useNavigate();
 
     const success = actionData && "success" in actionData && actionData.success;
-    const errors: CurrentUserErrors | null = actionData && !("success" in actionData) ? (actionData as CurrentUserErrors) : null;
+    const errors: CurrentUserErrors | null =
+        actionData && !("success" in actionData)
+            ? (actionData as CurrentUserErrors)
+            : null;
 
     const loaderData = useLoaderData<CurrentUser>();
     const [userData, setUserData] = useState<CurrentUser>(loaderData);
 
+    console.log("Profile loader data", loaderData);
+
     const [editFields, setEditFields] = useState(false);
+
+    usePageTitle("Profile");
 
     useEffect(() => {
         removeFromSessionStorage("redirectTo");
+    }, []);
+
+    useEffect(() => {
+        const justLoggedIn = readFromSessionStorage("justLoggedIn");
+
+        if (justLoggedIn === true) {
+            removeFromSessionStorage("justLoggedIn");
+            revalidator.revalidate();
+        }
     }, []);
 
     useEffect(() => {
@@ -96,10 +98,7 @@ export default function Profile() {
     }, [navigation.state, success]);
 
     useEffect(() => {
-        if (
-            success &&
-            actionData?.user
-        ) {
+        if (success && actionData?.user) {
             setUserData((prev) => ({ ...prev, ...actionData.user }));
         }
     }, [success, actionData]);
@@ -108,20 +107,27 @@ export default function Profile() {
         setEditFields(!editFields);
     };
 
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+        toast.success("You have been logged out successfully!");
+    };
+
     return (
-        <div className="p-hifi-default">
+
+        <PageWrapper>
             <WhiteBox>
-                <div className="flex justify-between items-start">
-                    <h2 className="mb-8 text-2xl font-semibold uppercase">
-                        Your Profile Information
+                <div className="flex flex-col-reverse gap-4 justify-between sm:items-start sm:flex-row">
+                    <h2 className=" text-2xl font-semibold uppercase">
+                        Your Profile
                     </h2>
 
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 mb-4">
                         <StandardButton
                             obj={{
                                 text: editFields
                                     ? "Undo changes"
-                                    : "Edit user information",
+                                    : "Edit user info",
                                 func: handleEditFields,
                             }}
                             className={
@@ -129,6 +135,10 @@ export default function Profile() {
                                     ? "bg-hifi-gray-light text-hifi-black!"
                                     : ""
                             }
+                        />
+                        <StandardButton
+                            obj={{ text: "Log out", func: handleLogout }}
+                            className="bg-hifi-gray-dark"
                         />
                     </div>
                 </div>
@@ -156,7 +166,7 @@ export default function Profile() {
                                         </h3>
 
                                         {editFields &&
-                                        info.id !== "marketing" ? (
+                                            info.id !== "marketing" ? (
                                             <>
                                                 <input
                                                     type="text"
@@ -165,24 +175,25 @@ export default function Profile() {
                                                     defaultValue={String(
                                                         userData[
                                                             info.id as keyof typeof userData
-                                                        ]
+                                                        ] ?? ""
+
                                                     )}
                                                     className="px-3 w-full rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0"
                                                 />
                                                 {errors?.[
                                                     info.id as keyof CurrentUserErrors
                                                 ]?.errors?.[0] && (
-                                                    <span className="text-red-600">
-                                                        {String(
-                                                            errors[
-                                                                info.id as keyof CurrentUserErrors
-                                                            ]?.errors?.[0]
-                                                        )}
-                                                    </span>
-                                                )}
+                                                        <span className="text-red-600">
+                                                            {String(
+                                                                errors[
+                                                                    info.id as keyof CurrentUserErrors
+                                                                ]?.errors?.[0]
+                                                            )}
+                                                        </span>
+                                                    )}
                                             </>
                                         ) : editFields &&
-                                          info.id === "marketing" ? (
+                                            info.id === "marketing" ? (
                                             <select
                                                 name="marketing"
                                                 id="marketing"
@@ -207,10 +218,10 @@ export default function Profile() {
                                                 {info.body
                                                     ? info.body
                                                     : String(
-                                                          userData[
-                                                              info.id as keyof typeof userData
-                                                          ] ?? ""
-                                                      )}
+                                                        userData[
+                                                        info.id as keyof typeof userData
+                                                        ] ?? ""
+                                                    )}
                                             </p>
                                         )}
                                     </div>
@@ -231,6 +242,6 @@ export default function Profile() {
                     )}
                 </Form>
             </WhiteBox>
-        </div>
+        </PageWrapper>
     );
 }

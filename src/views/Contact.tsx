@@ -4,12 +4,14 @@ import PageWrapper from "../components/PageWrapper";
 import FormField from "../components/FormField";
 import StandardButton from "../components/StandardButton";
 import type { ContactErrors } from "../schemas/schemas";
+import usePageTitle from "../utils/helpers";
 
 export default function Contact() {
     const errors = useActionData<ContactErrors>();
 
     console.log(errors);
 
+    usePageTitle("Contact");
 
     return (
         <PageWrapper obj={{ heading: "Get in touch with us" }}>

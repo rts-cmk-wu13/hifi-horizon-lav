@@ -16,7 +16,7 @@ export default function Header() {
     const dropdownElm = document.querySelector("#dropdownMenu") as HTMLElement
 
     const handleDropdownOpen = () => {
-        setDropdownOpen(true)
+        setTimeout(() => setDropdownOpen(true), 1)
         if (dropdownElm && "openPopover" in dropdownElm && typeof (dropdownElm as any).openPopover === "function") {
             (dropdownElm as any).openPopover();
         }
@@ -34,7 +34,7 @@ export default function Header() {
             <nav className="h-24 px-8 flex justify-between items-center text-hifi-white *:h-full hifi-max-w">
                 <ul className="flex items-center gap-6 text-sm *:h-full *:content-center" onMouseLeave={handleDropdownClose}>
                     <li className="w-16">
-                        <NavLink to="/" className="hover:opacity-75">
+                        <NavLink to="/" className="hifi-hover-75">
                             <img src={hifiLogo()} alt="Hifi Horizon logo"/>
                         </NavLink>
                     </li>
@@ -43,7 +43,7 @@ export default function Header() {
                         if (i === 0) {
                             return (
                                 <li className="relative group" key={i} onMouseEnter={handleDropdownOpen} popoverTarget="dropdownMenu">
-                                    <NavLink to={link.href} className="uppercase relative transition-all [&.active]:[text-shadow:0_0_1px_currentColor] hover:[text-shadow:0_0_1px_currentColor] duration-300" key={i}>
+                                    <NavLink to={link.href} className="uppercase relative transition-all [&.active]:[text-shadow:0_0_1px_currentColor] hover:[text-shadow:0_0_1px_currentColor] duration-200" key={i}>
                                         {link.content}
                                     </NavLink>
 
@@ -57,7 +57,7 @@ export default function Header() {
                         } else {
                             return (
                                 <li className="relative group" key={i}>
-                                    <NavLink to={link.href} className="uppercase relative transition-all [&.active]:[text-shadow:0_0_1px_currentColor] hover:[text-shadow:0_0_1px_currentColor] duration-300" key={i}>
+                                    <NavLink to={link.href} className="uppercase relative transition-all [&.active]:[text-shadow:0_0_1px_currentColor] hover:[text-shadow:0_0_1px_currentColor] duration-200" key={i}>
                                         {link.content}
                                     </NavLink>
                                 </li>

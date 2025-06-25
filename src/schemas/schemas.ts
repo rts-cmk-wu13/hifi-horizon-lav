@@ -157,7 +157,8 @@ export type UserErrors = {
 
 export const UserLoginSchema = UserSchema.pick({
     email: true,
-    password: true,
+}).extend({
+    password: z.string().min(1, "Password is required")
 })
 
 export type UserLoginType = z.infer<typeof UserLoginSchema>;

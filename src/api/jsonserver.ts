@@ -155,9 +155,7 @@ export const fetchCurrentUser = async ({
                 const errorMessage =
                     zodError.properties?.email?.errors[0] || "Invalid input";
 
-                toast.error(errorMessage, {
-                    className: "mt-24",
-                });
+                toast.error(errorMessage);
 
                 return zodError.properties;
             }

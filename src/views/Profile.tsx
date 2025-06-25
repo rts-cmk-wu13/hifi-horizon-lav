@@ -107,9 +107,7 @@ export default function Profile() {
     const handleLogout = () => {
         logout();
         navigate("/");
-        toast.success("You have been logged out successfully!", {
-            className: "mt-24",
-        });
+        toast.success("You have been logged out successfully!");
     };
 
     return (

@@ -60,7 +60,7 @@ export default function ProductDetails() {
                         <FaChevronLeft className="cursor-pointer size-8" onClick={() => handleImageIndex(false)} />
 
                         <div className="relative h-full image-tint">
-                            <img src={imageColorFilter[imageIndex]} alt="Product image" className="select-none" />
+                            <img src={imageColorFilter[imageIndex]} alt={`${product.brand} ${product.name}`} className="select-none" />
                         </div>
 
                         <FaChevronRight className="cursor-pointer size-8" onClick={() => handleImageIndex(true)} />

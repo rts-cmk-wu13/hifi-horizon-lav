@@ -1,9 +1,10 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Form,
     useActionData,
     useLoaderData,
     useNavigation,
+    useRevalidator,
 } from "react-router";
 import { FaUser, FaPhoneAlt, FaEnvelope, FaInfoCircle } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
@@ -11,35 +12,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import WhiteBox from "../components/WhiteBox";
 import StandardButton from "../components/StandardButton";
 import type { CurrentUser, CurrentUserErrors } from "../schemas/schemas";
-import { removeFromSessionStorage } from "../utils/localstorage";
-
-// type userDummyType = {
-//     id: number;
-//     email: string;
-//     name: string;
-//     address: string;
-//     address2: string;
-//     zip: string;
-//     city: string;
-//     country: string;
-//     phone: number;
-//     terms: boolean;
-//     marketing: boolean;
-// };
-
-// const userDummy: userDummyType = {
-//     id: 7,
-//     email: "loke@test.dk",
-//     name: "Loke",
-//     address: "Roskildevej 187",
-//     address2: "3. tv",
-//     zip: "2500",
-//     city: "København",
-//     country: "Danmark",
-//     phone: 52651653,
-//     terms: false,
-//     marketing: false,
-// };
+import { readFromSessionStorage, removeFromSessionStorage } from "../utils/localstorage";
 
 const userInfoSections = [
     {
@@ -73,6 +46,7 @@ const userInfoSections = [
 export default function Profile() {
     const navigation = useNavigation();
     const actionData = useActionData();
+    const revalidator = useRevalidator();
 
     const success = actionData && "success" in actionData && actionData.success;
     const errors: CurrentUserErrors | null = actionData && !("success" in actionData) ? (actionData as CurrentUserErrors) : null;
@@ -80,10 +54,23 @@ export default function Profile() {
     const loaderData = useLoaderData<CurrentUser>();
     const [userData, setUserData] = useState<CurrentUser>(loaderData);
 
+    console.log("Profile loader data", loaderData);
+    
+
     const [editFields, setEditFields] = useState(false);
 
     useEffect(() => {
         removeFromSessionStorage("redirectTo");
+    }, []);
+
+    useEffect(() => {
+
+        const justLoggedIn = readFromSessionStorage("justLoggedIn");
+
+        if (justLoggedIn === true) {
+            removeFromSessionStorage("justLoggedIn");
+            revalidator.revalidate();
+        }
     }, []);
 
     useEffect(() => {
@@ -108,8 +95,9 @@ export default function Profile() {
         setEditFields(!editFields);
     };
 
+
     return (
-        <div className="p-hifi-default">
+        <div className="p-hifi-default pt-32">
             <WhiteBox>
                 <div className="flex justify-between items-start">
                     <h2 className="mb-8 text-2xl font-semibold uppercase">

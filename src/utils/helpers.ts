@@ -105,13 +105,15 @@ export function useRedirectAfterAuth() {
 
         console.log(from);
         
-
     useEffect(() => {
         const token = readFromSessionStorage<string>("token");
 
         if (navigation.state === "idle" && token) {
             login(token);
+            console.log("redirect token: ", token);
+            
             navigate(from, { replace: true });
+            
 
         }
     }, [navigation.state, login, navigate, from]);

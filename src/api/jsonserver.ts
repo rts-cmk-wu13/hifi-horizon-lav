@@ -9,7 +9,7 @@ import {
 } from "../schemas/schemas";
 import { FAQSchema, type FAQType } from "../schemas/schemas";
 import { AboutListSchema, type AboutType } from "../schemas/schemas";
-import { handleImgPaths, liveOrLocalBaseURL } from "../utils/helpers";
+import { handleImgPaths, liveOrLocalBaseURL, buildQuery } from "../utils/helpers";
 
 import queryClient from "./queryClient";
 import { toast } from "react-toastify";
@@ -43,6 +43,26 @@ export const fetchProducts = async (): Promise<ProductList> => {
             return data;
         },
     });
+};
+
+/*--- Fetch products bye query ---*/
+export const fetchProductsByParams = async (params: Record<string, string>): Promise<ProductList> => {
+  const queryString = buildQuery(params);
+  const response = await fetch(`${API_BASE_URL}/products?${queryString}`);
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  const result = await ProductListSchema.safeParseAsync(await response.json());
+
+  if (!result.success) {
+    throw new Error("Invalid data format" + result.error.message);
+  }
+
+  let data = result.data;
+  data = handleImgPaths(data);
+  return data;
 };
 
 /*--- Fetch product detail ---*/
@@ -143,7 +163,7 @@ export const fetchCurrentUser = async ({
                     Authorization: `Bearer ${token}`,
                 },
             });
-            
+
             const rawData = await response.json();
 
             const result = await CurrentUserSchema.safeParseAsync(
@@ -165,11 +185,11 @@ export const fetchCurrentUser = async ({
     });
 };
 
-export const profileLoader = async ({request}: LoaderFunctionArgs) => {
+export const profileLoader = async ({ request }: LoaderFunctionArgs) => {
     const url = new URL(request.url);
 
     const queryString = url.searchParams.toString();
     const token = readFromSessionStorage("token");
 
-    return fetchCurrentUser({queryString, token});
+    return fetchCurrentUser({ queryString, token });
 }

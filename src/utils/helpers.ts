@@ -80,6 +80,11 @@ export function convertCasing(word: string) {
     }
 }
 
+export function buildQuery(params: Record<string, string>) {
+  const query = new URLSearchParams(params);
+  return query.toString();
+};
+
 export function removeParentheses(title: string) {
   return title.replace(/\s*\([^)]*\)/g, "").trim();
 }

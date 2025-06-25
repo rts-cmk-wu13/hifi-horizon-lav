@@ -45,24 +45,24 @@ export const fetchProducts = async (): Promise<ProductList> => {
     });
 };
 
-/*--- Fetch products bye query ---*/
+/*--- Fetch products by query ---*/
 export const fetchProductsByParams = async (params: Record<string, string>): Promise<ProductList> => {
-  const queryString = buildQuery(params);
-  const response = await fetch(`${API_BASE_URL}/products?${queryString}`);
+    const queryString = buildQuery(params);
+    const response = await fetch(`${API_BASE_URL}/products?${queryString}`);
 
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
+    if (!response.ok) {
+        throw new Error("Network response was not ok");
+    }
 
-  const result = await ProductListSchema.safeParseAsync(await response.json());
+    const result = await ProductListSchema.safeParseAsync(await response.json());
 
-  if (!result.success) {
-    throw new Error("Invalid data format" + result.error.message);
-  }
+    if (!result.success) {
+        throw new Error("Invalid data format" + result.error.message);
+    }
 
-  let data = result.data;
-  data = handleImgPaths(data);
-  return data;
+    let data = result.data;
+    data = handleImgPaths(data);
+    return data;
 };
 
 /*--- Fetch product detail ---*/
@@ -88,8 +88,10 @@ export const fetchProductById = async ({
                 throw new Error("Invalid data format" + result.error.message);
             }
 
-            console.log(result.data);
-            return result.data;
+
+            let data = result.data;
+            data = handleImgPaths([data])[0];
+            return data;
         },
     });
 };

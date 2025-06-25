@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 import { type Product } from "../schemas/schemas";
 
 import StandardButton from "./StandardButton";

@@ -57,18 +57,18 @@ export default function ProductDetails() {
 
                 <div className="flex flex-col items-center gap-12">
                     <figure className="flex gap-4 justify-center items-center relative justify-self-center text-hifi-gray-medium">
-                        <FaChevronLeft className="cursor-pointer size-8" onClick={() => handleImageIndex(false)} />
+                        <FaChevronLeft className="size-8 hifi-hover-75" onClick={() => handleImageIndex(false)} />
 
                         <div className="relative h-full image-tint">
                             <img src={imageColorFilter[imageIndex]} alt={`${product.brand} ${product.name}`} className="select-none" />
                         </div>
 
-                        <FaChevronRight className="cursor-pointer size-8" onClick={() => handleImageIndex(true)} />
+                        <FaChevronRight className="size-8 hifi-hover-75" onClick={() => handleImageIndex(true)} />
                     </figure>
 
-                    <div className="flex gap-3 *:size-4 *:rounded-full *:cursor-pointer [&>.active]:bg-hifi-gray-medium">
+                    <div className="flex gap-3 *:size-4 *:rounded-full *:cursor-pointer [&>.active]:bg-hifi-gray-medium group">
                         {imageColorFilter.map((_: any, i: number) => (
-                            <CircleDot obj={{ color: "grayMedium", fill: i === imageIndex ? true : false }} onClick={() => setImageIndex(i)} key={i} />
+                            <CircleDot obj={{ color: "grayMedium", fill: i === imageIndex ? true : false }} className="hover:bg-hifi-gray-medium hover:opacity-50" onClick={() => setImageIndex(i)} key={i} />
                         ))}
                     </div>
                 </div>

@@ -12,29 +12,26 @@ export default function Footer() {
 
     return (
         <footer className="bg-hifi-black text-hifi-white">
-            <div className="flex flex-col gap-8 p-8 md:flex-row md:px-16 md:gap-10 md:pt-12 md:pb-8 md:justify-between">
-                <nav className="flex flex-col gap-8 md:flex-row md:justify-between md:gap-10">
+            <nav className="flex flex-col gap-12 px-8 py-6 md:flex-row md:justify-between hifi-max-w">
+                <ul className={linkListStyle}>
+                    {ListLinks(footerNavLinks)}
+                </ul>
+
+                <div>
                     <ul className={linkListStyle}>
-                        {ListLinks(footerNavLinks)}
+                        {ListLinks(footerFaqLinks.faq)}
                     </ul>
 
-                    <div>
-                        <ul className={linkListStyle}>
-                            {ListLinks(footerFaqLinks.faq)}
-                        </ul>
+                    <hr className="border-t-1 border-hifi-accent my-6" />
 
-                        <hr className="my-3" />
-
-                        <ul className={linkListStyle}>
-                            {ListLinks(footerFaqLinks.external)}
-                        </ul>
-                    </div>
-                </nav>
-
+                    <ul className={linkListStyle}>
+                        {ListLinks(footerFaqLinks.external)}
+                    </ul>
+                </div>
                 <address className="not-italic">
-                    <p className="pb-4 text-lg">Contact</p>
+                    <p className="mb-3">Contact</p>
 
-                    <ul className="pb-5 flex flex-col gap-5 text-sm font-bold *:flex *:flex-col *:gap-4">
+                    <ul className="pb-5 flex flex-col gap-5 text-sm *:flex *:flex-col *:gap-3">
                         <li>
                             <p>2 Joppa Rd, Edinburgh, EH15 2EU</p>
                             <Link to="tel:01315567901" className="w-fit flex items-center gap-5 hifi-hover-75">
@@ -53,9 +50,10 @@ export default function Footer() {
                         {ListLinks(footerSoMeLinks)}
                     </ul>
                 </address>
-            </div>
+            </nav>
 
-            <div className="flex flex-col gap-2 mx-5 px-12 py-3 border-t">
+            <div className="flex flex-col gap-3 px-8 pb-6 hifi-max-w">
+                <hr className="border-t-1 border-hifi-accent mb-2" />
                 <div className="flex gap-3 *:h-12 *:w-auto">
                     <FaCcStripe />
                     <FaCcVisa />

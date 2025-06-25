@@ -21,12 +21,12 @@ export default function StockStatus({ obj }: StockStatusProps) {
     }
 
     if (stockNum < stockLimit) {
-        stockText = "Few in stock"
+        stockText = "Low stock"
         stockColor = "yellow"
     }
 
     if (stockNum == 0) {
-        stockText = "Out of stock"
+        stockText = "Sold out"
         stockColor = "red"
     }
 

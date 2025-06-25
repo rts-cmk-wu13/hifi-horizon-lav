@@ -23,12 +23,14 @@ import {
     fetchProducts,
     fetchFAQ,
     fetchAbout,
+    profileLoader,
 } from "../api/jsonserver";
 import {
     handleContactSubmit,
     handleLoginSubmit,
     handleNewsletterSubmit,
     handleSignupSubmit,
+    handleUpdateSubmit,
 } from "../api/actions";
 import RequireAuth from "../components/RequireAuth";
 
@@ -91,7 +93,8 @@ const router = createBrowserRouter([
                         <Profile />
                     </RequireAuth>
                 ),
-                action: handleSignupSubmit as ActionFunction,
+                loader: profileLoader as LoaderFunction,
+                action: handleUpdateSubmit as ActionFunction,
             },
             {
                 path: "*",

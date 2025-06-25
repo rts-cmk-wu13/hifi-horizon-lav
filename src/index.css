@@ -72,6 +72,12 @@
   pointer-events: none;
 }
 
+.hifi-max-w{
+  max-width: 1320px;
+  margin-inline: auto;
+}
+
 body {
     font-family: var(--font-open-sans);
+    overflow-x: hidden;
 }

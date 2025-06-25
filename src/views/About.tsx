@@ -7,7 +7,7 @@ import WhiteBox from "../components/WhiteBox";
 export default function About() {
     const data = useLoaderData();
     return (
-        <PageWrapper obj={{ heading: "Our History" }}>
+        <PageWrapper obj={{ heading: "About us" }}>
             <WhiteBox className="flex flex-col gap-10">
                 {data.map((obj: AboutItemData, index: number) => (
                     <AboutItem

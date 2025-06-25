@@ -80,10 +80,17 @@ export function convertCasing(word: string) {
     }
 }
 
+export function removeParentheses(title: string) {
+  return title.replace(/\s*\([^)]*\)/g, "").trim();
+}
+
 import { useEffect } from "react";
 import { useNavigate, useNavigation, useLocation } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
-import { readFromSessionStorage } from "../utils/localstorage";
+import {
+    readFromSessionStorage,
+    removeFromSessionStorage,
+} from "../utils/localstorage";
 
 export function useRedirectAfterAuth() {
     const { login } = useAuth();
@@ -96,12 +103,57 @@ export function useRedirectAfterAuth() {
         readFromSessionStorage<string>("redirectTo") ||
         "/";
 
+        console.log(from);
+        
+
     useEffect(() => {
         const token = readFromSessionStorage<string>("token");
 
         if (navigation.state === "idle" && token) {
             login(token);
             navigate(from, { replace: true });
+
         }
     }, [navigation.state, login, navigate, from]);
+}
+
+export async function validateToken(token: string): Promise<boolean> {
+    const response = await fetch("http://localhost:4000/me", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    return response.ok; // true if valid, false if 401/403/etc.
+}
+
+export function checkUserSession() {
+    let isActive;
+    const sessionStart = readFromSessionStorage("sessionStart") as number;
+    const now = Date.now();
+    const hourInMilliseconds = 60 * 60 * 1000;
+    // const hourInMilliseconds = 10 * 1000;
+
+    if (!sessionStart || now - sessionStart > hourInMilliseconds) {
+        // Session expired, clear session storage
+        removeFromSessionStorage("token");
+        removeFromSessionStorage("sessionStart");
+
+        isActive = false;
+        return false;
+    } else {
+        isActive = true;
+    }
+
+    return isActive;
+}
+
+export function json(data: unknown, init?: ResponseInit): Response {
+    return new Response(JSON.stringify(data), {
+        ...init,
+        headers: {
+            "Content-Type": "application/json",
+            ...(init?.headers ?? {}),
+        },
+    });
 }

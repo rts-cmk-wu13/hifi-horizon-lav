@@ -19,7 +19,7 @@ export default function ProductDetails() {
 
 
     return (
-        <PageWrapper obj={{ heading: "Product" }}>
+        <PageWrapper>
             <div className="grid grid-cols-2 gap-12">
 
                 <div className="flex flex-col items-center">

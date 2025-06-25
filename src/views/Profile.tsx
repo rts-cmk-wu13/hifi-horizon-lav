@@ -19,7 +19,10 @@ import {
 } from "../utils/localstorage";
 import { useAuth } from "../contexts/AuthContext";
 import { toast } from "react-toastify";
+
+import usePageTitle from "../utils/helpers";
 import PageWrapper from "../components/PageWrapper";
+
 
 const userInfoSections = [
     {
@@ -70,6 +73,8 @@ export default function Profile() {
 
     const [editFields, setEditFields] = useState(false);
 
+    usePageTitle("Profile");
+
     useEffect(() => {
         removeFromSessionStorage("redirectTo");
     }, []);
@@ -104,10 +109,8 @@ export default function Profile() {
 
     const handleLogout = () => {
         logout();
-        navigate("/")
-        toast.success("You have been logged out successfully!", {
-            className: "mt-24",
-        });
+        navigate("/");
+        toast.success("You have been logged out successfully!");
     };
 
     return (
@@ -171,8 +174,9 @@ export default function Profile() {
                                                     id={info.id}
                                                     defaultValue={String(
                                                         userData[
-                                                        info.id as keyof typeof userData
-                                                        ]
+                                                            info.id as keyof typeof userData
+                                                        ] ?? ""
+
                                                     )}
                                                     className="px-3 w-full rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0"
                                                 />

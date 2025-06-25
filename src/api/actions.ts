@@ -72,9 +72,7 @@ export async function handleNewsletterSubmit({
         const errorMessage =
             zodError.properties?.email?.errors[0] || "Invalid input";
 
-        toast.error(errorMessage, {
-            className: "mt-24",
-        });
+        toast.error(errorMessage);
         console.log(zodError);
 
         return zodError.properties as NewsletterErrors;
@@ -138,9 +136,7 @@ export async function handleNewsletterSubmit({
         }
     }
 
-    toast.success("Thank you for signing up to our newsletter!", {
-        className: "mt-24",
-    });
+    toast.success("Thank you for signing up to our newsletter!");
 
 }
 
@@ -235,9 +231,7 @@ export async function handleSignupSubmit({ request }: { request: Request }) {
     }
 
     // If registration is successful, show a success message
-    toast.success("Registration successful! You are now logged in.", {
-        className: "mt-24",
-    });
+    toast.success("Registration successful! You are now logged in.");
 
     // Save the access token to session storage
     saveToSessionStorage("token", responseData.accessToken);
@@ -288,9 +282,7 @@ export async function handleLoginSubmit({ request }: { request: Request }) {
 
     saveToSessionStorage("token", responseData.accessToken);
 
-    toast.success("Login successful!", {
-        className: "mt-24",
-    });
+    toast.success("Login successful!");
 
     // const redirectTo = readFromSessionStorage<string>("redirectTo") || "/";
 

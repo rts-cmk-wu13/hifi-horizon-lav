@@ -7,11 +7,13 @@ import FormField from "../components/FormField";
 import StandardButton from "../components/StandardButton";
 import CtaBanner from "../components/CtaBanner";
 
-import { useRedirectAfterAuth } from "../utils/helpers";
+import usePageTitle, { useRedirectAfterAuth } from "../utils/helpers";
 
 
 export default function Login() {
     const errors = useActionData<UserLoginErrors>();
+
+    usePageTitle("Log in");
 
     useRedirectAfterAuth();
 

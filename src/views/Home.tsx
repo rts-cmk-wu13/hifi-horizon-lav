@@ -14,11 +14,11 @@ export default function Home() {
     const data = useLoaderData()
 
     return (
-    <>
+        <>
             <img src={hifiHeroImg()} alt="Hifi Horizon Hero" className='w-full pt-24' />
 
             <section className="px-hifi-default pt-5 pb-16 bg-hifi-gray-lightest">
-                <div className="flex justify-between">
+                <div className="flex flex-col items-center gap-4 justify-between sm:flex-row">
                     <h2 className='text-2xl font-bold uppercase text-hifi-gray-dark'>High-rated Products</h2>
                     <StandardButton obj={{ text: "See all products", href: "/products" }} />
                 </div>
@@ -69,8 +69,8 @@ export default function Home() {
 
             <section className="p-hifi-default bg-hifi-gray-lightest mb-12">
                 <CtaBanner obj={{ heading: "Sign up for our newsletter", text: "Subscribing to our newsletter secures you up to date information about HiFi Horizons latest updates and offers." }}>
-                    <Form method="POST" noValidate id="newsletter" className="flex items-center gap-6">
-                        <input type="email" name="email" id="email" className="px-3 h-9 w-96 rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0" />
+                    <Form method="POST" noValidate id="newsletter" className="flex flex-col items-center gap-4 sm:flex-row sm:gap-4">
+                        <input type="email" name="email" id="email" className="px-3 h-9 w-80 rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0 md:w-96" />
 
                         <StandardButton obj={{ text: "Sign up", form: "newsletter" }} />
                     </Form>

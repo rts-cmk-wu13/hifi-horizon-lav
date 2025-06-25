@@ -2,8 +2,7 @@
 
 @font-face {
   font-family: "Open Sans";
-  src: url("./assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf")
-    format("truetype-variations");
+  src: url("./assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf") format("truetype-variations");
   font-weight: 100 900;
   font-stretch: 75% 100%;
   font-style: normal;
@@ -11,28 +10,28 @@
 }
 
 @theme {
-    --color-hifi-white: #ffffff;
-    --color-hifi-gray-lightest: #f4f4f2;
-    --color-hifi-gray-light: #e8e8e8;
-    --color-hifi-gray-medium: #bbbfca;
-    --color-hifi-gray-dark: #495464;
-    --color-hifi-black: #000000;
-    --color-hifi-accent: #ff6900;
+  --color-hifi-white: #ffffff;
+  --color-hifi-gray-lightest: #f4f4f2;
+  --color-hifi-gray-light: #e8e8e8;
+  --color-hifi-gray-medium: #bbbfca;
+  --color-hifi-gray-dark: #495464;
+  --color-hifi-black: #000000;
+  --color-hifi-accent: #ff6900;
 
-    --color-hifi-green: #008000;
-    --color-hifi-yellow: #FFA500;
-    --color-hifi-red: #FF0000;
+  --color-hifi-green: #008000;
+  --color-hifi-yellow: #FFA500;
+  --color-hifi-red: #FF0000;
 
-    --color-hifi-shadow: #00000040;
+  --color-hifi-shadow: #00000040;
 
-    --shadow-hifi-sm: 1px 2px 4px var(--color-hifi-shadow);
-    --shadow-hifi-md: 2px 4px 4px var(--color-hifi-shadow);
-    --shadow-hifi-lg: 0px 4px 16px var(--color-hifi-shadow);
-    --shadow-hifi-wbox: 0px 4px 4px var(--color-hifi-shadow);
+  --shadow-hifi-sm: 1px 2px 4px var(--color-hifi-shadow);
+  --shadow-hifi-md: 2px 4px 4px var(--color-hifi-shadow);
+  --shadow-hifi-lg: 0px 4px 16px var(--color-hifi-shadow);
+  --shadow-hifi-wbox: 0px 4px 4px var(--color-hifi-shadow);
 
-    --font-open-sans: "Open Sans", sans-serif;
+  --font-open-sans: "Open Sans", sans-serif;
 
-    --spacing-hifi-default: 2.25rem;
+  --spacing-hifi-default: 2.25rem;
 }
 
 
@@ -41,22 +40,27 @@
     cursor: pointer;
     user-select: none;
     transition: opacity 100ms ease-out;
+
     &:hover {
       opacity: 75%;
     }
   }
+
   .hifi-hover-50 {
     user-select: none;
     cursor: pointer;
     transition: opacity 100ms ease-out;
+
     &:hover {
       opacity: 50%;
     }
   }
+
   .hifi-hover-dark {
     user-select: none;
     cursor: pointer;
     transition: filter 100ms ease-out;
+
     &:hover {
       filter: brightness(92%);
     }
@@ -72,12 +76,39 @@
   pointer-events: none;
 }
 
-.hifi-max-w{
+.hifi-max-w {
   max-width: 1320px;
   margin-inline: auto;
 }
 
-body {
+.hifi-checkbox {
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid var(--color-hifi-gray-medium);
+  background-color: var(--color-hifi-gray-lightest);
+  border-radius: 0.25rem;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 300ms;
+  flex-shrink: 0;
+
+  &:checked {
+    background-color: var(--color-hifi-accent);
+
+    &::after {
+      font-family: monospace;
+      content: "✓";
+      color: white;
+      font-size: 1rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+  body {
     font-family: var(--font-open-sans);
     overflow-x: hidden;
-}
+  }

@@ -19,7 +19,10 @@ import {
 } from "../utils/localstorage";
 import { useAuth } from "../contexts/AuthContext";
 import { toast } from "react-toastify";
+
 import usePageTitle from "../utils/helpers";
+import PageWrapper from "../components/PageWrapper";
+
 
 const userInfoSections = [
     {
@@ -111,23 +114,20 @@ export default function Profile() {
     };
 
     return (
-        <div className="p-hifi-default pt-32">
+
+        <PageWrapper>
             <WhiteBox>
-                <div className="flex justify-between items-start">
-                    <h2 className="mb-8 text-2xl font-semibold uppercase">
-                        Your Profile Information
+                <div className="flex flex-col-reverse gap-4 justify-between sm:items-start sm:flex-row">
+                    <h2 className=" text-2xl font-semibold uppercase">
+                        Your Profile
                     </h2>
 
-                    <div className="flex gap-4">
-                        <StandardButton
-                            obj={{ text: "Log out", func: handleLogout }}
-                            className="bg-hifi-gray-dark"
-                        />
+                    <div className="flex gap-4 mb-4">
                         <StandardButton
                             obj={{
                                 text: editFields
                                     ? "Undo changes"
-                                    : "Edit user information",
+                                    : "Edit user info",
                                 func: handleEditFields,
                             }}
                             className={
@@ -135,6 +135,10 @@ export default function Profile() {
                                     ? "bg-hifi-gray-light text-hifi-black!"
                                     : ""
                             }
+                        />
+                        <StandardButton
+                            obj={{ text: "Log out", func: handleLogout }}
+                            className="bg-hifi-gray-dark"
                         />
                     </div>
                 </div>
@@ -162,7 +166,7 @@ export default function Profile() {
                                         </h3>
 
                                         {editFields &&
-                                        info.id !== "marketing" ? (
+                                            info.id !== "marketing" ? (
                                             <>
                                                 <input
                                                     type="text"
@@ -172,23 +176,24 @@ export default function Profile() {
                                                         userData[
                                                             info.id as keyof typeof userData
                                                         ] ?? ""
+
                                                     )}
                                                     className="px-3 w-full rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0"
                                                 />
                                                 {errors?.[
                                                     info.id as keyof CurrentUserErrors
                                                 ]?.errors?.[0] && (
-                                                    <span className="text-red-600">
-                                                        {String(
-                                                            errors[
-                                                                info.id as keyof CurrentUserErrors
-                                                            ]?.errors?.[0]
-                                                        )}
-                                                    </span>
-                                                )}
+                                                        <span className="text-red-600">
+                                                            {String(
+                                                                errors[
+                                                                    info.id as keyof CurrentUserErrors
+                                                                ]?.errors?.[0]
+                                                            )}
+                                                        </span>
+                                                    )}
                                             </>
                                         ) : editFields &&
-                                          info.id === "marketing" ? (
+                                            info.id === "marketing" ? (
                                             <select
                                                 name="marketing"
                                                 id="marketing"
@@ -213,10 +218,10 @@ export default function Profile() {
                                                 {info.body
                                                     ? info.body
                                                     : String(
-                                                          userData[
-                                                              info.id as keyof typeof userData
-                                                          ] ?? ""
-                                                      )}
+                                                        userData[
+                                                        info.id as keyof typeof userData
+                                                        ] ?? ""
+                                                    )}
                                             </p>
                                         )}
                                     </div>
@@ -237,6 +242,6 @@ export default function Profile() {
                     )}
                 </Form>
             </WhiteBox>
-        </div>
+        </PageWrapper>
     );
 }

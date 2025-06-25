@@ -30,9 +30,9 @@ export default function Header() {
     }
 
     return (
-        <header className="bg-hifi-black fixed z-999 left-0 top-0 w-full" data-header>
-            <nav className="h-24 px-8 flex gap-8 md:justify-between text-hifi-white *:h-full hifi-max-w">
-                <ul className="flex items-center gap-3 *:h-full *:content-center text-xs md:gap-6 md:text-sm" onMouseLeave={handleDropdownClose}>
+        <header className="bg-hifi-black fixed z-999 left-0 top-0 w-full border-b border-gray-800" data-header>
+            <nav className="h-24 px-8 flex gap-12 sm:justify-between text-hifi-white *:h-full hifi-max-w">
+                <ul className="flex items-center gap-3 *:h-full *:content-center text-xs md:gap-6 sm:text-sm" onMouseLeave={handleDropdownClose}>
                     <li className="w-10 sm:w-16">
                         <NavLink to="/" className="hifi-hover-75">
                             <img src={hifiLogo()} alt="Hifi Horizon logo" />
@@ -67,7 +67,7 @@ export default function Header() {
                 </ul>
 
 
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-6 ml-auto">
                     <search className="hidden md:relative md:flex md:items-center">
                         <input type="search" name="search" id="search" placeholder="Search products..." className="w-48 h-9 px-3 text-xs rounded-sm bg-hifi-white text-hifi-black placeholder:text-hifi-black focus:outline-0" />
                         <FaSearch className="absolute z-10 right-1.5 text-xl text-hifi-black cursor-pointer" />

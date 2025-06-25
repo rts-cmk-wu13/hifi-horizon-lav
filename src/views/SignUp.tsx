@@ -12,19 +12,22 @@ export default function SignUp() {
     usePageTitle("Sign up");
 
     useRedirectAfterAuth();
-    
+
     return (
         <PageWrapper obj={{ heading: "Create an account" }}>
             <WhiteBox>
-                <h2 className="text-2xl font-semibold uppercase">
+                <h2 className="text-2xl font-semibold uppercase mb-2">
                     Create new customer account
                 </h2>
+                <p className="text-sm">
+                   Fill in the required information below to create an account.
+                </p>
 
                 <Form
                     method="POST"
                     noValidate
                     id="signupForm"
-                    className="mt-9 flex flex-col gap-8"
+                    className="mt-6 flex flex-col gap-6"
                 >
                     <FormField
                         obj={{
@@ -106,7 +109,7 @@ export default function SignUp() {
                         obj={{
                             label: "Repeat password",
                             required: true,
-                            errorMessage:errors && errors?.cnf_password?.errors[0],
+                            errorMessage: errors && errors?.cnf_password?.errors[0],
                         }}
                     >
                         <input

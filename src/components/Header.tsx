@@ -32,7 +32,7 @@ export default function Header() {
     return (
         <header className="bg-hifi-black fixed z-999 left-0 top-0 w-full" data-header>
             <nav className="h-24 px-8 flex gap-12 sm:justify-between text-hifi-white *:h-full hifi-max-w">
-                <ul className="flex items-center gap-3 *:h-full *:content-center text-xs md:gap-6 md:text-sm" onMouseLeave={handleDropdownClose}>
+                <ul className="flex items-center gap-3 *:h-full *:content-center text-xs md:gap-6 sm:text-sm" onMouseLeave={handleDropdownClose}>
                     <li className="w-10 sm:w-16">
                         <NavLink to="/" className="hifi-hover-75">
                             <img src={hifiLogo()} alt="Hifi Horizon logo" />

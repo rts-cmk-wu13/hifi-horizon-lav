@@ -4,9 +4,12 @@ import type { Product } from "../schemas/schemas";
 import Filter from "../components/Filter";
 import { useState } from "react";
 import PageWrapper from "../components/PageWrapper";
+import usePageTitle from "../utils/helpers";
 
 export default function Products() {
     const products = useLoaderData();
+
+    usePageTitle("Products");
 
     const [filters, setFilters] = useState<
         Record<string, Set<string | number | { min: string; max: string }>>

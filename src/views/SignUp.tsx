@@ -4,10 +4,12 @@ import FormField from "../components/FormField";
 import StandardButton from "../components/StandardButton";
 import { Form, useActionData } from "react-router";
 import type { UserErrors } from "../schemas/schemas";
-import { useRedirectAfterAuth } from "../utils/helpers";
+import usePageTitle, { useRedirectAfterAuth } from "../utils/helpers";
 
 export default function SignUp() {
     const errors = useActionData<UserErrors>();
+
+    usePageTitle("Sign up");
 
     useRedirectAfterAuth();
     

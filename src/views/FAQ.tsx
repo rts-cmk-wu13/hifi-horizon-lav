@@ -3,11 +3,13 @@ import { useLoaderData, useLocation } from "react-router";
 import FAQItem, { type FAQItemData } from "../components/FAQItem";
 import WhiteBox from "../components/WhiteBox";
 import { useEffect } from "react";
-import { scrollToHashElement } from "../utils/helpers";
+import usePageTitle, { scrollToHashElement } from "../utils/helpers";
 
 export default function FAQ() {
   const data = useLoaderData();
   const location = useLocation(); // detect URL changes (incl. hash)
+
+  usePageTitle("FAQ");
 
   useEffect(() => {
     if (!data) return;

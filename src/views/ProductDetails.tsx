@@ -8,14 +8,15 @@ import CircleDot from "../components/CircleDot";
 import StockStatus from "../components/StockStatus";
 import ItemCount from "../components/ItemCount";
 
-import { convertCasing } from "../utils/helpers";
-
+import usePageTitle, { convertCasing } from "../utils/helpers";
 
 export default function ProductDetails() {
 
     const product = useLoaderData();
 
     const productPrice = new Intl.NumberFormat("en-GB").format(product.price)
+
+    usePageTitle(`${product.brand} ${product.name}`);
 
 
     return (

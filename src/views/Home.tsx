@@ -69,10 +69,9 @@ export default function Home() {
 
             <section className="p-hifi-default bg-hifi-gray-lightest mb-12">
                 <CtaBanner obj={{ heading: "Sign up for our newsletter", text: "Subscribing to our newsletter secures you up to date information about HiFi Horizons latest updates and offers." }}>
-                    <Form method="POST" noValidate id="newsletter" className="flex flex-col items-center gap-4 sm:flex-row sm:gap-4">
-                        <input type="email" name="email" id="email" className="px-3 h-9 w-80 rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0 md:w-96" />
-
-                        <StandardButton obj={{ text: "Sign up", form: "newsletter" }} />
+                    <Form method="POST" noValidate id="newsletter" className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-4 w-full">
+                        <input type="email" name="email" id="email" className="px-3 h-9 w-[90%] rounded-sm bg-hifi-gray-light shadow-hifi-sm focus:outline-0 md:w-96" />
+                        <StandardButton className="flex-shrink-0" obj={{ text: "Sign up", form: "newsletter" }} />
                     </Form>
                 </CtaBanner>
             </section>

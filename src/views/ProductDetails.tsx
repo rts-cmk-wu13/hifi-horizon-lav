@@ -11,10 +11,12 @@ import ItemCount from "../components/ItemCount";
 
 import usePageTitle, { convertCasing } from "../utils/helpers";
 
+import WhiteBox from "../components/WhiteBox";
+
 export default function ProductDetails() {
 
     const product = useLoaderData();
-
+    const excludedKeys = ["images", "slug"];
     const productPrice = new Intl.NumberFormat("en-GB").format(product.price)
 
     const [imageColorFilter, setImageColorFilter] = useState(product.images);
@@ -74,40 +76,41 @@ export default function ProductDetails() {
                     </div>
                 </div>
 
+                <WhiteBox className="h-fit md:max-w-[520px]">
+                    <div className="flex flex-col gap-6">
+                        <div className="flex flex-col gap-5">
+                            <h2 className="text-lg font-semibold sm:text-xl">
+                                {product.brand} {product.name}
+                            </h2>
 
-                <div className="mx-[40px] flex flex-col gap-6 max-w-[520px] md:ml-0">
-                    <div className="flex flex-col gap-5">
-                        <h2 className="text-lg font-semibold sm:text-xl">
-                            {product.brand} {product.name}
-                        </h2>
+                            <p className="max-w-[60ch] text-sm text-balance">{product.description}</p>
+                        </div>
 
-                        <p className="max-w-[60ch] text-sm text-balance">{product.description}</p>
+                        <div className="flex gap-3">
+                            {product.colors.map((color: string, i: number) => (
+                                <figure className={`p-2 min-w-16 flex flex-col items-center gap-1 text-center rounded-lg cursor-pointer select-none duration-100 hover:bg-hifi-gray-light ${selectedColor === color ? "bg-hifi-gray-light" : ""}`} onClick={() => handleImageColor(color)} key={i}>
+                                    <CircleDot obj={{ color: color, fill: true, size: "size-7 min-w-7 min-h-7" }} />
+                                    <figcaption className="text-xs capitalize">
+                                        {color}
+                                    </figcaption>
+                                </figure>
+                            ))}
+                        </div>
+
+                        <div className="flex justify-between items-center">
+                            <p className="text-xl font-semibold sm:text-2xl">
+                                £ {productPrice}.00
+                            </p>
+
+                            <StockStatus obj={{ stock: product.stock }} />
+                        </div>
+
+                        <div className="flex gap-12 justify-center">
+                            <ItemCount />
+                            <StandardButton obj={{ text: "Add to cart" }} className="ml-auto" />
+                        </div>
                     </div>
-
-                    <div className="flex gap-3">
-                        {product.colors.map((color: string, i: number) => (
-                            <figure className={`p-2 min-w-16 flex flex-col items-center gap-1 text-center rounded-lg cursor-pointer select-none duration-100 hover:bg-hifi-gray-light ${selectedColor === color ? "bg-hifi-gray-light" : ""}`} onClick={() => handleImageColor(color)} key={i}>
-                                <CircleDot obj={{ color: color, fill: true, size: "size-7 min-w-7 min-h-7" }} />
-                                <figcaption className="text-xs capitalize">
-                                    {color}
-                                </figcaption>
-                            </figure>
-                        ))}
-                    </div>
-
-                    <div className="flex justify-between items-center">
-                        <p className="text-xl font-semibold sm:text-2xl">
-                            £ {productPrice}.00
-                        </p>
-
-                        <StockStatus obj={{ stock: product.stock }} />
-                    </div>
-
-                    <div className="flex gap-12 justify-center">
-                        <ItemCount />
-                        <StandardButton obj={{ text: "Add to cart" }} className="flex-1" />
-                    </div>
-                </div>
+                </WhiteBox>
 
             </div>
 
@@ -117,7 +120,7 @@ export default function ProductDetails() {
                 <h2 className="mb-12 text-2xl font-semibold uppercase">Product Specifications</h2>
                 <ul className="text-sm capitalize *:odd:bg-hifi-gray-light">
                     {Object.entries(product)
-                        .filter(([key]) => key !== "images")
+                        .filter(([key]) => !excludedKeys.includes(key))
                         .map(([key, value]) => (
                             <li
                                 key={key}

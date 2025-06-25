@@ -42,7 +42,7 @@ export default function ProductCard({ config, data }: ProductCardProps) {
             key={data.id}
             className="w-full h-fit bg-hifi-white grid justify-items-center rounded drop-shadow-md border-[0.25px] border-hifi-black/10 overflow-hidden"
         >
-            <div className="relative h-full image-tint flex justify-center items-center">
+            <div className="relative h-full w-full image-tint flex justify-center items-center">
                 <div className="flex gap-1 absolute top-2 right-2 group">
                     {data.colors.map((color: string, i: number) => {
                         const isSelected = selectedColor === color;
@@ -54,7 +54,7 @@ export default function ProductCard({ config, data }: ProductCardProps) {
                     })}
                 </div>
 
-                <img src={imageColorFilter[imageIndex]} alt={`${data.brand} ${data.name}`} className="h-full object-contain" />
+                <img src={imageColorFilter[imageIndex]} alt={`${data.brand} ${data.name}`} className="h-full w-full object-contain" />
             </div>
             <div className="w-full flex flex-col gap-2 p-4 items-center h-38">
                 <h3 className="text-sm text-center">

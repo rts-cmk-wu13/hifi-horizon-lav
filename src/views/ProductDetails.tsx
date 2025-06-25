@@ -16,7 +16,7 @@ import WhiteBox from "../components/WhiteBox";
 export default function ProductDetails() {
 
     const product = useLoaderData();
-    const excludedKeys = ["images", "slug"];
+    const excludedKeys = ["images", "slug", "description"];
     const productPrice = new Intl.NumberFormat("en-GB").format(product.price)
 
     const [imageColorFilter, setImageColorFilter] = useState(product.images);
@@ -126,8 +126,8 @@ export default function ProductDetails() {
                                 key={key}
                                 className={`flex *:py-3 ${key === "img" ? "*:last:lowercase" : ""}`}
                             >
-                                <p className="px-8 w-56 font-bold text-right">
-                                    {convertCasing(String(key))}:
+                                <p className="px-8 w-32 font-bold">
+                                    {convertCasing(String(key))}
                                 </p>
                                 <p className={`px-8 flex-1 border-l-1 border-hifi-gray-medium ${key === "slug" ? "lowercase" : ""}`}>
                                     {key === "colors" ? String(value).replace(",", ", ") : String(value)}

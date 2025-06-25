@@ -4,6 +4,7 @@ import {
     removeFromSessionStorage,
     saveToSessionStorage,
 } from "../utils/localstorage";
+import queryClient from "../api/queryClient";
 
 type AuthContextType = {
     token: string | null;
@@ -32,12 +33,16 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
         setToken(newToken);
         saveToSessionStorage("token", newToken);
         saveToSessionStorage("sessionStart", Date.now())
+        saveToSessionStorage("justLoggedIn", true);
+        queryClient.invalidateQueries({queryKey: ['me']})
     }
 
     function logout() {
         setToken(null);
         removeFromSessionStorage("token");
         removeFromSessionStorage("sessionStart");
+        removeFromSessionStorage("justLoggedIn");
+        queryClient.invalidateQueries({queryKey: ['me']})
     }
 
     return (

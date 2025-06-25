@@ -54,7 +54,7 @@ export default function ProductDetails() {
 
     return (
         <PageWrapper>
-            <div className="grid grid-cols-2 gap-12">
+            <div className="flex flex-col-reverse gap-12 *:flex-1 md:flex-row">
 
                 <div className="flex flex-col items-center gap-12">
                     <figure className="flex gap-4 justify-center items-center relative justify-self-center text-hifi-gray-medium">
@@ -75,13 +75,13 @@ export default function ProductDetails() {
                 </div>
 
 
-                <div className="flex flex-col gap-6">
+                <div className="mx-[40px] flex flex-col gap-6 max-w-[520px] md:ml-0">
                     <div className="flex flex-col gap-5">
-                        <h2 className="text-2xl font-semibold">
+                        <h2 className="text-lg font-semibold sm:text-xl">
                             {product.brand} {product.name}
                         </h2>
 
-                        <p>{product.description}</p>
+                        <p className="max-w-[60ch] text-sm text-balance">{product.description}</p>
                     </div>
 
                     <div className="flex gap-3">
@@ -96,7 +96,7 @@ export default function ProductDetails() {
                     </div>
 
                     <div className="flex justify-between items-center">
-                        <p className="text-2xl font-semibold">
+                        <p className="text-xl font-semibold sm:text-2xl">
                             £ {productPrice}.00
                         </p>
 

@@ -78,7 +78,7 @@ export default function Products() {
         <PageWrapper obj={{ heading: "products" }}>
             <div className="grid gap-4 sm:grid-cols-[auto_1fr]">
                 <Filter data={products} updateFilters={updateFilters} />
-                <div className="grid grid-cols-[repeat(auto-fit,_minmax(15rem,_1fr))] gap-4 sm:*:max-w-85">
+                <div className="grid grid-cols-[repeat(auto-fit,_minmax(15rem,_1fr))] gap-4 *:max-w-90 relative after:content-[''] after:flex-auto">
                     {sortedProducts.map((product: Product) => (
                         <ProductCard
                             key={product.id}

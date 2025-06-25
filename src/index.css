@@ -39,12 +39,14 @@
 @layer components {
   .hifi-hover-75 {
     cursor: pointer;
+    user-select: none;
     transition: opacity 100ms ease-out;
     &:hover {
       opacity: 75%;
     }
   }
   .hifi-hover-50 {
+    user-select: none;
     cursor: pointer;
     transition: opacity 100ms ease-out;
     &:hover {
@@ -52,6 +54,7 @@
     }
   }
   .hifi-hover-dark {
+    user-select: none;
     cursor: pointer;
     transition: filter 100ms ease-out;
     &:hover {
